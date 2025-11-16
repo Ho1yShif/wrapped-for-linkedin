@@ -39,49 +39,65 @@ body {
 }
 
 .app-header {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+  background: linear-gradient(180deg, #0A1428 0%, #0D1F3C 50%, #0A66C2 100%);
   color: white;
-  padding: 3rem 2rem;
+  padding: 4rem 2rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 12px 32px rgba(10, 102, 194, 0.3);
+  min-height: 320px;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(55, 143, 233, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.app-header::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -5%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(75, 158, 255, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
 }
 
 .header-content {
   text-align: center;
   flex: 1;
+  position: relative;
+  z-index: 1;
 }
 
 .app-title {
-  font-size: 3.5rem;
-  font-weight: 800;
-  margin-bottom: 0.5rem;
-  letter-spacing: -1px;
+  font-size: 4.5rem;
+  font-weight: 900;
+  margin-bottom: 0.75rem;
+  letter-spacing: -2px;
+  background: linear-gradient(135deg, #FFFFFF 0%, #E8F0FF 50%, #B8D4F1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
 }
 
 .app-subtitle {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   opacity: 0.95;
-  font-weight: 300;
-}
-
-.reset-button {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 600;
-}
-
-.reset-button:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-  border-color: white;
-  transform: translateY(-2px);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .app-main {

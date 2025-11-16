@@ -71,11 +71,6 @@ function App() {
           <h1 className="app-title">LinkedIn Wrapped</h1>
           <p className="app-subtitle">Your Professional Year in Review</p>
         </div>
-        {fileId && (
-          <button className="reset-button" onClick={handleRetry}>
-            Start Over
-          </button>
-        )}
       </header>
 
       <main className="app-main">
