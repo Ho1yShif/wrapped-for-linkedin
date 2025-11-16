@@ -1,14 +1,14 @@
 import polars as pl
 from fastapi import UploadFile
 import uuid
-from ..models.schemas import ProcessedFileResponse, DiscoveryData
+from ..models.schemas import DiscoveryData
 from ..utils.sheet_parser import parse_discovery_sheet
 from ..utils.discovery_parser import extract_discovery_data
 from .analytics_service import store_file_data
 import io
 
 
-async def process_linkedin_file(file: UploadFile) -> ProcessedFileResponse:
+async def process_linkedin_file(file: UploadFile) -> dict:
     # Create a unique ID for the file
     file_id = str(uuid.uuid4())
 
@@ -33,7 +33,8 @@ async def process_linkedin_file(file: UploadFile) -> ProcessedFileResponse:
     # Store the parsed data for later retrieval
     store_file_data(file_id, {
         "discovery_data": discovery_data,
-        "filename": file.filename
+        "filename": file.filename,
+        "content": content
     })
 
     # Process with Polars if needed
@@ -45,8 +46,12 @@ async def process_linkedin_file(file: UploadFile) -> ProcessedFileResponse:
     except Exception as e:
         print(f"Warning: Could not parse file with Polars: {e}")
 
-    # TODO: Implement data processing logic
-    # This is a placeholder that will be expanded
+    # Return response format expected by frontend
+    return {
+        "success": True,
+        "fileId": file_id,
+        "message": "File processed successfully"
+    }
 
     return ProcessedFileResponse(
         file_id=file_id,

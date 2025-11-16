@@ -8,10 +8,16 @@ export interface EngagementMetrics {
   totalLikes: number;
   totalComments: number;
   totalShares: number;
-  averageEngagement: number;
+  averageEngagement?: number;
   topPosts: TopPost[];
-  engagementByDay: EngagementByDay[];
-  peakEngagementTime: string;
+  engagementByDay?: EngagementByDay[];
+  peakEngagementTime?: string;
+  discovery_data?: {
+    start_date: string;
+    end_date: string;
+    total_impressions: number;
+    members_reached: number;
+  };
 }
 
 export interface TopPost {
