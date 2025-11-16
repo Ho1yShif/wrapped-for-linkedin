@@ -1,12 +1,19 @@
 from pydantic import BaseModel
 from typing import List, Optional
-from datetime import datetime
+from datetime import datetime, date
+
+class DiscoveryData(BaseModel):
+    """Overall performance metrics from the DISCOVERY sheet"""
+    start_date: date
+    end_date: date
+    total_impressions: int
+    members_reached: int
 
 class EngagementMetrics(BaseModel):
     total_likes: int
     total_comments: int
     total_shares: int
-    peak_engagement_time: datetime
+    peak_engagement_time: Optional[datetime] = None
     top_performing_posts: List[dict]
 
 class DemographicInsights(BaseModel):
@@ -16,5 +23,6 @@ class DemographicInsights(BaseModel):
 
 class ProcessedFileResponse(BaseModel):
     file_id: str
+    discovery: Optional[DiscoveryData] = None
     metrics: EngagementMetrics
     insights: DemographicInsights

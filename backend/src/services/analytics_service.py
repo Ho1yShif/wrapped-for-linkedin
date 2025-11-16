@@ -1,4 +1,39 @@
-from ..models.schemas import EngagementMetrics, DemographicInsights
+from ..models.schemas import EngagementMetrics, DemographicInsights, DiscoveryData
+from ..utils.discovery_parser import extract_discovery_data, DiscoveryData as ParserDiscoveryData
+import polars as pl
+from pathlib import Path
+from typing import Optional
+
+# In-memory storage for processed file data
+_file_data_store: dict = {}
+
+
+def store_file_data(file_id: str, data: dict) -> None:
+    """Store processed file data in memory"""
+    _file_data_store[file_id] = data
+
+
+def get_file_data(file_id: str) -> Optional[dict]:
+    """Retrieve stored file data"""
+    return _file_data_store.get(file_id)
+
+
+async def get_discovery_data(file_id: str) -> Optional[DiscoveryData]:
+    """Extract and return discovery data for a file"""
+    data = get_file_data(file_id)
+    if data and "discovery_data" in data:
+        discovery = data["discovery_data"]
+        if isinstance(discovery, ParserDiscoveryData):
+            # Convert parser object to Pydantic model
+            return DiscoveryData(
+                start_date=discovery.start_date,
+                end_date=discovery.end_date,
+                total_impressions=discovery.total_impressions,
+                members_reached=discovery.members_reached
+            )
+        return discovery
+    return None
+
 
 async def get_engagement_metrics(file_id: str) -> EngagementMetrics:
     # TODO: Implement engagement metrics calculation

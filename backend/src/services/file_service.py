@@ -1,7 +1,12 @@
 import polars as pl
 from fastapi import UploadFile
 import uuid
-from ..models.schemas import ProcessedFileResponse
+from ..models.schemas import ProcessedFileResponse, DiscoveryData
+from ..utils.sheet_parser import parse_discovery_sheet
+from ..utils.discovery_parser import extract_discovery_data
+from .analytics_service import store_file_data
+import io
+
 
 async def process_linkedin_file(file: UploadFile) -> ProcessedFileResponse:
     # Create a unique ID for the file
@@ -10,17 +15,42 @@ async def process_linkedin_file(file: UploadFile) -> ProcessedFileResponse:
     # Read the file content
     content = await file.read()
 
-    # Process with Polars
-    if file.filename.endswith('.xlsx'):
-        df = pl.read_excel(content)
-    elif file.filename.endswith('.csv'):
-        df = pl.read_csv(content)
+    # Parse discovery data
+    discovery_data = None
+    try:
+        discovery_cells = parse_discovery_sheet(content)
+        parser_discovery = extract_discovery_data(discovery_cells)
+        # Convert to Pydantic model
+        discovery_data = DiscoveryData(
+            start_date=parser_discovery.start_date,
+            end_date=parser_discovery.end_date,
+            total_impressions=parser_discovery.total_impressions,
+            members_reached=parser_discovery.members_reached
+        )
+    except ValueError as e:
+        print(f"Warning: Could not parse discovery data: {e}")
+
+    # Store the parsed data for later retrieval
+    store_file_data(file_id, {
+        "discovery_data": discovery_data,
+        "filename": file.filename
+    })
+
+    # Process with Polars if needed
+    try:
+        if file.filename.endswith('.xlsx'):
+            df = pl.read_excel(io.BytesIO(content))
+        elif file.filename.endswith('.csv'):
+            df = pl.read_csv(io.BytesIO(content))
+    except Exception as e:
+        print(f"Warning: Could not parse file with Polars: {e}")
 
     # TODO: Implement data processing logic
     # This is a placeholder that will be expanded
 
     return ProcessedFileResponse(
         file_id=file_id,
+        discovery=discovery_data,
         metrics={
             "total_likes": 0,
             "total_comments": 0,

@@ -1,7 +1,17 @@
 from fastapi import APIRouter, HTTPException
-from ...services.analytics_service import get_engagement_metrics, get_demographic_insights
+from ...services.analytics_service import get_engagement_metrics, get_demographic_insights, get_discovery_data
 
 router = APIRouter()
+
+@router.get("/discovery/{file_id}")
+async def get_discovery(file_id: str):
+    try:
+        discovery = await get_discovery_data(file_id)
+        if discovery is None:
+            raise HTTPException(status_code=404, detail="Discovery data not found for this file")
+        return discovery
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @router.get("/engagement/{file_id}")
 async def get_engagement(file_id: str):

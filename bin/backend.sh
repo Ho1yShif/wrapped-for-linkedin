@@ -46,6 +46,11 @@ done
 
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
+# Activate Python virtual environment
+if [ -f "$ROOT_DIR/backend/.venv/bin/activate" ]; then
+  source "$ROOT_DIR/backend/.venv/bin/activate"
+fi
+
 # Check Python availability
 command -v python >/dev/null 2>&1 || { echo "python not found in PATH. Activate Python environment to run backend." >&2; exit 2; }
 
