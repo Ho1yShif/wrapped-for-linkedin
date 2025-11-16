@@ -13,7 +13,7 @@ async def process_linkedin_file(file: UploadFile) -> ProcessedFileResponse:
     # Process with Polars
     if file.filename.endswith('.xlsx'):
         df = pl.read_excel(content)
-    else:
+    elif file.filename.endswith('.csv'):
         df = pl.read_csv(content)
 
     # TODO: Implement data processing logic
