@@ -5,21 +5,39 @@
 }
 
 :root {
+  /* Primary Colors - LinkedIn Blue */
   --primary-color: #0A66C2;
   --primary-dark: #004182;
-  --primary-light: #378FE9;
-  --secondary-color: #4B9EFF;
-  --success-color: #31A24C;
-  --warning-color: #F1C21B;
-  --error-color: #DA1E28;
-  --text-primary: #2D2D2D;
-  --text-secondary: #717171;
-  --bg-primary: #FFFFFF;
-  --bg-secondary: #F5F5F5;
-  --border-color: #E0E0E0;
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.16);
+  --primary-light: #0A8FFF;
+
+  /* Dark Mode Base */
+  --bg-primary: #0F0F0F;
+  --bg-secondary: #1A1A1A;
+  --bg-tertiary: #242424;
+  --bg-card: #181818;
+
+  /* Text Colors */
+  --text-primary: #FFFFFF;
+  --text-secondary: #B3B3B3;
+  --text-tertiary: #7F7F7F;
+
+  /* Spotify-inspired Accent Colors */
+  --accent-green: #1DB954;
+  --accent-pink: #FF006E;
+  --accent-purple: #9945FF;
+  --accent-cyan: #00D9FF;
+
+  /* Borders & Shadows */
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-color-light: rgba(255, 255, 255, 0.15);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #0A66C2 0%, #0A8FFF 100%);
+  --gradient-accent: linear-gradient(135deg, #1DB954 0%, #1ed760 100%);
+  --gradient-warm: linear-gradient(135deg, #FF006E 0%, #FF4B70 100%);
 }
 
 body {
@@ -29,7 +47,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--text-primary);
-  background-color: var(--bg-secondary);
+  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  min-height: 100vh;
 }
 
 .app-container {
@@ -39,14 +58,14 @@ body {
 }
 
 .app-header {
-  background: linear-gradient(180deg, #0A1428 0%, #0D1F3C 50%, #0A66C2 100%);
+  background: linear-gradient(135deg, #0F0F0F 0%, #1A1A1A 50%, #0A66C2 100%);
   color: white;
   padding: 4rem 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 12px 32px rgba(10, 102, 194, 0.3);
-  min-height: 320px;
+  box-shadow: 0 20px 60px rgba(10, 102, 194, 0.2);
+  min-height: 340px;
   position: relative;
   overflow: hidden;
 }
@@ -58,8 +77,9 @@ body {
   right: -10%;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(55, 143, 233, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(29, 185, 84, 0.08) 0%, transparent 70%);
   border-radius: 50%;
+  animation: pulse-slow 6s ease-in-out infinite;
 }
 
 .app-header::after {
@@ -69,7 +89,7 @@ body {
   left: -5%;
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(75, 158, 255, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(10, 102, 194, 0.1) 0%, transparent 70%);
   border-radius: 50%;
 }
 
@@ -106,6 +126,7 @@ body {
   max-width: 1400px;
   width: 100%;
   margin: 0 auto;
+  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
 }
 
 .tab-navigation {
@@ -121,21 +142,22 @@ body {
   padding: 1rem 2rem;
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--text-tertiary);
   cursor: pointer;
   position: relative;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-bottom: 3px solid transparent;
   margin-bottom: -2px;
 }
 
 .tab-button:hover {
-  color: var(--primary-color);
+  color: var(--primary-light);
 }
 
 .tab-button.active {
-  color: var(--primary-color);
-  border-bottom-color: var(--primary-color);
+  color: var(--primary-light);
+  border-bottom-color: var(--primary-light);
+  background: rgba(10, 143, 255, 0.05);
 }
 
 .tab-content {
@@ -154,13 +176,22 @@ body {
 }
 
 .app-footer {
-  background-color: var(--bg-secondary);
-  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-tertiary);
+  border-top: 1px solid var(--border-color-light);
   padding: 2rem;
   text-align: center;
-  color: var(--text-secondary);
+  color: var(--text-tertiary);
   font-size: 0.9rem;
   margin-top: 3rem;
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1.2;
+  }
 }
 
 /* Responsive Design */

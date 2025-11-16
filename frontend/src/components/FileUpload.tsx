@@ -33,7 +33,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileSelected, isLoadin
             <p className="dropzone-text">Drop your file here...</p>
           ) : (
             <>
-              <p className="dropzone-text">Drag & drop your LinkedIn export file here</p>
+              <p className="dropzone-text">Drag and drop your LinkedIn analytics file here</p>
               <p className="dropzone-subtext">or click to select a file</p>
               <p className="dropzone-formats">Supported: Excel (.xlsx) or CSV (.csv)</p>
             </>
@@ -44,9 +44,9 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileSelected, isLoadin
         <h3>How to export your LinkedIn data:</h3>
         <ol>
           <li>Visit <a href="https://www.linkedin.com/analytics/creator" target="_blank" rel="noreferrer">LinkedIn Analytics</a></li>
-          <li>Switch to "Engagements" mode</li>
-          <li>Set date range to "Last 365 days"</li>
-          <li>Click "Export" button in top right</li>
+          <li>Switch to <b>Engagements</b> mode</li>
+          <li>Set date range to <b>Last 365 days</b></li>
+          <li>Click <b>Export</b> button in top right</li>
           <li>Upload the file here</li>
         </ol>
       </div>

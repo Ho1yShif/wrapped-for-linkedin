@@ -7,7 +7,7 @@
   font-size: 2.5rem;
   font-weight: 800;
   margin-bottom: 2rem;
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--accent-green) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -15,54 +15,76 @@
 
 .summary-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.5rem;
   margin-bottom: 3rem;
 }
 
 .card {
-  background-color: var(--bg-primary);
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.3s ease;
-  border: 1px solid var(--border-color);
+  background: linear-gradient(135deg, rgba(10, 102, 194, 0.08) 0%, rgba(10, 102, 194, 0.02) 100%);
+  padding: 2rem 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--border-color-light);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(29, 185, 84, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(10, 143, 255, 0.2);
+  border-color: var(--primary-light);
+  background: linear-gradient(135deg, rgba(10, 143, 255, 0.12) 0%, rgba(10, 143, 255, 0.04) 100%);
+}
+
+.card:hover::before {
+  opacity: 1;
 }
 
 .card-label {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 0.5rem;
+  letter-spacing: 1.2px;
+  margin-bottom: 0.75rem;
 }
 
 .card-value {
   font-size: 2.5rem;
-  font-weight: 800;
-  color: var(--primary-color);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--primary-light), var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  z-index: 1;
 }
 
 .chart-section {
-  background-color: var(--bg-primary);
+  background: linear-gradient(135deg, rgba(10, 102, 194, 0.06) 0%, rgba(29, 185, 84, 0.04) 100%);
   padding: 2rem;
-  border-radius: 12px;
+  border-radius: 16px;
   margin-bottom: 2rem;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-color);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color-light);
 }
 
 .chart-section h2 {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
   color: var(--text-primary);
+  font-weight: 700;
 }
 
 .posts-grid {
@@ -73,18 +95,20 @@
 }
 
 .post-card {
-  background: linear-gradient(135deg, #F0F7FF 0%, var(--bg-primary) 100%);
+  background: linear-gradient(135deg, rgba(10, 102, 194, 0.1) 0%, rgba(10, 102, 194, 0.03) 100%);
   padding: 1.5rem;
-  border-radius: 12px;
-  border-left: 4px solid var(--primary-color);
-  box-shadow: var(--shadow-sm);
-  transition: all 0.3s ease;
+  border-radius: 16px;
+  border-left: 4px solid var(--primary-light);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+  border: 1px solid var(--border-color-light);
 }
 
 .post-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(10, 143, 255, 0.15);
+  border-color: var(--accent-green);
 }
 
 .post-rank {
