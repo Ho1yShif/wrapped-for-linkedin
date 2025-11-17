@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { FileUpload } from './components/FileUpload';
-import { AnalyticsView } from './components/AnalyticsView';
-import { DemographicsView } from './components/DemographicsView';
+import { UnifiedDashboard } from './components/UnifiedDashboard';
 import { Loading } from './components/Loading';
 import { ErrorDisplay } from './components/Error';
-import { uploadFile, getEngagementMetrics, getDemographicInsights } from './utils/api';
+import { uploadFile, getEngagementMetrics } from './utils/api';
 import './App.css';
 
 function App() {
@@ -12,8 +11,6 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [engagement, setEngagement] = useState(null);
-  const [demographics, setDemographics] = useState(null);
-  const [activeTab, setActiveTab] = useState<'upload' | 'engagement' | 'demographics'>('upload');
 
   useEffect(() => {
     if (fileId) {
@@ -25,13 +22,8 @@ function App() {
     try {
       setLoading(true);
       setError(null);
-      const [engagementData, demographicsData] = await Promise.all([
-        getEngagementMetrics(fileId!),
-        getDemographicInsights(fileId!),
-      ]);
+      const engagementData = await getEngagementMetrics(fileId!);
       setEngagement(engagementData);
-      setDemographics(demographicsData);
-      setActiveTab('engagement');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load analytics data');
     } finally {
@@ -59,8 +51,6 @@ function App() {
   const handleRetry = () => {
     setFileId(null);
     setEngagement(null);
-    setDemographics(null);
-    setActiveTab('upload');
     setError(null);
   };
 
@@ -78,28 +68,8 @@ function App() {
 
         {loading && <Loading />}
 
-        {!loading && !error && fileId && engagement && demographics ? (
-          <>
-            <nav className="tab-navigation">
-              <button
-                className={`tab-button ${activeTab === 'engagement' ? 'active' : ''}`}
-                onClick={() => setActiveTab('engagement')}
-              >
-                📊 Engagement
-              </button>
-              <button
-                className={`tab-button ${activeTab === 'demographics' ? 'active' : ''}`}
-                onClick={() => setActiveTab('demographics')}
-              >
-                👥 Demographics
-              </button>
-            </nav>
-
-            <div className="tab-content">
-              {activeTab === 'engagement' && <AnalyticsView data={engagement} />}
-              {activeTab === 'demographics' && <DemographicsView data={demographics} />}
-            </div>
-          </>
+        {!loading && !error && fileId && engagement ? (
+          <UnifiedDashboard data={engagement} />
         ) : !loading && !error && !fileId ? (
           <FileUpload onFileSelected={handleFileSelected} isLoading={loading} />
         ) : null}

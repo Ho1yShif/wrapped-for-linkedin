@@ -9,7 +9,7 @@ export interface EngagementMetrics {
   totalComments: number;
   totalShares: number;
   averageEngagement?: number;
-  topPosts: TopPost[];
+  topPosts?: TopPost[];
   engagementByDay?: EngagementByDay[];
   peakEngagementTime?: string;
   discovery_data?: {
@@ -18,6 +18,15 @@ export interface EngagementMetrics {
     total_impressions: number;
     members_reached: number;
   };
+  top_posts?: LinkedInTopPost[];
+}
+
+export interface LinkedInTopPost {
+  rank: number;
+  url: string;
+  publish_date: string;
+  engagements: number;
+  impressions?: number;
 }
 
 export interface TopPost {

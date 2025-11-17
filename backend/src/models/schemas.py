@@ -9,6 +9,14 @@ class DiscoveryData(BaseModel):
     total_impressions: int
     members_reached: int
 
+class TopPost(BaseModel):
+    """Top performing post data"""
+    rank: int
+    url: str
+    publish_date: str
+    engagements: float
+    impressions: Optional[float] = 0
+
 class EngagementMetrics(BaseModel):
     total_likes: int
     total_comments: int
@@ -16,6 +24,7 @@ class EngagementMetrics(BaseModel):
     peak_engagement_time: Optional[datetime] = None
     top_performing_posts: List[dict]
     discovery_data: Optional[dict] = None  # Contains impressions and reach data
+    top_posts: Optional[List[TopPost]] = None  # Top 5 posts by engagements
 
 class DemographicInsights(BaseModel):
     job_titles: List[dict]

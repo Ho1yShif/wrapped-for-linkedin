@@ -1,8 +1,8 @@
-from ..models.schemas import EngagementMetrics, DemographicInsights, DiscoveryData
+from ..models.schemas import EngagementMetrics, DemographicInsights, DiscoveryData, TopPost
 from ..utils.discovery_parser import extract_discovery_data, DiscoveryData as ParserDiscoveryData
 import polars as pl
 from pathlib import Path
-from typing import Optional
+from typing import Optional, List
 
 # In-memory storage for processed file data
 _file_data_store: dict = {}
@@ -36,9 +36,10 @@ async def get_discovery_data(file_id: str) -> Optional[DiscoveryData]:
 
 
 async def get_engagement_metrics(file_id: str) -> EngagementMetrics:
-    """Get engagement metrics including discovery data"""
+    """Get engagement metrics including discovery data and top posts"""
     data = get_file_data(file_id)
     discovery = data.get("discovery_data") if data else None
+    top_posts = await get_top_posts(file_id)
 
     if discovery:
         return EngagementMetrics(
@@ -52,7 +53,8 @@ async def get_engagement_metrics(file_id: str) -> EngagementMetrics:
                 "end_date": discovery.end_date.isoformat(),
                 "total_impressions": discovery.total_impressions,
                 "members_reached": discovery.members_reached
-            }
+            },
+            top_posts=top_posts
         )
 
     # Fallback if no discovery data
@@ -61,8 +63,10 @@ async def get_engagement_metrics(file_id: str) -> EngagementMetrics:
         total_comments=0,
         total_shares=0,
         peak_engagement_time=None,
-        top_performing_posts=[]
+        top_performing_posts=[],
+        top_posts=top_posts
     )
+
 
 async def get_demographic_insights(file_id: str) -> DemographicInsights:
     # TODO: Implement demographic insights calculation
@@ -72,3 +76,22 @@ async def get_demographic_insights(file_id: str) -> DemographicInsights:
         locations=[],
         industries=[]
     )
+
+
+async def get_top_posts(file_id: str) -> Optional[List[TopPost]]:
+    """Get top 5 posts by engagement for a file"""
+    data = get_file_data(file_id)
+    if data and "top_posts" in data:
+        posts_data = data["top_posts"]
+        if isinstance(posts_data, list):
+            top_posts = []
+            for idx, post in enumerate(posts_data[:5], 1):
+                top_posts.append(TopPost(
+                    rank=idx,
+                    url=post.get("url", ""),
+                    publish_date=post.get("publish_date", ""),
+                    engagements=post.get("engagements", 0),
+                    impressions=post.get("impressions", 0)
+                ))
+            return top_posts
+    return None

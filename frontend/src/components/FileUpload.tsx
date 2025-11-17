@@ -41,7 +41,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileSelected, isLoadin
         </div>
       </div>
       <div className="instructions">
-        <h3>How to export your LinkedIn data:</h3>
+        <h3>Export your LinkedIn data</h3>
         <ol>
           <li>Navigate to <a href="https://www.linkedin.com/analytics/creator" target="_blank" rel="noreferrer">LinkedIn Analytics</a></li>
           <li>Click on <b>Impressions</b> to open the dropdown menu</li>

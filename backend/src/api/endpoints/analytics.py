@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from ...services.analytics_service import get_engagement_metrics, get_demographic_insights, get_discovery_data
+from ...services.analytics_service import get_engagement_metrics, get_demographic_insights, get_discovery_data, get_top_posts
 
 router = APIRouter()
 
@@ -18,6 +18,16 @@ async def get_engagement(file_id: str):
     try:
         metrics = await get_engagement_metrics(file_id)
         return metrics
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/top-posts/{file_id}")
+async def get_top_posts_endpoint(file_id: str):
+    try:
+        posts = await get_top_posts(file_id)
+        if posts is None:
+            raise HTTPException(status_code=404, detail="Top posts not found for this file")
+        return {"top_posts": posts}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
