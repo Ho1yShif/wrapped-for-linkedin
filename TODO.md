@@ -12,3 +12,6 @@
 - Change title font to Avenir 95 Black to match LinkedIn logo, then change body text to Source Sans (LinkedIn main content font)
 - Make UI titles blue instead of gradient blue to green
 - Optimize Polars parsing speed
+- Add option: Don't have LinkedIn creator mode?
+	- Steps to turn on creator mode
+	- View stats for Shifra Williams instead of your own page
