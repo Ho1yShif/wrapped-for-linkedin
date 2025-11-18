@@ -44,10 +44,10 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileSelected, isLoadin
         <h3>Export your LinkedIn data</h3>
         <ol>
           <li>Navigate to <a href="https://www.linkedin.com/analytics/creator" target="_blank" rel="noreferrer">LinkedIn Analytics</a></li>
+          <li>Click on <b>Past 7 days</b> at the top to open the dropdown date range menu</li>
+          <li>Change the date range to <b>Past 365 days</b></li>
           <li>Click on <b>Impressions</b> to open the dropdown menu</li>
           <li>Select <b>Engagements</b> from the dropdown to switch modes</li>
-          <li>Find the date range selector (currently showing <b>Past 7 days</b>)</li>
-          <li>Click on it and change the date range to <b>Past 365 days</b></li>
           <li>Click <b>Export</b> in the top right</li>
           <li>Upload the file here!</li>
         </ol>

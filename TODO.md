@@ -1,5 +1,6 @@
 # TODO
 
+- Either match engagement numbers to what's visible in the embed, or include a note explaining why the embed and engagement numbers differ (e.g. engagements might have been removed since the static analytics file was generated)
 - Display `Total Impressions` under `Top posts` as an int (300K) instead of float (300.0K)
 - Move the metrics under `Top posts` into the `Your year at a glance` section
 	- Also move tiles (Total impressions, Members Reached, likes/comments/shares) under `Your year at a glance`
