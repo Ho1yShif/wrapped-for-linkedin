@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import type { LinkedInTopPost } from '@types';
 import '../styles/TopPostsDisplay.css';
 
@@ -6,15 +6,17 @@ interface TopPostsDisplayProps {
   posts: LinkedInTopPost[];
 }
 
-interface PostEmbed {
-  html?: string;
-  error?: boolean;
-}
+// Clean up LinkedIn URL to be embeddable
+const getCleanLinkedInUrl = (url: string): string => {
+  try {
+    // Remove any trailing slashes and query parameters
+    return url.split('?')[0].replace(/\/$/, '');
+  } catch {
+    return url;
+  }
+};
 
 export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
-  const [embeds, setEmbeds] = useState<Record<string, PostEmbed>>({});
-  const [loadingStates, setLoadingStates] = useState<Record<string, boolean>>({});
-
   const formatEngagements = (num: number): string => {
     if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
     return Math.round(num).toString();
@@ -32,42 +34,6 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
       return dateStr;
     }
   };
-
-  useEffect(() => {
-    const fetchEmbeds = async () => {
-      for (const post of posts) {
-        try {
-          setLoadingStates(prev => ({ ...prev, [post.url]: true }));
-
-          const response = await fetch(
-            `https://www.linkedin.com/oembed?url=${encodeURIComponent(post.url)}&format=json`
-          );
-
-          if (response.ok) {
-            const data = await response.json();
-            setEmbeds(prev => ({
-              ...prev,
-              [post.url]: { html: data.html }
-            }));
-          } else {
-            throw new Error('Failed to fetch embed');
-          }
-        } catch (error) {
-          console.error(`Failed to fetch embed for ${post.url}:`, error);
-          setEmbeds(prev => ({
-            ...prev,
-            [post.url]: { error: true }
-          }));
-        } finally {
-          setLoadingStates(prev => ({ ...prev, [post.url]: false }));
-        }
-      }
-    };
-
-    if (posts.length > 0) {
-      fetchEmbeds();
-    }
-  }, [posts]);
 
   if (!posts || posts.length === 0) {
     return null;
@@ -105,8 +71,7 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
 
       <div className="posts-container">
         {posts.map((post) => {
-          const embed = embeds[post.url];
-          const isLoading = loadingStates[post.url];
+          const cleanUrl = getCleanLinkedInUrl(post.url);
 
           return (
             <div key={post.url} className="post-card">
@@ -116,31 +81,18 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
               </div>
 
               <div className="post-content">
-                {isLoading ? (
-                  <div className="post-skeleton">
-                    <div className="skeleton-line skeleton-line-1"></div>
-                    <div className="skeleton-line skeleton-line-2"></div>
-                    <div className="skeleton-line skeleton-line-3"></div>
-                  </div>
-                ) : embed?.html ? (
-                  <div
-                    className="post-embed-wrapper"
-                    dangerouslySetInnerHTML={{ __html: embed.html }}
+                <div className="post-embed-wrapper">
+                  {/* LinkedIn post embed using iframe */}
+                  <iframe
+                    src={`https://www.linkedin.com/embed/feed/update/${cleanUrl.split('/').pop()}`}
+                    height="350"
+                    width="100%"
+                    frameBorder="0"
+                    allowFullScreen
+                    className="linkedin-iframe"
+                    title={`LinkedIn post #${post.rank}`}
                   />
-                ) : (
-                  <div className="post-fallback">
-                    <div className="fallback-icon">📄</div>
-                    <p className="fallback-text">LinkedIn preview unavailable</p>
-                    <a
-                      href={post.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="fallback-link"
-                    >
-                      View post on LinkedIn ↗
-                    </a>
-                  </div>
-                )}
+                </div>
               </div>
 
               <div className="post-stats">
