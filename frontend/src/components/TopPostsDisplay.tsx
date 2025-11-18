@@ -39,17 +39,27 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
     return null;
   }
 
-  // Calculate summary statistics
-  const totalEngagements = posts.reduce((sum, post) => sum + post.engagements, 0);
-  const totalImpressions = posts.reduce((sum, post) => sum + (post.impressions || 0), 0);
-  const topPostEngagements = posts[0]?.engagements || 0;
+  // Display exactly 6 posts maximum in 2x3 grid layout
+  const displayedPosts = posts.slice(0, 6);
+
+  // Calculate summary statistics from displayed posts
+  const totalEngagements = displayedPosts.reduce((sum, post) => sum + (post.engagements || 0), 0);
+  const totalImpressions = displayedPosts.reduce((sum, post) => sum + (post.impressions || 0), 0);
+  const avgEngagementRate = displayedPosts.length > 0
+    ? (
+        displayedPosts.reduce((sum, post) => {
+          const impressions = post.impressions || 1;
+          return sum + (post.engagements / impressions) * 100;
+        }, 0) / displayedPosts.length
+      ).toFixed(2)
+    : '0.00';
 
   return (
     <div className="top-posts-section">
       <div className="section-header">
         <div>
-          <h2 className="section-title">🏆 Top posts</h2>
-          <p className="section-subtitle">Your most engaging LinkedIn content with previews</p>
+          <h2 className="section-title">Top posts</h2>
+          <p className="section-subtitle">Your 6 most engaging LinkedIn posts</p>
         </div>
       </div>
 
@@ -74,13 +84,13 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
           <div className="summary-stat-label">Total Impressions</div>
         </div>
         <div className="summary-stat-card">
-          <div className="summary-stat-number">{formatEngagements(topPostEngagements)}</div>
-          <div className="summary-stat-label">Top Post Engagements</div>
+          <div className="summary-stat-number">{avgEngagementRate}%</div>
+          <div className="summary-stat-label">Avg Engagement Rate</div>
         </div>
       </div>
 
       <div className="posts-container">
-        {posts.map((post) => {
+        {displayedPosts.map((post) => {
           const cleanUrl = getCleanLinkedInUrl(post.url);
 
           return (
@@ -122,6 +132,17 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
                     </div>
                   </div>
                 )}
+                <div className="stat-box">
+                  <div className="stat-icon">📊</div>
+                  <div className="stat-info">
+                    <div className="stat-value">
+                      {post.impressions && post.impressions > 0
+                        ? ((post.engagements / post.impressions) * 100).toFixed(2)
+                        : '0.00'}%
+                    </div>
+                    <div className="stat-label">Engagement Rate</div>
+                  </div>
+                </div>
               </div>
             </div>
           );

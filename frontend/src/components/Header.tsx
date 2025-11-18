@@ -21,7 +21,7 @@ export function Header({ onLogoClick }: HeaderProps) {
           onMouseLeave={() => setIsHovered(false)}
           onClick={handleHomeClick}
           aria-label="Navigate to home"
-          title="LinkedIn Wrapped Home"
+          title="LinkedIn Wrapped home"
         >
           <div className="logo-wrapper">
             {/* Bow decoration */}
