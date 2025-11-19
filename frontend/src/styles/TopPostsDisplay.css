@@ -381,6 +381,12 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1280px) {
+  .posts-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @media (max-width: 1024px) {
   .posts-container {
     grid-template-columns: repeat(2, 1fr);
@@ -405,7 +411,7 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Keep 2-column grid on tablet */
+  /* 2-column grid on tablet for 2 rows of 2 or 3 posts */
   .posts-container {
     grid-template-columns: repeat(2, 1fr);
   }
