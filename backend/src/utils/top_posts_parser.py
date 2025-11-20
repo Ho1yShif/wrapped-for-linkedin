@@ -76,13 +76,14 @@ def parse_top_posts_sheet(file_content: bytes) -> List[Dict[str, Any]]:
                 "impressions": 0
             }
 
-        # Parse impression data from columns E-G and merge with engagement data
+        # Parse impression data from columns E and G and merge with engagement data
+        # In openpyxl, columns are 1-indexed: A=1, B=2, C=3, D=4, E=5, F=6, G=7
         for row_idx in range(4, ws.max_row + 1):
-            url = ws.cell(row_idx, 6).value  # Column E
+            url = ws.cell(row_idx, 5).value  # Column E
             impressions = ws.cell(row_idx, 7).value  # Column G
 
             if url is None or impressions is None:
-                if (ws.cell(row_idx, 6).value is None and
+                if (ws.cell(row_idx, 5).value is None and
                     ws.cell(row_idx, 7).value is None):
                     break
                 continue
@@ -96,6 +97,14 @@ def parse_top_posts_sheet(file_content: bytes) -> List[Dict[str, Any]]:
             url_str = str(url)
             if url_str in posts:
                 posts[url_str]["impressions"] = impressions_count
+            else:
+                # If URL not found in engagement data, still add it
+                posts[url_str] = {
+                    "url": url_str,
+                    "publish_date": "",
+                    "engagements": 0,
+                    "impressions": impressions_count
+                }
 
         # Convert dict to sorted list
         posts_list = list(posts.values())

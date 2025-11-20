@@ -323,12 +323,12 @@
 }
 
 .post-stats {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
   margin-top: 1.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid rgba(10, 102, 194, 0.1);
 }
 
 .stat-box {
@@ -336,39 +336,88 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem;
+  justify-content: flex-start;
+  gap: 0;
+  padding: 1.5rem 1.25rem;
   background: transparent;
-  border-radius: 0;
+  border-radius: 10px;
   border: none;
-  transition: none !important;
+  transition: all 0.3s ease;
 }
 
 .stat-box:hover {
   background: transparent;
   border-color: transparent;
-  transition: none !important;
+  transform: none;
+  box-shadow: none;
+  transition: all 0.3s ease;
 }
 
 .stat-icon {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   flex-shrink: 0;
+  line-height: 1;
+  margin-bottom: 0.5rem;
 }
 
 .stat-value {
-  font-weight: 700;
-  font-size: 1.25rem;
+  font-weight: 800;
+  font-size: 2.5rem;
   color: #0A66C2;
   line-height: 1;
+  letter-spacing: -0.5px;
+  margin-top: 0.75rem;
 }
 
 .stat-label {
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   color: #64748b;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.6px;
   line-height: 1;
+  margin-top: 0;
+  order: -1;
+}
+
+.stat-engagements {
+  border-color: transparent;
+  background: transparent;
+}
+
+.stat-engagements:hover {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.stat-engagements .stat-label {
+  color: #dc2626;
+  font-weight: 800;
+}
+
+.stat-engagements .stat-value {
+  color: #dc2626;
+}
+
+.stat-impressions {
+  border-color: transparent;
+  background: transparent;
+}
+
+.stat-impressions:hover {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.stat-impressions .stat-label {
+  color: #a855f7;
+  font-weight: 800;
+}
+
+.stat-impressions .stat-value {
+  color: #a855f7;
 }
 
 /* Responsive Design */
@@ -486,28 +535,46 @@
   }
 
   .post-stats {
-    flex-direction: column;
+    grid-template-columns: 1fr 1fr;
     gap: 0.75rem;
     margin-top: 0.75rem;
     padding-top: 0.75rem;
   }
 
   .stat-box {
-    width: 100%;
-    justify-content: space-between;
-    padding: 0.5rem;
-    font-size: 0.85rem;
+    padding: 1rem;
+    gap: 0.5rem;
   }
 
   .stat-icon {
-    font-size: 1.2rem;
+    font-size: 2rem;
   }
 
   .stat-value {
-    font-size: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .stat-box {
+    padding: 0.75rem;
+    gap: 0.4rem;
+  }
+
+  .stat-icon {
+    font-size: 1.75rem;
+  }
+
+  .stat-value {
+    font-size: 1.25rem;
   }
 
   .stat-label {
     font-size: 0.65rem;
+    letter-spacing: 0.4px;
   }
 }
