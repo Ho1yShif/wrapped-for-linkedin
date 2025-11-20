@@ -1,11 +1,6 @@
 # TODO
 
 - Remove container on landing page
-- Put top posts stats in nice side-by-side cards like initial version of project
-❤️ Engagements
-151
-✨ Impressions
-11.6K
 - Need to eliminate the Python backend for LinkedIn wrapped and perform all logic in Typescript in the frontend
 - Need to show one piece of information at a time and make it sharable like Spotify wrapped
 - Consolidate card gradient as main gradient

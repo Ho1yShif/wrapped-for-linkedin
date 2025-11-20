@@ -91,7 +91,7 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
                 </div>
               </div>
 
-              <div 
+              <div
                 className="top-post-stats"
                 style={{
                   display: 'flex',
@@ -102,7 +102,7 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
                   borderTop: '1px solid rgba(255, 255, 255, 0.15)',
                 }}
               >
-                <div 
+                <div
                   className="top-post-stat-box"
                   style={{
                     flex: 1,
@@ -111,9 +111,9 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
                     alignItems: 'center',
                     gap: '0.75rem',
                     padding: '1rem',
-                    background: 'linear-gradient(135deg, rgba(13, 110, 253, 0.15) 0%, rgba(13, 110, 253, 0.08) 100%)',
+                    background: 'linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-card) 100%)',
                     borderRadius: '12px',
-                    border: '1px solid rgba(13, 110, 253, 0.3)',
+                    border: '2px solid var(--border-color-light)',
                     transition: 'all 0.2s ease',
                     cursor: 'pointer',
                   }}
@@ -125,7 +125,7 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
                   </div>
                 </div>
                 {post.impressions && post.impressions > 0 && (
-                  <div 
+                  <div
                     className="top-post-stat-box"
                     style={{
                       flex: 1,
@@ -134,9 +134,9 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
                       alignItems: 'center',
                       gap: '0.75rem',
                       padding: '1rem',
-                      background: 'linear-gradient(135deg, rgba(13, 110, 253, 0.15) 0%, rgba(13, 110, 253, 0.08) 100%)',
+                      background: 'linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-card) 100%)',
                       borderRadius: '12px',
-                      border: '1px solid rgba(13, 110, 253, 0.3)',
+                      border: '2px solid var(--border-color-light)',
                       transition: 'all 0.2s ease',
                       cursor: 'pointer',
                     }}
