@@ -30,7 +30,7 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
   const startDate = discovery?.start_date ? new Date(discovery.start_date) : null;
   const endDate = discovery?.end_date ? new Date(discovery.end_date) : null;
 
-  // Calculate metrics with fallbacks
+  // Calculate metrics directly from source data
   const totalEngagement = (totalLikes || 0) + (totalComments || 0) + (totalShares || 0);
   const avgImpressionsPerDay =
     discovery?.total_impressions && startDate && endDate
@@ -39,12 +39,10 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
             ((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24))
         )
       : 0;
-  const engagementRate =
-    discovery?.total_impressions && discovery?.total_impressions > 0
-      ? (((totalLikes || 0) + (totalComments || 0) + (totalShares || 0)) /
-          discovery.total_impressions) *
-        100
-      : 0;
+  const engagementRatePerDay =
+    discovery?.total_impressions && avgImpressionsPerDay > 0
+      ? ((totalEngagement / avgImpressionsPerDay) * 100).toFixed(2)
+      : '0.00';
 
   return (
     <div className="spotify-dashboard">
@@ -66,14 +64,15 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
       <div className="year-at-glance-section">
         <h2 className="section-heading">Your year at a glance</h2>
 
-        <div className="glance-metrics-grid">
-          {/* Primary Stat Card - Impressions */}
-          <div className="metric-card primary-card">
+        {/* Line 1: Impressions and Members Reached (2 cards at 50% each) */}
+        <div className="glance-metrics-grid line-1">
+          {/* Total Impressions Card */}
+          <div className="metric-card">
             <div className="card-background gradient-1"></div>
             <div className="card-content">
               <h3 className="card-label">Total Impressions</h3>
               <div className="card-value-container">
-                <div className="card-value primary-value">
+                <div className="card-value">
                   {formatNumber(discovery?.total_impressions || 0)}
                 </div>
                 <div className="card-unit">impressions</div>
@@ -82,13 +81,13 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
             </div>
           </div>
 
-          {/* Secondary Stat Card - Reach */}
-          <div className="metric-card secondary-card">
+          {/* Members Reached Card */}
+          <div className="metric-card">
             <div className="card-background gradient-2"></div>
             <div className="card-content">
               <h3 className="card-label">Members Reached</h3>
               <div className="card-value-container">
-                <div className="card-value secondary-value">
+                <div className="card-value">
                   {formatNumber(discovery?.members_reached || 0)}
                 </div>
                 <div className="card-unit">people</div>
@@ -96,27 +95,46 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
               <div className="card-accent"></div>
             </div>
           </div>
+        </div>
 
-          {/* Engagement Trio */}
-          <div className="metric-card engagement-card">
+        {/* Line 2: Likes, Comments, Shares (3 cards) */}
+        <div className="glance-metrics-grid line-2">
+          {/* Likes Card */}
+          <div className="metric-card">
             <div className="card-background gradient-3"></div>
-            <div className="card-content engagement-content">
-              <h3 className="card-label">Engagement</h3>
-              <div className="engagement-metrics">
-                <div className="engagement-item">
-                  <div className="engagement-icon likes">❤️</div>
-                  <div className="engagement-value">{formatNumber(totalLikes)}</div>
-                  <div className="engagement-label">Likes</div>
+            <div className="card-content">
+              <h3 className="card-label">Likes</h3>
+              <div className="card-value-container">
+                <div className="card-value">
+                  {formatNumber(totalLikes)}
                 </div>
-                <div className="engagement-item">
-                  <div className="engagement-icon comments">💬</div>
-                  <div className="engagement-value">{formatNumber(totalComments)}</div>
-                  <div className="engagement-label">Comments</div>
+              </div>
+              <div className="card-accent"></div>
+            </div>
+          </div>
+
+          {/* Comments Card */}
+          <div className="metric-card">
+            <div className="card-background gradient-1"></div>
+            <div className="card-content">
+              <h3 className="card-label">Comments</h3>
+              <div className="card-value-container">
+                <div className="card-value">
+                  {formatNumber(totalComments)}
                 </div>
-                <div className="engagement-item">
-                  <div className="engagement-icon shares">↗️</div>
-                  <div className="engagement-value">{formatNumber(totalShares)}</div>
-                  <div className="engagement-label">Shares</div>
+              </div>
+              <div className="card-accent"></div>
+            </div>
+          </div>
+
+          {/* Shares Card */}
+          <div className="metric-card">
+            <div className="card-background gradient-2"></div>
+            <div className="card-content">
+              <h3 className="card-label">Shares</h3>
+              <div className="card-value-container">
+                <div className="card-value">
+                  {formatNumber(totalShares)}
                 </div>
               </div>
               <div className="card-accent"></div>
@@ -124,26 +142,47 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
           </div>
         </div>
 
-        {/* Detailed Stats */}
-        <div className="detailed-stats">
-          <div className="stats-row">
-            <div className="stat-item">
-              <div className="stat-label">Total Engagement</div>
-              <div className="stat-value">
-                {formatNumber(totalEngagement)}
+        {/* Line 3: Total Engagements, Total Impressions, Average Engagement Rate per Day (3 cards) */}
+        <div className="glance-metrics-grid line-3">
+          {/* Total Engagements Card */}
+          <div className="metric-card">
+            <div className="card-background gradient-2"></div>
+            <div className="card-content">
+              <h3 className="card-label">Total Engagements</h3>
+              <div className="card-value-container">
+                <div className="card-value">
+                  {formatNumber(totalEngagement)}
+                </div>
               </div>
+              <div className="card-accent"></div>
             </div>
-            <div className="stat-item">
-              <div className="stat-label">Average Impressions per Day</div>
-              <div className="stat-value">
-                {avgImpressionsPerDay > 0 ? formatNumber(avgImpressionsPerDay) : '—'}
+          </div>
+
+          {/* Total Impressions Card */}
+          <div className="metric-card">
+            <div className="card-background gradient-1"></div>
+            <div className="card-content">
+              <h3 className="card-label">Total Impressions</h3>
+              <div className="card-value-container">
+                <div className="card-value">
+                  {formatNumber(discovery?.total_impressions || 0)}
+                </div>
               </div>
+              <div className="card-accent"></div>
             </div>
-            <div className="stat-item">
-              <div className="stat-label">Engagement Rate</div>
-              <div className="stat-value">
-                {engagementRate > 0 ? engagementRate.toFixed(2) + '%' : '—'}
+          </div>
+
+          {/* Avg Engagement Rate per Day Card */}
+          <div className="metric-card">
+            <div className="card-background gradient-3"></div>
+            <div className="card-content">
+              <h3 className="card-label">Avg Engagement Rate per Day</h3>
+              <div className="card-value-container">
+                <div className="card-value">
+                  {engagementRatePerDay}%
+                </div>
               </div>
+              <div className="card-accent"></div>
             </div>
           </div>
         </div>

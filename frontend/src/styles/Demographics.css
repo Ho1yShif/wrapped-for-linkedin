@@ -37,18 +37,11 @@
 }
 
 .demographic-category {
-  background: linear-gradient(135deg, rgba(10, 102, 194, 0.06) 0%, rgba(29, 185, 84, 0.04) 100%);
+  background: rgba(10, 102, 194, 0.06);
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   border: 2px solid var(--border-color-light);
-  transition: none !important;
-}
-
-.demographic-category:hover {
-  border-color: var(--primary-color) !important;
-  box-shadow: 0 0 0 2px var(--primary-color), 0 12px 32px rgba(10, 102, 194, 0.3) !important;
-  background: linear-gradient(135deg, rgba(10, 143, 255, 0.1) 0%, rgba(29, 185, 84, 0.06) 100%);
   transition: none !important;
 }
 
@@ -97,7 +90,7 @@
 .item-percentage {
   font-size: 0.85rem;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--primary-light), var(--accent-green));
+  background: white;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

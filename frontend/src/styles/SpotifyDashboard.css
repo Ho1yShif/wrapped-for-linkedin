@@ -42,6 +42,9 @@
   max-width: 1400px;
   margin: 0 auto 4rem;
   animation: slideUp 0.8s ease-out 0.1s both;
+  background: none;
+  padding: 0;
+  border: none;
 }
 
 .section-heading {
@@ -53,12 +56,26 @@
   letter-spacing: -0.5px;
 }
 
-/* Metrics Grid */
+/* Metrics Grid - 3 different layouts for 3 lines */
 .glance-metrics-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2rem;
+}
+
+/* Line 1: 2 cards at 50% each */
+.glance-metrics-grid.line-1 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* Line 2: 3 cards */
+.glance-metrics-grid.line-2 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Line 3: 3 cards */
+.glance-metrics-grid.line-3 {
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .metrics-grid {
@@ -210,101 +227,7 @@
   opacity: 1;
 }
 
-/* Primary Card - Larger and spans full width */
-.primary-card {
-  grid-column: 1 / -1;
-  min-height: 240px;
-}
 
-/* Secondary Card - Next to engagement */
-.secondary-card {
-  grid-column: span 1;
-}
-
-/* Engagement Card - Special Layout, also spans full width in this layout */
-.engagement-card {
-  grid-column: 1 / -1;
-  min-height: 180px;
-}
-
-.engagement-content {
-  justify-content: space-between;
-}
-
-.engagement-metrics {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-top: 1.5rem;
-}
-
-.engagement-item {
-  text-align: center;
-  padding: 1rem;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.03);
-  transition: all 0.2s ease;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.metric-card:hover .engagement-item {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.15);
-}
-
-.engagement-icon {
-  font-size: 1.8rem;
-  margin-bottom: 0.75rem;
-  display: block;
-  transition: transform 0.2s ease;
-}
-
-.metric-card:hover .engagement-icon {
-  transform: scale(1.15);
-}
-
-.engagement-value {
-  font-size: 1.75rem;
-  font-weight: 700;
-  display: block;
-  margin-bottom: 0.25rem;
-  color: var(--text-primary);
-  transition: color 0.2s ease;
-}
-
-.engagement-item:nth-child(1) .engagement-value {
-  background: linear-gradient(135deg, #FF006E, #FF4B70);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.engagement-item:nth-child(2) .engagement-value {
-  background: linear-gradient(135deg, #00D9FF, #0096C7);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.engagement-item:nth-child(3) .engagement-value {
-  background: linear-gradient(135deg, #1DB954, #1ed760);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.engagement-label {
-  font-size: 0.75rem;
-  color: var(--text-tertiary);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  transition: color 0.2s ease;
-}
-
-.metric-card:hover .engagement-label {
-  color: var(--text-secondary);
-}
 
 @media (max-width: 768px) {
   .primary-card {
@@ -316,78 +239,7 @@
   }
 }
 
-/* Detailed Stats Section */
-.detailed-stats {
-  background: linear-gradient(135deg, rgba(10, 102, 194, 0.06) 0%, rgba(29, 185, 84, 0.04) 100%);
-  border: 1px solid var(--border-color-light);
-  border-radius: 12px;
-  padding: 2rem;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  animation: slideUp 0.8s ease-out 0.2s both;
-}
 
-.section-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  letter-spacing: -0.5px;
-  color: var(--text-primary);
-}
-
-.stats-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-}
-
-.stat-item {
-  text-align: center;
-  padding: 1.5rem;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(10, 143, 255, 0.08) 0%, rgba(10, 143, 255, 0.02) 100%);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 2px solid var(--border-color-light);
-}
-
-.stat-item:hover {
-  background: linear-gradient(135deg, rgba(10, 143, 255, 0.15) 0%, rgba(29, 185, 84, 0.08) 100%);
-  border-color: var(--primary-light);
-  box-shadow: 0 0 0 1px var(--primary-light), 0 4px 12px rgba(10, 143, 255, 0.15);
-}
-
-.stat-label {
-  font-size: 0.85rem;
-  color: var(--text-tertiary);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  margin-bottom: 0.75rem;
-  display: block;
-  transition: color 0.5s ease;
-}
-
-.stat-item:hover .stat-label {
-  color: var(--primary-light);
-}
-
-.stat-value {
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: -1px;
-  background: linear-gradient(135deg, var(--primary-light), var(--accent-cyan));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  transition: all 0.5s ease;
-}
-
-.stat-item:hover .stat-value {
-  background: linear-gradient(135deg, var(--accent-green), var(--primary-light));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
 
 /* Animations */
 @keyframes fadeInDown {
@@ -442,22 +294,6 @@
   .card-value {
     font-size: 2rem;
   }
-
-  .primary-value {
-    font-size: 2.25rem;
-  }
-
-  .secondary-value {
-    font-size: 2rem;
-  }
-
-  .detailed-stats {
-    padding: 2rem 1.5rem;
-  }
-
-  .stat-item {
-    padding: 1rem;
-  }
 }
 
 @media (max-width: 768px) {
@@ -492,11 +328,6 @@
     margin-bottom: 1.5rem;
   }
 
-  .primary-card {
-    grid-column: auto;
-    min-height: 180px;
-  }
-
   .card-content {
     padding: 1.25rem;
   }
@@ -506,46 +337,6 @@
   }
 
   .card-value {
-    font-size: 1.5rem;
-  }
-
-  .primary-value {
-    font-size: 1.75rem;
-  }
-
-  .secondary-value {
-    font-size: 1.5rem;
-  }
-
-  .engagement-metrics {
-    gap: 0.75rem;
-  }
-
-  .engagement-item {
-    padding: 0.75rem;
-  }
-
-  .engagement-value {
-    font-size: 1.1rem;
-  }
-
-  .engagement-label {
-    font-size: 0.65rem;
-  }
-
-  .detailed-stats {
-    padding: 1.5rem 1rem;
-  }
-
-  .stats-row {
-    gap: 1rem;
-  }
-
-  .stat-item {
-    padding: 1rem;
-  }
-
-  .stat-value {
     font-size: 1.5rem;
   }
 }
@@ -578,9 +369,7 @@
     margin-bottom: 1rem;
   }
 
-  .card-value,
-  .primary-value,
-  .secondary-value {
+  .card-value {
     font-size: 1.25rem;
   }
 
@@ -599,49 +388,5 @@
 
   .card-content {
     padding: 1rem;
-  }
-
-  .engagement-metrics {
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-
-  .engagement-item {
-    padding: 0.5rem;
-  }
-
-  .engagement-icon {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .engagement-value {
-    font-size: 0.9rem;
-  }
-
-  .engagement-label {
-    font-size: 0.6rem;
-  }
-
-  .detailed-stats {
-    padding: 1rem;
-    border-radius: 8px;
-  }
-
-  .stats-row {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-  }
-
-  .stat-item {
-    padding: 0.75rem;
-  }
-
-  .stat-label {
-    font-size: 0.75rem;
-  }
-
-  .stat-value {
-    font-size: 1.25rem;
   }
 }

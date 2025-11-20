@@ -5,9 +5,6 @@ export interface AnalyticsData {
 }
 
 export interface EngagementMetrics {
-  totalLikes: number;
-  totalComments: number;
-  totalShares: number;
   averageEngagement?: number;
   topPosts?: TopPost[];
   engagementByDay?: EngagementByDay[];

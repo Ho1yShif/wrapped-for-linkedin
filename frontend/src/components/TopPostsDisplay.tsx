@@ -42,18 +42,6 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
   // Display exactly 6 posts maximum in 2x3 grid layout
   const displayedPosts = posts.slice(0, 6);
 
-  // Calculate summary statistics from displayed posts
-  const totalEngagements = displayedPosts.reduce((sum, post) => sum + (post.engagements || 0), 0);
-  const totalImpressions = displayedPosts.reduce((sum, post) => sum + (post.impressions || 0), 0);
-  const avgEngagementRate = displayedPosts.length > 0
-    ? (
-        displayedPosts.reduce((sum, post) => {
-          const impressions = post.impressions || 1;
-          return sum + (post.engagements / impressions) * 100;
-        }, 0) / displayedPosts.length
-      ).toFixed(2)
-    : '0.00';
-
   return (
     <div className="top-posts-section">
       <div className="section-header">
@@ -72,22 +60,6 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
           </p>
         </div>
       </details>
-
-      {/* Summary Statistics */}
-      <div className="summary-stats">
-        <div className="summary-stat-card">
-          <div className="summary-stat-number">{formatEngagements(totalEngagements)}</div>
-          <div className="summary-stat-label">Total Engagements</div>
-        </div>
-        <div className="summary-stat-card">
-          <div className="summary-stat-number">{formatEngagements(totalImpressions)}</div>
-          <div className="summary-stat-label">Total Impressions</div>
-        </div>
-        <div className="summary-stat-card">
-          <div className="summary-stat-number">{avgEngagementRate}%</div>
-          <div className="summary-stat-label">Avg Engagement Rate</div>
-        </div>
-      </div>
 
       <div className="posts-container">
         {displayedPosts.map((post) => {
@@ -122,31 +94,16 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
               <div className="post-stats">
                 <div className="stat-box">
                   <div className="stat-icon">❤️</div>
-                  <div className="stat-info">
-                    <div className="stat-value">{formatEngagements(post.engagements)}</div>
-                    <div className="stat-label">Engagements</div>
-                  </div>
+                  <div className="stat-label">Engagements</div>
+                  <div className="stat-value">{formatEngagements(post.engagements)}</div>
                 </div>
                 {post.impressions && post.impressions > 0 && (
                   <div className="stat-box">
                     <div className="stat-icon">✨</div>
-                    <div className="stat-info">
-                      <div className="stat-value">{formatEngagements(post.impressions)}</div>
-                      <div className="stat-label">Impressions</div>
-                    </div>
+                    <div className="stat-label">Impressions</div>
+                    <div className="stat-value">{formatEngagements(post.impressions)}</div>
                   </div>
                 )}
-                <div className="stat-box">
-                  <div className="stat-icon">📊</div>
-                  <div className="stat-info">
-                    <div className="stat-value">
-                      {post.impressions && post.impressions > 0
-                        ? ((post.engagements / post.impressions) * 100).toFixed(2)
-                        : '0.00'}%
-                    </div>
-                    <div className="stat-label">Engagement Rate</div>
-                  </div>
-                </div>
               </div>
             </div>
           );

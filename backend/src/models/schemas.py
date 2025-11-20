@@ -18,9 +18,6 @@ class TopPost(BaseModel):
     impressions: Optional[float] = 0
 
 class EngagementMetrics(BaseModel):
-    total_likes: int
-    total_comments: int
-    total_shares: int
     peak_engagement_time: Optional[datetime] = None
     top_performing_posts: List[dict]
     discovery_data: Optional[dict] = None  # Contains impressions and reach data

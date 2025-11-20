@@ -71,20 +71,3 @@ async def process_linkedin_file(file: UploadFile) -> dict:
         "fileId": file_id,
         "message": "File processed successfully"
     }
-
-    return ProcessedFileResponse(
-        file_id=file_id,
-        discovery=discovery_data,
-        metrics={
-            "total_likes": 0,
-            "total_comments": 0,
-            "total_shares": 0,
-            "peak_engagement_time": None,
-            "top_performing_posts": []
-        },
-        insights={
-            "job_titles": [],
-            "locations": [],
-            "industries": []
-        }
-    )

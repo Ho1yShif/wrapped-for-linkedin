@@ -20,9 +20,6 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({ data }) => {
       {discoveryData && (
         <SpotifyDashboard
           discovery={discoveryData}
-          totalLikes={data.totalLikes}
-          totalComments={data.totalComments}
-          totalShares={data.totalShares}
         />
       )}
 
@@ -34,18 +31,6 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({ data }) => {
           {/* Summary Cards */}
           <div className="summary-cards">
             <div className="card">
-              <div className="card-label">Total Likes</div>
-              <div className="card-value">{data.totalLikes.toLocaleString()}</div>
-            </div>
-            <div className="card">
-              <div className="card-label">Total Comments</div>
-              <div className="card-value">{data.totalComments.toLocaleString()}</div>
-            </div>
-            <div className="card">
-              <div className="card-label">Total Shares</div>
-              <div className="card-value">{data.totalShares.toLocaleString()}</div>
-            </div>
-            <div className="card">
               <div className="card-label">Average Engagement</div>
               <div className="card-value">{data.averageEngagement?.toFixed(2) || '0.00'}</div>
             </div>
@@ -53,35 +38,6 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({ data }) => {
         </>
       )}
 
-      {/* Engagement Breakdown Pie Chart */}
-      {(data.totalLikes > 0 || data.totalComments > 0 || data.totalShares > 0) && (
-        <div className="chart-section">
-          <h2>Engagement Breakdown</h2>
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={[
-                  { name: 'Likes', value: data.totalLikes },
-                  { name: 'Comments', value: data.totalComments },
-                  { name: 'Shares', value: data.totalShares },
-                ]}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={({ name, value }) => `${name}: ${value}`}
-                outerRadius={80}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {COLORS.map((color, index) => (
-                  <Cell key={`cell-${index}`} fill={color} />
-                ))}
-              </Pie>
-              <Tooltip formatter={(value) => value.toLocaleString()} />
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
-      )}
 
       {/* Engagement Over Time */}
       {data.engagementByDay && data.engagementByDay.length > 0 && (
