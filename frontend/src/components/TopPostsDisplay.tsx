@@ -118,7 +118,7 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
                 >
                   <div className="top-post-stat-icon" style={{ fontSize: '1.8rem', flexShrink: 0, display: 'flex', alignItems: 'center' }}>❤️</div>
                   <div className="top-post-stat-info" style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', flex: 1 }}>
-                    <div className="top-post-stat-value" style={{ fontWeight: 700, fontSize: '1.5rem', color: '#0A8FFF', lineHeight: 1 }}>{formatEngagements(post.engagements)}</div>
+                    <div className="top-post-stat-value" style={{ fontWeight: 700, fontSize: '1.5rem', color: '#FFFF', lineHeight: 1 }}>{formatEngagements(post.engagements)}</div>
                     <div className="top-post-stat-label" style={{ fontSize: '0.75rem', color: '#B3B3B3', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', lineHeight: 1 }}>Engagements</div>
                   </div>
                 </div>
@@ -141,7 +141,7 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
                   >
                     <div className="top-post-stat-icon" style={{ fontSize: '1.8rem', flexShrink: 0, display: 'flex', alignItems: 'center' }}>✨</div>
                     <div className="top-post-stat-info" style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', flex: 1 }}>
-                      <div className="top-post-stat-value" style={{ fontWeight: 700, fontSize: '1.5rem', color: '#0A8FFF', lineHeight: 1 }}>{formatEngagements(post.impressions)}</div>
+                      <div className="top-post-stat-value" style={{ fontWeight: 700, fontSize: '1.5rem', color: '#FFFF', lineHeight: 1 }}>{formatEngagements(post.impressions)}</div>
                       <div className="top-post-stat-label" style={{ fontSize: '0.75rem', color: '#B3B3B3', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', lineHeight: 1 }}>Impressions</div>
                     </div>
                   </div>
