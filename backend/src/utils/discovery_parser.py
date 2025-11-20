@@ -137,9 +137,9 @@ def extract_discovery_data(
         if file_content:
             from .summary_metrics_parser import calculate_summary_metrics
             try:
-                metrics = calculate_summary_metrics(file_content, impressions)
+                metrics = calculate_summary_metrics(file_content)
                 total_engagements = metrics["total_engagements"]
-                average_impressions_per_day = metrics["average_impressions_per_day"]
+                average_impressions_per_day = metrics["median_daily_impressions"]
                 new_followers = metrics["new_followers"]
             except ValueError as e:
                 # Log warning but don't fail - continue with None values

@@ -88,7 +88,7 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
           <div className="metric-card">
             <div className="card-background gradient-1"></div>
             <div className="card-content">
-              <h3 className="card-label">Average daily impressions</h3>
+              <h3 className="card-label">median daily impressions</h3>
               <div className="card-value-container">
                 <div className="card-value secondary-value">
                   {formatNumber(discovery?.average_impressions_per_day || 0)}

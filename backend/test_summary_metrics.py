@@ -5,7 +5,7 @@ Test script to verify summary metrics calculations with the test Excel file.
 
 from src.utils.summary_metrics_parser import (
     get_total_engagements,
-    get_average_daily_impressions,
+    get_median_daily_impressions,
     get_new_followers,
     calculate_summary_metrics
 )
@@ -44,16 +44,16 @@ try:
 except Exception as e:
     print(f"   Error: {e}")
 
-# Test 3: Calculate average daily impressions
-print("\n3. Testing average daily impressions calculation...")
+# Test 3: Calculate median daily impressions
+print("\n3. Testing median daily impressions calculation...")
 try:
     # Extract total impressions from discovery data
     discovery = extract_discovery_data(discovery_cells, file_content)
     total_impressions = discovery.total_impressions
     print(f"   Total impressions: {total_impressions:,}")
 
-    avg_daily = get_average_daily_impressions(total_impressions)
-    print(f"   Average daily impressions: {avg_daily:.1f}")
+    median_daily = get_median_daily_impressions(total_impressions)
+    print(f"   median daily impressions: {median_daily:.1f}")
 except Exception as e:
     print(f"   Error: {e}")
 
@@ -70,7 +70,7 @@ print("\n5. Testing full summary metrics calculation...")
 try:
     metrics = calculate_summary_metrics(file_content, total_impressions)
     print(f"   Total engagements: {metrics['total_engagements']:,}")
-    print(f"   Average daily impressions: {metrics['average_impressions_per_day']:.1f}")
+    print(f"   median daily impressions: {metrics['average_impressions_per_day']:.1f}")
     print(f"   New followers: {metrics['new_followers']:,}")
 except Exception as e:
     print(f"   Error: {e}")
@@ -84,7 +84,7 @@ try:
     print(f"   Total impressions: {full_discovery.total_impressions:,}")
     print(f"   Members reached: {full_discovery.members_reached:,}")
     print(f"   Total engagements: {full_discovery.total_engagements:,}")
-    print(f"   Average daily impressions: {full_discovery.average_impressions_per_day:.1f}")
+    print(f"   median daily impressions: {full_discovery.average_impressions_per_day:.1f}")
     print(f"   New followers: {full_discovery.new_followers:,}")
     print(f"\n   Discovery data dict:\n   {full_discovery.to_dict()}")
 except Exception as e:

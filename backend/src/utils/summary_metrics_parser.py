@@ -1,11 +1,12 @@
 """
 Parser for LinkedIn summary metrics calculations.
-Calculates total engagements, average daily impressions, and new followers.
+Calculates total engagements, median daily impressions, and new followers.
 """
 
 from typing import Optional
 from openpyxl import load_workbook
 import io
+import numpy as np
 
 
 def get_total_engagements(file_content: bytes) -> int:
@@ -56,23 +57,58 @@ def get_total_engagements(file_content: bytes) -> int:
         raise ValueError(f"Failed to calculate total engagements: {str(e)}")
 
 
-def get_average_daily_impressions(total_impressions: int) -> float:
+def get_median_daily_impressions(file_content: bytes) -> float:
     """
-    Calculate average daily impressions by dividing total impressions by 365.
+    Calculate median daily impressions from the 'Impressions' column
+    in the ENGAGEMENT sheet.
 
     Args:
-        total_impressions: Total impressions value
+        file_content: Binary content of Excel file
 
     Returns:
-        Average daily impressions as float
+        Median daily impressions as float
 
     Raises:
-        ValueError: If total_impressions is negative
+        ValueError: If ENGAGEMENT sheet not found or Impressions column is missing
     """
-    if total_impressions < 0:
-        raise ValueError("Total impressions cannot be negative")
+    try:
+        wb = load_workbook(io.BytesIO(file_content), data_only=True)
 
-    return total_impressions / 365.0
+        if "ENGAGEMENT" not in wb.sheetnames:
+            raise ValueError("ENGAGEMENT sheet not found in Excel file")
+
+        ws = wb["ENGAGEMENT"]
+
+        # Find the "Impressions" column header (usually in row 1)
+        impressions_column = None
+        for col_idx, cell in enumerate(ws[1], 1):
+            if cell.value and str(cell.value).strip().lower() == "impressions":
+                impressions_column = col_idx
+                break
+
+        if impressions_column is None:
+            raise ValueError("'Impressions' column not found in ENGAGEMENT sheet")
+
+        # Extract all impressions values into a numpy array (starting from row 2)
+        impressions_data = []
+        for row_idx in range(2, ws.max_row + 1):
+            cell = ws.cell(row_idx, impressions_column)
+            if cell.value is not None:
+                try:
+                    impressions_data.append(float(cell.value))
+                except (ValueError, TypeError):
+                    # Skip cells that can't be converted to numbers
+                    pass
+
+        if not impressions_data:
+            raise ValueError("No valid impressions data found in ENGAGEMENT sheet")
+
+        # Calculate and return the median
+        median_impressions = np.median(np.array(impressions_data))
+        return float(median_impressions)
+
+    except Exception as e:
+        raise ValueError(f"Failed to calculate median daily impressions: {str(e)}")
 
 
 def get_new_followers(file_content: bytes) -> int:
@@ -124,19 +160,18 @@ def get_new_followers(file_content: bytes) -> int:
         raise ValueError(f"Failed to calculate new followers: {str(e)}")
 
 
-def calculate_summary_metrics(file_content: bytes, total_impressions: int) -> dict:
+def calculate_summary_metrics(file_content: bytes) -> dict:
     """
     Calculate all summary metrics for the dashboard.
 
     Args:
         file_content: Binary content of Excel file
-        total_impressions: Total impressions from discovery data
 
     Returns:
         Dictionary with calculated metrics:
         {
             "total_engagements": int,
-            "average_impressions_per_day": float,
+            "median_daily_impressions": float,
             "new_followers": int
         }
 
@@ -145,12 +180,12 @@ def calculate_summary_metrics(file_content: bytes, total_impressions: int) -> di
     """
     try:
         total_engagements = get_total_engagements(file_content)
-        average_impressions_per_day = get_average_daily_impressions(total_impressions)
+        median_daily_impressions = get_median_daily_impressions(file_content)
         new_followers = get_new_followers(file_content)
 
         return {
             "total_engagements": total_engagements,
-            "average_impressions_per_day": average_impressions_per_day,
+            "median_daily_impressions": median_daily_impressions,
             "new_followers": new_followers
         }
     except ValueError as e:
