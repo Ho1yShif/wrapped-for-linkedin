@@ -1,40 +1,17 @@
+/**
+ * API Utilities
+ * Note: This application is now client-side only and processes Excel files locally.
+ * Legacy backend API functions are removed. If future server integrations are needed,
+ * axios can be reconfigured here.
+ */
+
 import axios from 'axios';
-import type { UploadResponse } from '@types';
 
-const API_BASE = 'http://localhost:8000/api/v1';
-
+// Keep axios configured but not pointing to any backend by default
 const api = axios.create({
-  baseURL: API_BASE,
   headers: {
     'Content-Type': 'application/json',
   },
 });
-
-export const uploadFile = async (file: File): Promise<UploadResponse> => {
-  const formData = new FormData();
-  formData.append('file', file);
-
-  const response = await api.post('/files/upload', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
-  return response.data;
-};
-
-export const getEngagementMetrics = async (fileId: string) => {
-  const response = await api.get(`/analytics/engagement/${fileId}`);
-  return response.data;
-};
-
-export const getDemographicInsights = async (fileId: string) => {
-  const response = await api.get(`/analytics/demographics/${fileId}`);
-  return response.data;
-};
-
-export const getDiscovery = async (fileId: string) => {
-  const response = await api.get(`/analytics/discovery/${fileId}`);
-  return response.data;
-};
 
 export default api;

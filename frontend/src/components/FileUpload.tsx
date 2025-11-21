@@ -1,18 +1,32 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import type { ParsedExcelData } from '../utils/excel/types';
 import '../styles/FileUpload.css';
 
 interface FileUploadProps {
-  onFileSelected: (file: File) => void;
+  onFileProcessed: (data: ParsedExcelData, error?: string) => void;
   isLoading?: boolean;
 }
 
-export const FileUpload: React.FC<FileUploadProps> = ({ onFileSelected, isLoading = false }) => {
-  const onDrop = useCallback((acceptedFiles: File[]) => {
+export const FileUpload: React.FC<FileUploadProps> = ({ onFileProcessed, isLoading = false }) => {
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
-      onFileSelected(acceptedFiles[0]);
+      setIsProcessing(true);
+      try {
+        const { processExcelFile } = await import('../utils/excel/excelProcessor');
+        const data = await processExcelFile(acceptedFiles[0]);
+        onFileProcessed(data);
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Failed to process file';
+        console.error('Error processing file:', error);
+        onFileProcessed({}, errorMessage);
+      } finally {
+        setIsProcessing(false);
+      }
     }
-  }, [onFileSelected]);
+  }, [onFileProcessed]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -20,12 +34,12 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileSelected, isLoadin
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
       'text/csv': ['.csv'],
     },
-    disabled: isLoading,
+    disabled: isProcessing || isLoading,
   });
 
   return (
     <div className="file-upload-container">
-      <div {...getRootProps()} className={`dropzone ${isDragActive ? 'active' : ''} ${isLoading ? 'disabled' : ''}`}>
+      <div {...getRootProps()} className={`dropzone ${isDragActive ? 'active' : ''} ${isProcessing || isLoading ? 'disabled' : ''}`}>
         <input {...getInputProps()} />
         <div className="dropzone-content">
           <div className="upload-icon">📤</div>

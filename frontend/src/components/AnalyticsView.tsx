@@ -1,5 +1,5 @@
 import React from 'react';
-import { LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { SpotifyDashboard } from './SpotifyDashboard';
 import type { EngagementMetrics } from '@types';
 import '../styles/Analytics.css';
@@ -7,8 +7,6 @@ import '../styles/Analytics.css';
 interface AnalyticsViewProps {
   data: EngagementMetrics;
 }
-
-const COLORS = ['#0A66C2', '#378FE9', '#4B9EFF', '#7CB9E8', '#B8D4F1'];
 
 export const AnalyticsView: React.FC<AnalyticsViewProps> = ({ data }) => {
   // Extract discovery data if available

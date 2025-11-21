@@ -1,62 +1,45 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { FileUpload } from './components/FileUpload';
 import { UnifiedDashboard } from './components/UnifiedDashboard';
 import { Loading } from './components/Loading';
 import { ErrorDisplay } from './components/Error';
 import { Header } from './components/Header';
-import { uploadFile, getEngagementMetrics, getDemographicInsights } from './utils/api';
-import type { DemographicInsights } from './types';
+import type { DemographicInsights, EngagementMetrics } from './types';
+import type { ParsedExcelData } from './utils/excel/types';
 import './App.css';
 
 function App() {
-  const [fileId, setFileId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [engagement, setEngagement] = useState(null);
+  const [engagement, setEngagement] = useState<EngagementMetrics | null>(null);
   const [demographics, setDemographics] = useState<DemographicInsights | undefined>(undefined);
 
-  useEffect(() => {
-    if (fileId) {
-      loadData();
-    }
-  }, [fileId]);
+  const handleFileProcessed = (excelData: ParsedExcelData, fileError?: string) => {
+    setLoading(false);
 
-  const loadData = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const [engagementData, demographicsData] = await Promise.all([
-        getEngagementMetrics(fileId!),
-        getDemographicInsights(fileId!).catch(() => null),
-      ]);
-      setEngagement(engagementData);
-      setDemographics(demographicsData);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load analytics data');
-    } finally {
-      setLoading(false);
+    if (fileError) {
+      setError(fileError);
+      return;
     }
-  };
 
-  const handleFileSelected = async (file: File) => {
     try {
-      setLoading(true);
       setError(null);
-      const response = await uploadFile(file);
-      if (response.success) {
-        setFileId(response.fileId);
-      } else {
-        setError('Upload failed: ' + response.message);
-      }
+
+      // Convert parsed Excel data to analytics format
+      const engagementMetrics: EngagementMetrics = {
+        discovery_data: excelData.discovery_data,
+        top_posts: excelData.top_posts,
+        engagementByDay: excelData.engagement_by_day,
+      };
+
+      setEngagement(engagementMetrics);
+      setDemographics(excelData.demographics);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to upload file');
-    } finally {
-      setLoading(false);
+      setError(err instanceof Error ? err.message : 'Failed to process Excel data');
     }
   };
 
   const handleRetry = () => {
-    setFileId(null);
     setEngagement(null);
     setDemographics(undefined);
     setError(null);
@@ -75,10 +58,10 @@ function App() {
 
         {loading && <Loading />}
 
-        {!loading && !error && fileId && engagement ? (
+        {!loading && !error && engagement ? (
           <UnifiedDashboard data={engagement} demographics={demographics} />
-        ) : !loading && !error && !fileId ? (
-          <FileUpload onFileSelected={handleFileSelected} isLoading={loading} />
+        ) : !loading && !error && !engagement ? (
+          <FileUpload onFileProcessed={handleFileProcessed} isLoading={loading} />
         ) : null}
       </main>
 

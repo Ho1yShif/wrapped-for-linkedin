@@ -1,5 +1,5 @@
 export interface AnalyticsData {
-  fileId: string;
+  fileId?: string;
   engagement?: EngagementMetrics;
   demographics?: DemographicInsights;
 }

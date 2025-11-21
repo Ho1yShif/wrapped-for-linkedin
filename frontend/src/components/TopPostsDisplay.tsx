@@ -103,8 +103,8 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
                 <div
                   className="top-post-stat-box"
                   style={{
-                    flex: 1,
-                    minWidth: '130px',
+                    flex: '0 1 calc(50% - 0.5rem)',
+                    minWidth: '120px',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.75rem',
@@ -126,8 +126,8 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
                   <div
                     className="top-post-stat-box"
                     style={{
-                      flex: 1,
-                      minWidth: '130px',
+                      flex: '0 1 calc(50% - 0.5rem)',
+                      minWidth: '120px',
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.75rem',
