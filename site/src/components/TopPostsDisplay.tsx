@@ -105,7 +105,6 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
                       src={post.embedUrl}
                       height="350"
                       width="100%"
-                      frameBorder="0"
                       allowFullScreen
                       loading="lazy"
                       className="linkedin-iframe"

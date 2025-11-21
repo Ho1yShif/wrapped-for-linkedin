@@ -43,6 +43,7 @@
   --gradient-primary: linear-gradient(135deg, #0A66C2 0%, #0A8FFF 100%);
   --gradient-accent: linear-gradient(135deg, #1DB954 0%, #1ed760 100%);
   --gradient-warm: linear-gradient(135deg, #FF006E 0%, #FF4B70 100%);
+  --gradient-card: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-card) 100%);
 }
 
 body {

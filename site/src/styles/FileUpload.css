@@ -14,7 +14,7 @@
   padding: 3rem 2rem;
   border: 2px solid var(--border-color-light);
   border-radius: 16px;
-  background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-card) 100%);
+  background: var(--gradient-card);
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   text-align: center;
@@ -79,7 +79,7 @@
 .instructions {
   width: 100%;
   max-width: 600px;
-  background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-card) 100%);
+  background: var(--gradient-card);
   border: 1px solid var(--border-color-light);
   padding: 2rem;
   border-radius: 16px;

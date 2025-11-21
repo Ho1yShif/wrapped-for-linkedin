@@ -104,7 +104,7 @@
 .post-card {
   flex: 1 1 calc(50% - 0.75rem);
   min-width: 360px;
-  background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-card) 100%);
+  background: var(--gradient-card);
   border-radius: 12px;
   padding: 1.5rem;
   border: 2px solid var(--border-color-light);
@@ -270,7 +270,7 @@
   align-items: center;
   gap: 0.75rem;
   padding: 1rem;
-  background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-card) 100%);
+  background: var(--gradient-card);
   border-radius: 12px;
   border: 2px solid var(--border-color-light);
   transition: all 0.2s ease;
