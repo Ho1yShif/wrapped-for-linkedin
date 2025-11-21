@@ -1,0 +1,91 @@
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(255, 0, 110, 0.08) 0%, rgba(255, 0, 110, 0.02) 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 0, 110, 0.2);
+  margin: 2rem 0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.error-icon {
+  font-size: 4rem;
+  animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(10px);
+  }
+}
+
+.error-container h2 {
+  font-size: 1.8rem;
+  background: linear-gradient(135deg, #FF006E, #FF4B70);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  text-align: center;
+}
+
+.error-message {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  text-align: center;
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+.retry-button {
+  background: linear-gradient(135deg, var(--primary-light), var(--accent-cyan));
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 1rem;
+  box-shadow: 0 8px 24px rgba(10, 143, 255, 0.3);
+}
+
+.retry-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(10, 143, 255, 0.4);
+}
+
+.retry-button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .error-icon {
+    font-size: 3rem;
+  }
+
+  .error-container h2 {
+    font-size: 1.4rem;
+  }
+
+  .error-message {
+    font-size: 1rem;
+  }
+
+  .retry-button {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}

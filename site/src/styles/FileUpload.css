@@ -1,0 +1,140 @@
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 2rem;
+}
+
+.dropzone {
+  width: 100%;
+  max-width: 600px;
+  padding: 3rem 2rem;
+  border: 2px solid var(--border-color-light);
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-card) 100%);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+}
+
+.dropzone:hover:not(.disabled) {
+  border-color: var(--primary-light);
+  background: rgba(10, 102, 194, 0.06);
+  box-shadow: 0 0 32px rgba(10, 143, 255, 0.2);
+}
+
+.dropzone.active {
+  border-color: var(--primary-light);
+  background: rgba(10, 102, 194, 0.06);
+  transform: scale(1.02);
+  box-shadow: 0 0 40px rgba(10, 143, 255, 0.3);
+}
+
+.dropzone.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dropzone-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.upload-icon {
+  font-size: 3rem;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.dropzone-text {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.dropzone-subtext {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.dropzone-formats {
+  font-size: 0.9rem;
+  color: var(--accent-green);
+  font-weight: 500;
+}
+
+.instructions {
+  width: 100%;
+  max-width: 600px;
+  background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-card) 100%);
+  border: 1px solid var(--border-color-light);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.instructions h3 {
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  background: white;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.instructions ol {
+  list-style-position: inside;
+  line-height: 2;
+  color: var(--text-secondary);
+}
+
+.instructions li {
+  margin-bottom: 0.5rem;
+}
+
+.instructions a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.instructions a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .file-upload-container {
+    min-height: auto;
+  }
+
+  .dropzone {
+    padding: 2rem 1rem;
+  }
+
+  .upload-icon {
+    font-size: 2.5rem;
+  }
+
+  .dropzone-text {
+    font-size: 1.1rem;
+  }
+
+  .instructions {
+    padding: 1.5rem;
+  }
+}
