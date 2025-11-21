@@ -35,7 +35,7 @@ interface PostData {
 /**
  * Parse the Top Posts sheet to extract top performing posts
  * @param workbook - Parsed Excel workbook from xlsx library
- * @returns Array of LinkedInTopPost objects sorted by engagement (highest first)
+ * @returns Array of LinkedInTopPost objects in the order they appear in the spreadsheet (already sorted by engagement)
  */
 export function parseTopPosts(workbook: WorkBook): LinkedInTopPost[] {
   const sheet = findSheet(workbook, 'TOP POSTS');
@@ -127,10 +127,10 @@ export function parseTopPosts(workbook: WorkBook): LinkedInTopPost[] {
       processPostData(cellE, cellF, cellG, 'impressions');
     }
 
-    // Convert map to sorted array, ranked by engagement (highest first)
-    // Single pass: create output array while sorting
-    const sortedPosts = Array.from(postsMap.values())
-      .sort((a, b) => (b.engagements || 0) - (a.engagements || 0))
+    // Convert map to array, preserving the order from the spreadsheet
+    // The spreadsheet is already sorted by engagement, so we maintain that order
+    // Single pass: create output array while assigning ranks
+    const posts = Array.from(postsMap.values())
       .map((post, index) => ({
         rank: index + 1,
         url: post.url,
@@ -139,7 +139,7 @@ export function parseTopPosts(workbook: WorkBook): LinkedInTopPost[] {
         impressions: post.impressions || 0,
       } as LinkedInTopPost));
 
-    return sortedPosts;
+    return posts;
   } catch (error) {
     console.error('Error parsing TOP POSTS sheet:', error);
     return [];
