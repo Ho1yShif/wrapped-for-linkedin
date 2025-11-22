@@ -36,23 +36,16 @@ export async function exportCardAsImage(element: HTMLElement): Promise<Blob> {
     const shareButtons = clone.querySelectorAll('.share-button-wrapper, .share-button, [class*="share"]');
     shareButtons.forEach(btn => btn.remove());
 
-    // Replace metric values with plain text to remove gradient highlighting
+    // Fix metric values by overriding only the problematic gradient properties
     const metricValues = clone.querySelectorAll('.metric-value');
     metricValues.forEach(el => {
       const element = el as HTMLElement;
-      const textContent = element.textContent || '';
-
-      // Create a new plain div with no class
-      const plainDiv = document.createElement('div');
-      plainDiv.textContent = textContent;
-      plainDiv.style.fontSize = '2rem';
-      plainDiv.style.fontWeight = '700';
-      plainDiv.style.color = 'rgba(255, 255, 255, 0.95)';
-      plainDiv.style.margin = '0';
-      plainDiv.style.padding = '0';
-
-      // Replace the element
-      element.parentNode?.replaceChild(plainDiv, element);
+      // Keep the class for other CSS properties, but override the gradient/transparency
+      element.style.setProperty('background', 'transparent', 'important');
+      (element.style as any).setProperty('-webkit-background-clip', 'unset', 'important');
+      (element.style as any).setProperty('-webkit-text-fill-color', 'unset', 'important');
+      element.style.setProperty('background-clip', 'unset', 'important');
+      element.style.setProperty('color', 'rgba(255, 255, 255, 0.95)', 'important');
     });
 
     // Get dimensions
