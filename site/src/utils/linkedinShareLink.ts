@@ -6,62 +6,42 @@
  */
 
 /**
- * Get the application URL for sharing
- * In production, this should be your deployed app URL
+ * Current year for share text
  */
-
-const shareUrl = 'https://www.linkedin.com/feed/?shareActive=true&text=%F0%9F%8E%81%20My%20LinkedIn%20Wrapped%20is%20here!%20This%20year%20brought%20incredible%20insights,%20meaningful%20connections,%20and%20inspiring%20conversations.%20Here%27s%20to%20another%20year%20of%20growth%20and%20community!%0A%0AGet%20your%20LinkedIn%20Wrapped%20here:%20[actual-url-here]%0A%0A%23LinkedInWrapped%20%23ProfessionalGrowth';
-
-function getAppUrl(): string {
-  // Check if we're in development or production
-  const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-
-  if (isDevelopment) {
-    return `http://${window.location.host}`;
-  }
-
-  // In production, use the current origin
-  return window.location.origin;
-}
+const currentYear = new Date().getFullYear();
 
 /**
- * Generate a LinkedIn share URL
- * LinkedIn's sharing endpoint supports URL and summary parameters
+ * Generate a LinkedIn share URL with prefilled text based on card data
  *
- * @param appUrl Optional custom app URL to share. Defaults to current origin.
- * @param summary Optional summary text (note: LinkedIn may not display this in all interfaces)
- * @returns The LinkedIn share URL
+ * @param impressions Optional impressions value from card data
+ * @param membersReached Optional members reached value from card data
+ * @returns The LinkedIn share URL with prefilled text
  */
-export function generateLinkedInShareUrl(appUrl?: string, summary?: string): string {
-  const baseUrl = appUrl || getAppUrl();
-  const params = new URLSearchParams();
+export function generateLinkedInShareUrl(
+  impressions?: string | number,
+  membersReached?: string | number
+): string {
+  // App URL will be hardcoded after deployment
+  const appUrl = 'placeholder'; // TODO: Replace with deployed app URL
 
-  // Add the app URL to share
-  params.append('url', baseUrl);
+  // Build share URL with prefilled text
+  const shareUrlWithText = `https://www.linkedin.com/feed/?shareActive=true&text=%F0%9F%8E%81%20Just%20got%20my%20LinkedIn%20Wrapped%20for%20${currentYear}!%0A%0AThis%20year%3A%20${impressions || 0}%20impressions%2C%20${membersReached || 0}%20people%20reached%2C%20and%20countless%20connections%20that%20mattered.%0A%0AWhat%27s%20your%20LinkedIn%20story%3F%20Get%20yours%20here%3A%20${appUrl}%0A%0A%23LinkedInWrapped%20%23${currentYear}Recap`;
 
-  // Add summary if provided (limited support)
-  if (summary) {
-    params.append('summary', summary.substring(0, 300)); // LinkedIn limits summary length
-  }
-
-  return `https://www.linkedin.com/sharing/share-offsite/?${params.toString()}`;
+  return shareUrlWithText;
 }
 
 /**
  * Open LinkedIn share dialog in a new window
- * Users will see the app preview and can add their own text
+ * Users will see the prefilled share text and can add their own comments
  *
- * @param appUrl Optional custom app URL to share
- * @param summary Optional summary text
- * @param windowName Optional name for the window
+ * @param impressions Optional impressions value from card data
+ * @param membersReached Optional members reached value from card data
  */
 export function openLinkedInShare(
-  appUrl?: string,
-  summary?: string,
-  windowName: string = 'linkedin-share'
+  impressions?: string | number,
+  membersReached?: string | number
 ): Window | null {
-
-  // Open in new tab
+  const shareUrl = generateLinkedInShareUrl(impressions, membersReached);
   return window.open(shareUrl, '_blank');
 }
 
@@ -69,20 +49,22 @@ export function openLinkedInShare(
  * Generate a pre-filled LinkedIn share URL using the LinkedIn Share endpoint
  * This is the primary method for sharing wrapped content
  *
+ * @param impressions Optional impressions value from card data
+ * @param membersReached Optional members reached value from card data
  * @returns Object with shareUrl and instructions
  */
-export function getLinkedInShareConfig(): {
+export function getLinkedInShareConfig(
+  impressions?: string | number,
+  membersReached?: string | number
+): {
   shareUrl: string;
   instructions: string;
-  appUrl: string;
 } {
-  const appUrl = getAppUrl();
-  const shareUrl = generateLinkedInShareUrl(appUrl);
+  const generatedShareUrl = generateLinkedInShareUrl(impressions, membersReached);
 
   return {
-    appUrl,
-    shareUrl,
-    instructions: 'Click the button below to share on LinkedIn. Copy the prepared text to add context to your post.',
+    shareUrl: generatedShareUrl,
+    instructions: 'Click the button below to share on LinkedIn. The text will be copied to your clipboard for posting.',
   };
 }
 

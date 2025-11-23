@@ -3,13 +3,19 @@ import { createPortal } from 'react-dom';
 import { exportCardAsImage } from '../../utils/imageExport';
 import { exportCardsAsPDFFromImages } from '../../utils/pdfExport';
 import { DownloadInstructions } from './DownloadInstructions';
+import type { ShareableCard } from '../../types/wrappedStories';
 import '../../styles/ShareButton.css';
 
 interface ShareButtonProps {
   cardId: string;
   shareText: string;
+  card: ShareableCard;
   cardRef: React.RefObject<HTMLDivElement>;
   allCards?: React.RefObject<HTMLDivElement>[];
+  summaryMetrics?: {
+    impressions: number | string;
+    membersReached: number | string;
+  };
 }
 
 type ExportOption = 'current-card' | 'all-cards' | null;
@@ -23,6 +29,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
   shareText,
   cardRef,
   allCards = [],
+  summaryMetrics,
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
@@ -264,6 +271,8 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
         <DownloadInstructions
           isVisible={showInstructions}
           shareText={shareText}
+          impressions={summaryMetrics?.impressions || 0}
+          membersReached={summaryMetrics?.membersReached || 0}
           exportType={exportType ?? 'current-card'}
           onDismiss={() => setShowInstructions(false)}
         />,

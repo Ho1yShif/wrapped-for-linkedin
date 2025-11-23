@@ -122,6 +122,7 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
         profileId: 'toppost',
         avatarColor: getAvatarColor('top-post'),
         profilePhotoUrl: profilePhotoUrl,
+        icon: '📌',
       },
       shareText: generateShareText('top-post', data),
       backgroundColor: '#0F0F0F',
@@ -216,13 +217,15 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
   }
 
   // Card 8: Year Summary (Always include as final card)
+  // Note: impressions and membersReached are stored as raw numbers for use in LinkedIn share
+  // The display values are formatted in the component
   cards.push({
     id: 'year-summary',
     type: 'year-summary',
     title: 'Year in review',
     data: {
-      impressions: formatNumber(data.discovery_data?.total_impressions || 0),
-      membersReached: formatNumber(data.discovery_data?.members_reached || 0),
+      impressions: data.discovery_data?.total_impressions || 0,
+      membersReached: data.discovery_data?.members_reached || 0,
       engagements: formatNumber(data.discovery_data?.total_engagements || 0),
       newFollowers: formatNumber(data.discovery_data?.new_followers || 0),
       icon: '🗓️',

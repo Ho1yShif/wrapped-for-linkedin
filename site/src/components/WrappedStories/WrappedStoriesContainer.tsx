@@ -34,7 +34,15 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
   }
 
   const totalCards = cards.length;
-  const currentCard = cards[currentCardIndex];
+
+  // Extract summary metrics from the year-summary card to pass to all cards
+  const yearSummaryCard = cards.find(card => card.type === 'year-summary');
+  const summaryMetrics = yearSummaryCard
+    ? {
+        impressions: yearSummaryCard.data.impressions,
+        membersReached: yearSummaryCard.data.membersReached,
+      }
+    : { impressions: 0, membersReached: 0 };
 
   // Clear auto-play timer
   const clearAutoPlayTimer = useCallback(() => {
@@ -189,6 +197,7 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
             cardIndex={index}
             cardRef={cardRefsRef.current[index]}
             allCards={cardRefsRef.current}
+            summaryMetrics={summaryMetrics}
           />
         ))}
       </div>
