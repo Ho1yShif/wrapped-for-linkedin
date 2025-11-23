@@ -13,8 +13,8 @@ interface ShareButtonProps {
   cardRef: React.RefObject<HTMLDivElement>;
   allCards?: React.RefObject<HTMLDivElement>[];
   summaryMetrics?: {
-    impressions: number | string;
-    membersReached: number | string;
+    impressions: string;
+    membersReached: string;
   };
 }
 
@@ -271,8 +271,8 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
         <DownloadInstructions
           isVisible={showInstructions}
           shareText={shareText}
-          impressions={summaryMetrics?.impressions || 0}
-          membersReached={summaryMetrics?.membersReached || 0}
+          impressions={summaryMetrics?.impressions || '0'}
+          membersReached={summaryMetrics?.membersReached || '0'}
           exportType={exportType ?? 'current-card'}
           onDismiss={() => setShowInstructions(false)}
         />,

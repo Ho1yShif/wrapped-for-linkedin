@@ -22,7 +22,7 @@ export function generateLinkedInShareUrl(
   membersReached?: string | number
 ): string {
   // App URL will be hardcoded after deployment
-  const appUrl = 'placeholder'; // TODO: Replace with deployed app URL
+  const appUrl = 'TODO'; // TODO: Replace with deployed app URL
 
   // Build share URL with prefilled text
   const shareUrlWithText = `https://www.linkedin.com/feed/?shareActive=true&text=%F0%9F%8E%81%20Just%20got%20my%20LinkedIn%20Wrapped%20for%20${currentYear}!%0A%0AThis%20year%3A%20${impressions || 0}%20impressions%2C%20${membersReached || 0}%20people%20reached%2C%20and%20countless%20connections%20that%20mattered.%0A%0AWhat%27s%20your%20LinkedIn%20story%3F%20Get%20yours%20here%3A%20${appUrl}%0A%0A%23LinkedInWrapped%20%23${currentYear}Recap`;

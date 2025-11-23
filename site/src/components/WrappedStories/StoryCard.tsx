@@ -9,25 +9,9 @@ interface StoryCardProps {
   cardRef?: React.RefObject<HTMLDivElement>;
   allCards?: React.RefObject<HTMLDivElement>[];
   summaryMetrics?: {
-    impressions: number | string;
-    membersReached: number | string;
+    impressions: string;
+    membersReached: string;
   };
-}
-
-/**
- * Format large numbers for display (e.g., 1500000 -> 1.5M)
- */
-function formatNumber(num: number | string): string {
-  const numVal = typeof num === 'string' ? parseInt(num, 10) : num;
-  if (isNaN(numVal)) return '0';
-
-  if (numVal >= 1000000) {
-    return (numVal / 1000000).toFixed(numVal % 1000000 === 0 ? 0 : 1) + 'M';
-  }
-  if (numVal >= 1000) {
-    return (numVal / 1000).toFixed(numVal % 1000 === 0 ? 0 : 1) + 'K';
-  }
-  return numVal.toString();
 }
 
 export const StoryCard: React.FC<StoryCardProps> = ({
@@ -74,11 +58,11 @@ export const StoryCard: React.FC<StoryCardProps> = ({
             <div className="summary-metrics">
               <div className="metric-row">
                 <div className="metric">
-                  <div className="metric-value">{formatNumber(card.data.impressions)}</div>
+                  <div className="metric-value">{card.data.impressions}</div>
                   <div className="metric-label">Total impressions</div>
                 </div>
                 <div className="metric">
-                  <div className="metric-value">{formatNumber(card.data.membersReached)}</div>
+                  <div className="metric-value">{card.data.membersReached}</div>
                   <div className="metric-label">Members reached</div>
                 </div>
               </div>

@@ -42,7 +42,7 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
         impressions: yearSummaryCard.data.impressions,
         membersReached: yearSummaryCard.data.membersReached,
       }
-    : { impressions: 0, membersReached: 0 };
+    : { impressions: '0', membersReached: '0' };
 
   // Clear auto-play timer
   const clearAutoPlayTimer = useCallback(() => {
