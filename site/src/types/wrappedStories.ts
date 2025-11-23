@@ -5,7 +5,7 @@
 export type CardType =
   | 'total-impressions'
   | 'members-reached'
-  | 'engagement-rate'
+  | 'engagements'
   | 'engagements'
   | 'top-post'
   | 'audience-industry'

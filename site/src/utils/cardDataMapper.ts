@@ -155,8 +155,8 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
   // Card 5: Engagements
   if (data.discovery_data?.total_engagements) {
     cards.push({
-      id: 'engagement-rate',
-      type: 'engagement-rate',
+      id: 'engagements',
+      type: 'engagements',
       title: 'Engagement Expert',
       data: {
         value: formatNumber(data.discovery_data.total_engagements),
@@ -164,7 +164,7 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
         icon: '❤️',
         context: 'Your audience loves your content',
         profileId: 'engage',
-        avatarColor: getAvatarColor('engagement-rate'),
+        avatarColor: getAvatarColor('engagements'),
       },
       shareText: generateShareText('engagements', data),
       backgroundColor: '#0F0F0F',
