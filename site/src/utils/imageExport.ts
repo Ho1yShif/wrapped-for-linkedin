@@ -96,16 +96,19 @@ export async function exportCardAsImage(element: HTMLElement): Promise<Blob> {
     const shareButtons = clone.querySelectorAll('.share-button-wrapper, .share-button, [class*="share"]');
     shareButtons.forEach(btn => btn.remove());
 
-    // Remove iframes (they won't render in canvas anyway) and ensure fallback content shows
-    const iframes = clone.querySelectorAll('iframe');
-    iframes.forEach((iframe) => {
-      (iframe as HTMLElement).style.display = 'none';
-    });
-
-    // Ensure fallback elements are visible for peak performer cards
-    const fallbacks = clone.querySelectorAll('.peak-post-fallback');
-    fallbacks.forEach((fallback) => {
-      (fallback as HTMLElement).style.display = 'flex';
+    // Replace iframes with trophy emoji for peak performer card exports only
+    const iframeContainers = clone.querySelectorAll('.peak-post-embed-container');
+    const originalContainers: Map<HTMLElement, HTMLElement> = new Map();
+    iframeContainers.forEach((container) => {
+      const trophyDiv = document.createElement('div');
+      trophyDiv.style.display = 'flex';
+      trophyDiv.style.alignItems = 'center';
+      trophyDiv.style.justifyContent = 'center';
+      trophyDiv.style.minHeight = '200px';
+      trophyDiv.style.fontSize = '3.5rem';
+      trophyDiv.textContent = '🏆';
+      originalContainers.set(trophyDiv, container as HTMLElement);
+      container.replaceWith(trophyDiv);
     });
 
     // Ensure clone is visible (in case original element was hidden)

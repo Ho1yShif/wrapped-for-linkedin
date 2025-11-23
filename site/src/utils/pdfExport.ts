@@ -89,19 +89,21 @@ function prepareCardForCapture(cardElement: HTMLElement): () => void {
     elementsToRemove.push(shareButton as HTMLElement);
   }
 
-  // Hide iframes and show fallback content for peak performer card
-  const iframes = cardElement.querySelectorAll('iframe');
-  const iframeElements: HTMLElement[] = [];
-  iframes.forEach((iframe) => {
-    (iframe as HTMLElement).style.display = 'none';
-    iframeElements.push(iframe as HTMLElement);
-    elementsToRemove.push(iframe as HTMLElement);
-  });
-
-  // Ensure fallback elements are visible
-  const fallbacks = cardElement.querySelectorAll('.peak-post-fallback');
-  fallbacks.forEach((fallback) => {
-    (fallback as HTMLElement).style.display = 'flex';
+  // Replace iframes with trophy emoji for peak performer card
+  const iframeContainers = cardElement.querySelectorAll('.peak-post-embed-container');
+  const replacedContainers: Array<{ original: HTMLElement; trophy: HTMLElement }> = [];
+  iframeContainers.forEach((container) => {
+    const trophyDiv = document.createElement('div');
+    trophyDiv.style.display = 'flex';
+    trophyDiv.style.alignItems = 'center';
+    trophyDiv.style.justifyContent = 'center';
+    trophyDiv.style.minHeight = '200px';
+    trophyDiv.style.fontSize = '3.5rem';
+    trophyDiv.textContent = '🏆';
+    const originalContainer = container as HTMLElement;
+    originalContainer.replaceWith(trophyDiv);
+    replacedContainers.push({ original: originalContainer, trophy: trophyDiv });
+    elementsToRemove.push(trophyDiv);
   });
 
   // Inject CSS to remove all border-radius and text highlighting effects
@@ -162,6 +164,13 @@ function prepareCardForCapture(cardElement: HTMLElement): () => void {
     // Restore share button visibility
     elementsToRemove.forEach(el => {
       el.style.display = '';
+    });
+
+    // Restore original iframe containers
+    replacedContainers.forEach(({ original, trophy }) => {
+      if (trophy.parentNode) {
+        trophy.replaceWith(original);
+      }
     });
 
     // Remove temporary styles
