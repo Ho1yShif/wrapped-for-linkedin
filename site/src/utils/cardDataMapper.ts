@@ -114,8 +114,8 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
       title: 'Peak Performer',
       data: {
         value: formatNumber(topPost.engagements),
+        impressions: topPost.impressions ? formatNumber(topPost.impressions) : undefined,
         label: 'Engagements on Your Top Post',
-        icon: '🏆',
         context: 'Your highest-performing content',
         url: topPost.url,
         date: topPost.publish_date,

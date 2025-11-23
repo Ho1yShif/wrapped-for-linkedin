@@ -9,6 +9,9 @@
  * Get the application URL for sharing
  * In production, this should be your deployed app URL
  */
+
+const shareUrl = 'https://www.linkedin.com/feed/?shareActive=true&text=%F0%9F%8E%81%20My%20LinkedIn%20Wrapped%20is%20here!%20This%20year%20brought%20incredible%20insights,%20meaningful%20connections,%20and%20inspiring%20conversations.%20Here%27s%20to%20another%20year%20of%20growth%20and%20community!%0A%0AGet%20your%20LinkedIn%20Wrapped%20here:%20[actual-url-here]%0A%0A%23LinkedInWrapped%20%23ProfessionalGrowth';
+
 function getAppUrl(): string {
   // Check if we're in development or production
   const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
@@ -57,14 +60,9 @@ export function openLinkedInShare(
   summary?: string,
   windowName: string = 'linkedin-share'
 ): Window | null {
-  const shareUrl = 'https://www.linkedin.com/feed/?shareActive=true&text=%F0%9F%8E%81%20My%20LinkedIn%20Wrapped%20is%20here!%20This%20year%20brought%20incredible%20insights,%20meaningful%20connections,%20and%20inspiring%20conversations.%20Here%27s%20to%20another%20year%20of%20growth%20and%20community!%0A%0AGet%20your%20LinkedIn%20Wrapped%20here:%20[actual-url-here]%0A%0A%23LinkedInWrapped%20%23ProfessionalGrowth';
 
-  // Open in new window with specific dimensions
-  return window.open(
-    shareUrl,
-    windowName,
-    'width=550,height=680,location=no,toolbar=no,menubar=no,resizable=yes'
-  );
+  // Open in new tab
+  return window.open(shareUrl, '_blank');
 }
 
 /**

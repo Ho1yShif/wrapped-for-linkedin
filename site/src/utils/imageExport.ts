@@ -96,6 +96,18 @@ export async function exportCardAsImage(element: HTMLElement): Promise<Blob> {
     const shareButtons = clone.querySelectorAll('.share-button-wrapper, .share-button, [class*="share"]');
     shareButtons.forEach(btn => btn.remove());
 
+    // Remove iframes (they won't render in canvas anyway) and ensure fallback content shows
+    const iframes = clone.querySelectorAll('iframe');
+    iframes.forEach((iframe) => {
+      (iframe as HTMLElement).style.display = 'none';
+    });
+
+    // Ensure fallback elements are visible for peak performer cards
+    const fallbacks = clone.querySelectorAll('.peak-post-fallback');
+    fallbacks.forEach((fallback) => {
+      (fallback as HTMLElement).style.display = 'flex';
+    });
+
     // Ensure clone is visible (in case original element was hidden)
     clone.style.opacity = '1';
     clone.style.transform = 'scale(1)';

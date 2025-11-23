@@ -189,13 +189,12 @@
 .card-value {
   font-size: 3.5rem;
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.5;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.7));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  word-break: break-word;
 }
 
 .card-label {
@@ -303,6 +302,132 @@
   font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.65);
   font-style: italic;
+}
+
+/* Peak Performer Card Content */
+.peak-performer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 90%;
+  flex: 1;
+}
+
+/* Peak Post Embed Wrapper */
+.peak-post-embed-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.peak-post-embed-container {
+  width: 100%;
+  min-height: 350px;
+  overflow: visible;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.peak-post-iframe {
+  width: 100% !important;
+  height: 350px !important;
+  border: none;
+  display: block;
+  background: transparent;
+}
+
+.peak-post-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  min-height: 200px;
+}
+
+.fallback-emoji {
+  font-size: 2.5rem;
+}
+
+.fallback-message {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+/* Peak Post Metrics */
+.peak-post-metrics {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.peak-metric {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  flex: 1;
+  min-width: 140px;
+  transition: all 0.3s ease;
+}
+
+.peak-metric:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.peak-metric-icon {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.peak-metric-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.peak-metric-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.75));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.peak-metric-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+/* Peak Post Date */
+.peak-post-context {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+  letter-spacing: 0.3px;
 }
 
 /* Card Footer */
@@ -415,6 +540,36 @@
     padding: 0.6rem 1.2rem;
     font-size: 0.85rem;
   }
+
+  /* Peak Performer Responsive */
+  .peak-performer-content {
+    gap: 1rem;
+  }
+
+  .peak-post-embed-container {
+    border-radius: 10px;
+  }
+
+  .peak-post-metrics {
+    gap: 0.75rem;
+  }
+
+  .peak-metric {
+    padding: 0.75rem 1rem;
+    min-width: 130px;
+  }
+
+  .peak-metric-value {
+    font-size: 1.3rem;
+  }
+
+  .peak-metric-label {
+    font-size: 0.7rem;
+  }
+
+  .peak-post-context {
+    font-size: 0.8rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -457,6 +612,51 @@
   .control-button {
     padding: 0.5rem 1rem;
     font-size: 0.8rem;
+  }
+
+  /* Peak Performer Responsive - Small Screen */
+  .peak-performer-content {
+    gap: 0.875rem;
+  }
+
+  .peak-post-embed-container {
+    border-radius: 8px;
+  }
+
+  .peak-post-fallback {
+    min-height: 160px;
+    padding: 1.5rem 1rem;
+  }
+
+  .fallback-emoji {
+    font-size: 2rem;
+  }
+
+  .fallback-message {
+    font-size: 0.9rem;
+  }
+
+  .peak-post-metrics {
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .peak-metric {
+    padding: 0.75rem 1rem;
+    min-width: 120px;
+    flex: 0 1 calc(50% - 0.25rem);
+  }
+
+  .peak-metric-value {
+    font-size: 1.2rem;
+  }
+
+  .peak-metric-label {
+    font-size: 0.65rem;
+  }
+
+  .peak-post-context {
+    font-size: 0.75rem;
   }
 }
 

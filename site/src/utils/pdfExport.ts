@@ -89,6 +89,21 @@ function prepareCardForCapture(cardElement: HTMLElement): () => void {
     elementsToRemove.push(shareButton as HTMLElement);
   }
 
+  // Hide iframes and show fallback content for peak performer card
+  const iframes = cardElement.querySelectorAll('iframe');
+  const iframeElements: HTMLElement[] = [];
+  iframes.forEach((iframe) => {
+    (iframe as HTMLElement).style.display = 'none';
+    iframeElements.push(iframe as HTMLElement);
+    elementsToRemove.push(iframe as HTMLElement);
+  });
+
+  // Ensure fallback elements are visible
+  const fallbacks = cardElement.querySelectorAll('.peak-post-fallback');
+  fallbacks.forEach((fallback) => {
+    (fallback as HTMLElement).style.display = 'flex';
+  });
+
   // Inject CSS to remove all border-radius and text highlighting effects
   const styleId = 'pdf-export-styles-' + Math.random().toString(36).substr(2, 9);
   const style = document.createElement('style');

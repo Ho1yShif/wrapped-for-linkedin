@@ -73,28 +73,55 @@ export const StoryCard: React.FC<StoryCardProps> = ({
               </div>
             </div>
           ) : card.type === 'top-post' ? (
-            // Top post card with engagement details
-            <div className="top-post-content">
-              <div className="post-engagements">
-                <div className="engagement-stat">
-                  <span className="engagement-icon">❤️</span>
-                  <span className="engagement-value">{card.data.value}</span>
+            // Peak Performer card with LinkedIn embed and metrics
+            <div className="peak-performer-content">
+              {/* Metrics Display */}
+              <div className="peak-post-metrics">
+                <div className="peak-metric">
+                  <div className="peak-metric-icon">❤️</div>
+                  <div className="peak-metric-info">
+                    <div className="peak-metric-value">{card.data.value}</div>
+                    <div className="peak-metric-label">Engagements</div>
+                  </div>
                 </div>
+                {card.data.impressions && (
+                  <div className="peak-metric">
+                    <div className="peak-metric-icon">✨</div>
+                    <div className="peak-metric-info">
+                      <div className="peak-metric-value">{card.data.impressions}</div>
+                      <div className="peak-metric-label">Impressions</div>
+                    </div>
+                  </div>
+                )}
               </div>
-              {card.data.label && (
-                <div className="card-label">{card.data.label}</div>
-              )}
+
+              {/* LinkedIn Post Embed */}
+              <div className="peak-post-embed-wrapper">
+                {card.data.url ? (
+                  <div className="peak-post-embed-container">
+                    <iframe
+                      src={`https://www.linkedin.com/embed/feed/update/${card.data.url.split('/').pop()}`}
+                      height="300"
+                      width="100%"
+                      allowFullScreen
+                      loading="lazy"
+                      className="peak-post-iframe"
+                      title="Peak Performer Post"
+                    />
+                  </div>
+                ) : (
+                  <div className="peak-post-fallback">
+                    <div className="fallback-emoji">📌</div>
+                    <p className="fallback-message">Top Post</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Post Context */}
               {card.data.date && (
-                <div className="post-date">
-                  Published: {new Date(card.data.date).toLocaleDateString('en-US', {
-                    month: 'short',
-                    day: 'numeric',
-                    year: 'numeric'
-                  })}
+                <div className="peak-post-context">
+                  Your most impactful moment
                 </div>
-              )}
-              {card.data.context && (
-                <div className="card-context">{card.data.context}</div>
               )}
             </div>
           ) : (
