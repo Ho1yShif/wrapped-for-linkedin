@@ -107,6 +107,7 @@ function prepareCardForCapture(cardElement: HTMLElement): () => void {
   });
 
   // Inject CSS to remove all border-radius and text highlighting effects
+  // while preserving line-height, letter-spacing, and word-break
   const styleId = 'pdf-export-styles-' + Math.random().toString(36).substr(2, 9);
   const style = document.createElement('style');
   style.id = styleId;
@@ -116,6 +117,11 @@ function prepareCardForCapture(cardElement: HTMLElement): () => void {
       -webkit-background-clip: unset !important;
       background-clip: unset !important;
       -webkit-text-fill-color: unset !important;
+      /* Preserve spacing properties for proper text rendering */
+      line-height: inherit !important;
+      letter-spacing: inherit !important;
+      word-spacing: inherit !important;
+      word-break: inherit !important;
     }
 
     [data-pdf-export] *::before,

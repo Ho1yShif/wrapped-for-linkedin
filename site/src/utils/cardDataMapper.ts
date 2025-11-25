@@ -69,7 +69,7 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
       title: 'Impression Icon',
       data: {
         value: formatNumber(data.discovery_data.total_impressions),
-        label: 'Total impressions in 2025',
+        label: 'Total impressions',
         icon: '✨',
         context: 'Your posts were seen this many times',
         profileId: 'impressions',
@@ -122,7 +122,6 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
         profileId: 'toppost',
         avatarColor: getAvatarColor('top-post'),
         profilePhotoUrl: profilePhotoUrl,
-        icon: '📌',
       },
       shareText: generateShareText('top-post', data),
       backgroundColor: '#0F0F0F',
