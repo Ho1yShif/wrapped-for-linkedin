@@ -51,7 +51,7 @@ export const StoryCard: React.FC<StoryCardProps> = ({
 
 
         <div className="card-body">
-          <span className="card-icon">{card.data.icon}</span>
+          {card.data.icon && <span className="card-icon">{card.data.icon}</span>}
 
           {card.type === 'year-summary' ? (
             // Summary card with multiple metrics

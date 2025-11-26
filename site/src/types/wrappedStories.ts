@@ -16,7 +16,7 @@ export type CardType =
 export interface CardData {
   value?: number | string;
   label?: string;
-  icon: string;
+  icon?: string;
   context?: string;
   profileId?: string; // LinkedIn profile ID
   avatarColor?: string; // Avatar background color

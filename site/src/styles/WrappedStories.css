@@ -60,7 +60,7 @@
   width: 100%;
   aspect-ratio: 9 / 14;
   max-height: 90vh;
-  min-height: 600px;
+  min-height: 500px;
   margin-bottom: 1.5rem;
   touch-action: pan-y;
   user-select: none;
@@ -78,7 +78,7 @@
   justify-content: flex-start;
   align-items: center;
   text-align: center;
-  overflow: hidden;
+  overflow: visible;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0;
   transform: scale(0.95);
@@ -117,9 +117,9 @@
   pointer-events: auto;
   position: relative;
   z-index: 5;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  overflow: hidden;
+  padding-top: 0.75rem;
+  padding-bottom: 1rem;
+  overflow: visible;
 }
 
 .story-card:not(.top-post) .card-content-wrapper {
@@ -135,7 +135,7 @@
   border-radius: 50%;
   object-fit: cover;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
-  margin-top: 2%;
+  margin-top: 0.5rem;
   flex-shrink: 0;
 }
 
@@ -172,6 +172,7 @@
   align-items: flex-start;
   gap: 1rem;
   flex-shrink: 0;
+  min-height: auto;
 }
 
 .card-title {
@@ -198,6 +199,8 @@
     align-items: center;
     gap: 1.2rem;
     width: 100%;
+    min-height: 0;
+    overflow: visible;
   }.card-icon {
   font-size: clamp(2.5rem, 10vw, 4rem);
   line-height: 1;
@@ -477,10 +480,11 @@
 .branding {
   font-size: 0.85rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.75);
   letter-spacing: 0.5px;
   text-transform: uppercase;
   text-align: left;
+  padding: 0.25rem 0;
 }
 
 /* Story Controls */
@@ -509,7 +513,7 @@
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-.control-button:hover:not(:disabled) {
+.control-button:hover {
   background-color: rgba(10, 102, 194, 0.3);
   border-color: rgba(10, 102, 194, 0.6);
   transform: none !important;
@@ -536,7 +540,7 @@
   text-transform: uppercase;
 }
 
-/* Intermediate Responsive (Tablets 600px-768px) */
+/* Small Desktop View (Tablets 600px-768px) */
 @media (max-width: 768px) and (min-width: 600px) {
   .wrapped-stories-container {
     padding: 1rem;
@@ -546,15 +550,25 @@
   .story-viewport {
     aspect-ratio: 9 / 14;
     margin-bottom: 1rem;
+    min-height: 450px;
   }
 
   .story-card {
     border-radius: 16px;
-    padding: 1.5rem;
+    padding: 1.25rem;
+  }
+
+  .card-content-wrapper {
+    padding-top: 0.5rem;
+    padding-bottom: 0.75rem;
   }
 
   .card-title {
     font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+  }
+
+  .card-circular-logo {
+    margin-top: 0.25rem;
   }
 
   .card-icon {

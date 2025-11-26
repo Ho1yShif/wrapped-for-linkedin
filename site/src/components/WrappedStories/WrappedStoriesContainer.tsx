@@ -61,8 +61,7 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
       setCurrentCardIndex(prev => {
         const nextIndex = prev + 1;
         if (nextIndex >= totalCards) {
-          setIsAutoPlaying(false);
-          return prev;
+          return 0;  // Cycle back to beginning
         }
         return nextIndex;
       });
@@ -73,36 +72,36 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
   const handleNext = useCallback(() => {
     setCurrentCardIndex(prev => {
       const nextIndex = prev + 1;
-      if (nextIndex >= totalCards) return prev;
+      if (nextIndex >= totalCards) return 0;  // Cycle to beginning
       return nextIndex;
     });
     clearAutoPlayTimer();
-    // Only stop auto-play if not manually paused
+    // Continue autoplay unless manually paused
     if (!userManuallyPaused) {
-      setIsAutoPlaying(false);
+      setIsAutoPlaying(true);
     }
   }, [totalCards, clearAutoPlayTimer, userManuallyPaused]);
 
   const handlePrevious = useCallback(() => {
     setCurrentCardIndex(prev => {
       const prevIndex = prev - 1;
-      if (prevIndex < 0) return 0;
+      if (prevIndex < 0) return totalCards - 1;  // Cycle to end
       return prevIndex;
     });
     clearAutoPlayTimer();
-    // Only stop auto-play if not manually paused
+    // Continue autoplay unless manually paused
     if (!userManuallyPaused) {
-      setIsAutoPlaying(false);
+      setIsAutoPlaying(true);
     }
-  }, [clearAutoPlayTimer, userManuallyPaused]);
+  }, [totalCards, clearAutoPlayTimer, userManuallyPaused]);
 
   const handleJumpToCard = useCallback((index: number) => {
     if (index >= 0 && index < totalCards) {
       setCurrentCardIndex(index);
       clearAutoPlayTimer();
-      // Only stop auto-play if not manually paused
+      // Continue autoplay unless manually paused
       if (!userManuallyPaused) {
-        setIsAutoPlaying(false);
+        setIsAutoPlaying(true);
       }
     }
   }, [totalCards, clearAutoPlayTimer, userManuallyPaused]);
@@ -112,11 +111,11 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
       clearAutoPlayTimer();
       setIsAutoPlaying(false);
       setUserManuallyPaused(true);
-    } else if (currentCardIndex < totalCards - 1) {
+    } else {
       setUserManuallyPaused(false);
       startAutoPlay();
     }
-  }, [isAutoPlaying, currentCardIndex, totalCards, clearAutoPlayTimer, startAutoPlay]);
+  }, [isAutoPlaying, clearAutoPlayTimer, startAutoPlay]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -166,14 +165,14 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
     touchStartXRef.current = null;
   };
 
-  // Start auto-play on mount if not last card
+  // Start auto-play on mount and restart when card changes if autoplay is active
   useEffect(() => {
-    if (currentCardIndex < totalCards - 1) {
+    if (isAutoPlaying) {
       startAutoPlay();
     }
 
     return () => clearAutoPlayTimer();
-  }, [currentCardIndex, totalCards, startAutoPlay, clearAutoPlayTimer]);
+  }, [currentCardIndex, isAutoPlaying, startAutoPlay, clearAutoPlayTimer]);
 
   return (
     <div className="wrapped-stories-container">
@@ -206,7 +205,6 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
         <button
           className="control-button prev-button"
           onClick={handlePrevious}
-          disabled={currentCardIndex === 0}
           aria-label="Previous card"
           title="Previous card"
         >
@@ -216,7 +214,6 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
         <button
           className={`control-button autoplay-button ${isAutoPlaying ? 'playing' : ''}`}
           onClick={handleToggleAutoPlay}
-          disabled={currentCardIndex === totalCards - 1}
           aria-label={isAutoPlaying ? 'Pause auto-play' : 'Start auto-play'}
           title={isAutoPlaying ? 'Pause' : 'Play'}
         >
@@ -226,7 +223,6 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
         <button
           className="control-button next-button"
           onClick={handleNext}
-          disabled={currentCardIndex === totalCards - 1}
           aria-label="Next card"
           title="Next card"
         >
