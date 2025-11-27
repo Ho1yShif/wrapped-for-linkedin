@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { StoryProgress } from './StoryProgress';
 import { StoryCard } from './StoryCard';
 import type { ShareableCard } from '../../types/wrappedStories';
-import '../../styles/WrappedStories.css';
+import '@styles/WrappedStories.css';
 
 interface WrappedStoriesContainerProps {
   cards: ShareableCard[];
