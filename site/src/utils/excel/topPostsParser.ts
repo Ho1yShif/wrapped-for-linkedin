@@ -22,7 +22,7 @@
  * - Memory efficient: only stores unique URLs
  */
 import type { WorkBook } from 'xlsx';
-import type { LinkedInTopPost } from './types';
+import type { TopPost } from '../../types';
 import { getCellValue, parseDate, parseNumber, parseURL, findSheet } from './utils';
 
 interface PostData {
@@ -35,9 +35,9 @@ interface PostData {
 /**
  * Parse the Top posts sheet to extract top performing posts
  * @param workbook - Parsed Excel workbook from xlsx library
- * @returns Array of LinkedInTopPost objects in the order they appear in the spreadsheet (already sorted by engagement)
+ * @returns Array of TopPost objects in the order they appear in the spreadsheet (already sorted by engagement)
  */
-export function parseTopPosts(workbook: WorkBook): LinkedInTopPost[] {
+export function parseTopPosts(workbook: WorkBook): TopPost[] {
   const sheet = findSheet(workbook, 'Top posts');
   if (!sheet) {
     console.warn('Top posts sheet not found');
@@ -137,7 +137,7 @@ export function parseTopPosts(workbook: WorkBook): LinkedInTopPost[] {
         publish_date: post.date,
         engagements: post.engagements || 0,
         impressions: post.impressions || 0,
-      } as LinkedInTopPost));
+      } as TopPost));
 
     return posts;
   } catch (error) {

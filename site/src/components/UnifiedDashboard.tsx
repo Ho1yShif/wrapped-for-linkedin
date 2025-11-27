@@ -4,7 +4,7 @@ import { TopPostsDisplay } from './TopPostsDisplay';
 import { DemographicsView } from './DemographicsView';
 import { WrappedStoriesContainer } from './WrappedStories/WrappedStoriesContainer';
 import { generateShareableCards } from '../utils/cardDataMapper';
-import type { EngagementMetrics, LinkedInTopPost, DemographicInsights } from '@types';
+import type { EngagementMetrics, TopPost, DemographicInsights } from '@types';
 import type { ParsedExcelData } from '../utils/excel/types';
 import '../styles/UnifiedDashboard.css';
 
@@ -19,7 +19,7 @@ export const UnifiedDashboard: React.FC<UnifiedDashboardProps> = ({
 }) => {
   // Extract discovery data if available
   const discoveryData = data.discovery_data as any;
-  const topPosts: LinkedInTopPost[] = data.top_posts || [];
+  const topPosts: TopPost[] = data.top_posts || [];
 
   // Generate shareable cards for wrapped stories
   const wrappedCards = useMemo(() => {

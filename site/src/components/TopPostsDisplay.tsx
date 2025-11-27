@@ -1,12 +1,12 @@
 import React, { useCallback, useMemo } from 'react';
-import type { LinkedInTopPost } from '@types';
+import type { TopPost } from '@types';
 import '../styles/TopPostsDisplay.css';
 
 interface TopPostsDisplayProps {
-  posts: LinkedInTopPost[];
+  posts: TopPost[];
 }
 
-interface PostWithEmbedUrl extends LinkedInTopPost {
+interface PostWithEmbedUrl extends TopPost {
   embedUrl: string | null;
 }
 

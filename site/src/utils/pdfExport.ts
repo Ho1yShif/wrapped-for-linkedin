@@ -63,6 +63,12 @@ function prepareCardForCapture(cardElement: HTMLElement): () => void {
       webkitBackgroundClip: anyStyle.webkitBackgroundClip,
       webkitTextFillColor: anyStyle.webkitTextFillColor,
       mozBackgroundClip: anyStyle.mozBackgroundClip,
+      position: el.style.position,
+      width: el.style.width,
+      height: el.style.height,
+      fontSize: el.style.fontSize,
+      padding: el.style.padding,
+      margin: el.style.margin,
     };
     originalStyles.set(el, saved);
     elementsToRestore.push(el);
@@ -76,16 +82,29 @@ function prepareCardForCapture(cardElement: HTMLElement): () => void {
   cardElement.style.display = 'block';
   cardElement.style.visibility = 'visible';
 
+  // Set fixed dimensions for PDF output (9:14 aspect ratio at 540px wide)
+  cardElement.style.position = 'relative';
+  cardElement.style.width = '540px';
+  cardElement.style.height = '840px';
+  cardElement.style.maxWidth = 'none';
+  cardElement.style.maxHeight = 'none';
+  cardElement.style.margin = '0';
+  cardElement.style.inset = 'auto';
+
   // Remove border radius for sharp corners - handle pseudo-elements via CSS injection
   cardElement.style.borderRadius = '0';
 
   // Remove text selection effects
   cardElement.style.userSelect = 'none';
 
-  // Remove share button from export
+  // Remove share button from export - ensure it's completely hidden so footer layout adjusts
   const shareButton = cardElement.querySelector('.share-button-wrapper');
   if (shareButton) {
     (shareButton as HTMLElement).style.display = 'none';
+    (shareButton as HTMLElement).style.visibility = 'hidden';
+    (shareButton as HTMLElement).style.width = '0';
+    (shareButton as HTMLElement).style.height = '0';
+    (shareButton as HTMLElement).style.overflow = 'hidden';
     elementsToRemove.push(shareButton as HTMLElement);
   }
 
@@ -97,8 +116,8 @@ function prepareCardForCapture(cardElement: HTMLElement): () => void {
     trophyDiv.style.display = 'flex';
     trophyDiv.style.alignItems = 'center';
     trophyDiv.style.justifyContent = 'center';
-    trophyDiv.style.minHeight = '200px';
-    trophyDiv.style.fontSize = '3.5rem';
+    trophyDiv.style.minHeight = '300px';
+    trophyDiv.style.fontSize = '12rem';
     trophyDiv.textContent = '🏆';
     const originalContainer = container as HTMLElement;
     originalContainer.replaceWith(trophyDiv);
@@ -107,21 +126,99 @@ function prepareCardForCapture(cardElement: HTMLElement): () => void {
   });
 
   // Inject CSS to remove all border-radius and text highlighting effects
-  // while preserving line-height, letter-spacing, and word-break
+  // Normalize sizing units to be PDF-friendly
   const styleId = 'pdf-export-styles-' + Math.random().toString(36).substr(2, 9);
   const style = document.createElement('style');
   style.id = styleId;
   style.textContent = `
+    [data-pdf-export] {
+      font-size: 16px !important;
+      --pdf-export-active: true;
+    }
+
     [data-pdf-export] * {
       border-radius: 0 !important;
       -webkit-background-clip: unset !important;
       background-clip: unset !important;
       -webkit-text-fill-color: unset !important;
-      /* Preserve spacing properties for proper text rendering */
-      line-height: inherit !important;
-      letter-spacing: inherit !important;
-      word-spacing: inherit !important;
-      word-break: inherit !important;
+      /* Use fixed relative units for consistent PDF sizing */
+      font-size: revert !important;
+      line-height: revert !important;
+      letter-spacing: revert !important;
+      word-spacing: revert !important;
+      word-break: revert !important;
+      max-width: 100% !important;
+      width: auto !important;
+    }
+
+    [data-pdf-export] .card-circular-logo {
+      width: 150px !important;
+      height: 150px !important;
+      margin-top: 0.5rem !important;
+    }
+
+    [data-pdf-export] .card-header {
+      justify-content: flex-start !important;
+      text-align: left !important;
+      width: 100% !important;
+    }
+
+    [data-pdf-export] .card-title {
+      font-size: 1.4rem !important;
+      margin: 0 !important;
+      text-align: left !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.5px !important;
+    }
+
+    [data-pdf-export] .card-icon {
+      font-size: 3.5rem !important;
+      margin-bottom: 1rem !important;
+      align-self: center !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+
+    [data-pdf-export] .card-value {
+      font-size: 2.5rem !important;
+      line-height: 1.2 !important;
+    }
+
+    [data-pdf-export] .card-label {
+      font-size: 1rem !important;
+      line-height: 1.4 !important;
+    }
+
+    [data-pdf-export] .metric-value {
+      font-size: 1.75rem !important;
+    }
+
+    /* Trophy emoji for peak performer - keep large font size */
+    [data-pdf-export] .peak-post-embed-container {
+      font-size: 12rem !important;
+      line-height: 1 !important;
+      min-height: 300px !important;
+    }
+
+    [data-pdf-export] .card-footer {
+      justify-content: flex-start !important;
+      align-items: flex-end !important;
+      width: 100% !important;
+    }
+
+    [data-pdf-export] .branding {
+      text-align: left !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      flex: 0 1 auto !important;
+    }
+
+    [data-pdf-export] .share-button-wrapper {
+      display: none !important;
+      visibility: hidden !important;
+      width: 0 !important;
+      height: 0 !important;
+      overflow: hidden !important;
     }
 
     [data-pdf-export] *::before,
@@ -200,8 +297,11 @@ async function captureCardAsCanvas(cardElement: HTMLElement): Promise<HTMLCanvas
     allowTaint: true,
     backgroundColor: '#0F0F0F',
     logging: false,
-    windowHeight: cardElement.scrollHeight,
-    windowWidth: cardElement.scrollWidth,
+    // Use fixed dimensions matching the card's PDF size
+    width: 540,
+    height: 840,
+    windowHeight: 840,
+    windowWidth: 540,
   });
 
   return canvas;
