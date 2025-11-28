@@ -1,6 +1,6 @@
 .demographics-view {
   padding: 2rem 1rem;
-  animation: fadeIn 0.5s ease;
+  animation: demographics-fadeIn 0.5s ease;
 }
 
 .demographics-view.empty-state {
@@ -107,7 +107,7 @@
   transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes fadeIn {
+@keyframes demographics-fadeIn {
   from {
     opacity: 0;
     transform: translateY(20px);

@@ -7,11 +7,11 @@
   align-items: center;
   justify-content: center;
   z-index: 10000;
-  animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: modal-fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 1rem;
 }
 
-@keyframes fadeIn {
+@keyframes modal-fadeIn {
   from {
     opacity: 0;
   }
@@ -29,14 +29,14 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   max-width: 650px;
   width: 100%;
-  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: modal-slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
   max-height: 90vh;
   overflow-y: auto;
 }
 
-@keyframes slideUp {
+@keyframes modal-slideUp {
   from {
     opacity: 0;
     transform: translateY(20px);

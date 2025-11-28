@@ -13,18 +13,18 @@
   height: 80px;
 }
 
-.spinner {
+.loader-spinner {
   width: 100%;
   height: 100%;
   border: 4px solid rgba(29, 185, 84, 0.2);
   border-top: 4px solid var(--primary-light);
   border-right: 4px solid var(--accent-green);
   border-radius: 50%;
-  animation: spin 1.2s linear infinite;
+  animation: loader-spin 1.2s linear infinite;
   box-shadow: 0 0 20px rgba(29, 185, 84, 0.3);
 }
 
-@keyframes spin {
+@keyframes loader-spin {
   0% {
     transform: rotate(0deg);
   }

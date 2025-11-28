@@ -226,7 +226,7 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
       engagements: formatNumber(data.discovery_data?.total_engagements || 0),
       newFollowers: formatNumber(data.discovery_data?.new_followers || 0),
       icon: '🗓️',
-      context: 'Your complete 2025 LinkedIn impact',
+      context: '',
       profileId: 'summary',
       avatarColor: getAvatarColor('year-summary'),
     },

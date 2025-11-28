@@ -9,7 +9,7 @@ export const Loading: React.FC<LoadingProps> = ({ message = 'Loading your Linked
   return (
     <div className="loading-container">
       <div className="loader">
-        <div className="spinner"></div>
+        <div className="loader-spinner"></div>
       </div>
       <p className="loading-message">{message}</p>
     </div>

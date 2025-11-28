@@ -115,10 +115,10 @@ body {
 }
 
 .tab-content {
-  animation: fadeIn 0.3s ease;
+  animation: tab-fadeIn 0.3s ease;
 }
 
-@keyframes fadeIn {
+@keyframes tab-fadeIn {
   from {
     opacity: 0;
     transform: translateY(10px);

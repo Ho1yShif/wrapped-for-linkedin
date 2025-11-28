@@ -221,7 +221,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
         >
           {isExporting ? (
             <>
-              <span className="spinner" />
+              <span className="share-spinner" />
               <span>Exporting...</span>
             </>
           ) : (
