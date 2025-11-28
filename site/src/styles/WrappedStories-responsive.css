@@ -218,9 +218,9 @@
   .story-viewport {
     width: 100%;
     aspect-ratio: 4 / 3;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     flex: 1 1 auto;
-    max-height: 60vh;
+    max-height: 90%;
     min-height: auto;
   }
 
@@ -268,7 +268,7 @@
   }
 
   .card-value {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 
   .card-label {
@@ -382,224 +382,49 @@
   }
 
   .metric-value {
-    font-size: 1.35rem;
+    font-size: clamp(1.2rem, 4.5vw, 1.5rem);
   }
 
   .metric-label {
-    font-size: 0.7rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .wrapped-stories-container {
-    padding: 0.4rem;
-    margin-bottom: 1rem;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    max-width: 100%;
-  }
-
-  .story-progress-container {
-    margin-bottom: 0.5rem;
-    padding: 0.15rem 0;
-    flex-shrink: 0;
-  }
-
-  .progress-bars {
-    gap: 0.3rem;
-  }
-
-  .progress-bar {
-    height: 2px;
-  }
-
-  .story-viewport {
-    width: 100%;
-    aspect-ratio: 3 / 2;
-    margin-bottom: 0.75rem;
-    flex: 1 1 auto;
-    max-height: 55vh;
-    min-height: auto;
-  }
-
-  .story-card {
-    border-radius: 12px;
-    padding: 1rem;
-  }
-
-  .card-content-wrapper {
-    padding-bottom: 0.35rem;
-    padding-top: 0.4rem;
-    gap: 0.4rem;
-  }
-
-  .card-header {
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 0.2rem;
-    width: 100%;
-  }
-
-  .card-title {
-    font-size: 1.15rem;
-    text-align: center;
-    line-height: 1.15;
-    margin-bottom: 0.15rem;
-  }
-
-  /* Small Mobile: 480px and below */
-  .card-circular-logo {
-    width: clamp(50px, 15vw, 80px);
-    height: clamp(50px, 15vw, 80px);
-    margin-top: 0;
-    margin-bottom: 0.2rem;
-  }
-
-  .card-body {
-    margin-bottom: 0.15rem;
-    gap: 0.4rem;
-  }
-
-  .card-footer {
-    margin-bottom: 0.3rem;
-    margin-top: auto;
-  }
-
-  .card-icon {
-    font-size: 2.3rem;
-    margin-bottom: 2%;
-  }
-
-  .card-value {
-    font-size: 1.8rem;
-    line-height: 1.1;
-  }
-
-  .card-label {
-    font-size: 0.85rem;
-  }
-
-  .card-context {
-    font-size: 0.8rem;
-  }
-
-  /* Summary Metrics - Small Mobile */
-  .summary-metrics {
-    gap: 0.5rem;
-    max-width: 100%;
-  }
-
-  .metric-row {
-    gap: 0.4rem;
-  }
-
-  .metric {
-    padding: 0.5rem 0.4rem;
-    flex-basis: calc(50% - 0.2rem);
-    min-width: 70px;
-  }
-
-  .metric-value {
-    font-size: 1.15rem;
-    line-height: 1.1;
-  }
-
-  .metric-label {
-    font-size: 0.65rem;
-  }
-
-  .story-controls {
-    gap: 0.4rem;
-    margin-bottom: 0.5rem;
-    flex-shrink: 0;
-  }
-
-  .control-button {
-    padding: 0.5rem 0.95rem;
-    font-size: 0.75rem;
-    min-height: 38px;
-  }
-
-  .story-info {
-    font-size: 0.7rem;
-    margin-bottom: 0.25rem;
-    flex-shrink: 0;
-  }
-
-  /* Peak Performer Responsive - Small Screen */
-  .peak-performer-content {
-    gap: 0.5rem;
-    flex: 0 1 auto;
-  }
-
-  .peak-post-embed-wrapper {
-    max-height: 350px !important;
-  }
-
-  .peak-performer-content .peak-post-embed-wrapper .peak-post-embed-container {
-    height: calc(15vh - 10px) !important;
-    min-height: calc(15vh - 10px) !important;
-    max-height: calc(20vh - 10px) !important;
-    border-radius: 8px;
+    font-size: clamp(0.8rem, 2.2vw, 0.9rem);
   }
 
   .peak-post-embed-container {
-    height: calc(15vh - 10px) !important;
-    min-height: calc(15vh - 10px) !important;
-    max-height: calc(20vh - 10px) !important;
-    border-radius: 8px;
-  }
-
-  .peak-post-iframe {
-    height: 150px !important;
-    min-height: 150px !important;
+    height: clamp(100px, 20vh, 180px);
+    margin-bottom: 0.75rem;
+    border-radius: 10px;
   }
 
   .peak-post-fallback {
-    min-height: 130px;
+    min-height: clamp(120px, 18vh, 160px);
     padding: 1rem 0.75rem;
   }
 
   .fallback-emoji {
-    font-size: 1.6rem;
+    font-size: clamp(1.6rem, 4vw, 2rem);
   }
 
   .fallback-message {
-    font-size: 0.8rem;
-  }
-
-  .peak-post-metrics {
-    gap: 0.3rem;
-    width: 100%;
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    flex-wrap: nowrap !important;
-  }
-
-  .peak-metric {
-    padding: 0.55rem 0.7rem;
-    gap: 0.4rem;
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-  }
-
-  .peak-metric-icon {
-    font-size: 1.2rem;
+    font-size: clamp(0.8rem, 2vw, 0.95rem);
   }
 
   .peak-metric-value {
-    font-size: 1rem;
+    font-size: clamp(1.1rem, 4vw, 1.4rem);
   }
 
   .peak-metric-label {
-    font-size: 0.55rem;
+    font-size: clamp(0.7rem, 2.2vw, 0.85rem);
   }
 
+  .peak-metric-icon {
+    font-size: clamp(1.3rem, 3.5vw, 1.6rem);
+  }
+}
+
+/* Hide peak post context on very small screens (< 400px) */
+@media (max-width: 389px) {
   .peak-post-context {
-    font-size: 0.7rem;
-    padding-top: 1rem;
+    display: none;
   }
 }
 
@@ -622,10 +447,16 @@
 
   /* Desktop: 1024px and above */
   .card-circular-logo {
-    width: clamp(94px, 15vw, 187px);
-    height: clamp(94px, 15vw, 187px);
+    width: clamp(75px, 12vw, 150px);
+    height: clamp(75px, 12vw, 150px);
     margin-top: 2%;
     margin-bottom: 1%;
+  }
+
+  .story-card.top-post .card-circular-logo {
+    width: clamp(75px, 12vw, 150px);
+    height: clamp(75px, 12vw, 150px);
+    margin-top: 2%;
   }
 
   .card-title {
@@ -660,7 +491,7 @@
   }
 
   .peak-post-embed-container {
-    height: clamp(160px, 24vh, 300px) !important;
+    height: clamp(160px, 24vh, 230px) !important;
     margin-bottom: 1rem;
   }
 
@@ -733,7 +564,7 @@
 
   .card-title {
     font-size: 1rem;
-    text-align: center;
+    text-align: left;
     line-height: 1.1;
     margin-bottom: 0.1rem;
   }

@@ -3,6 +3,7 @@ import { StoryProgress } from './StoryProgress';
 import { StoryCard } from './StoryCard';
 import type { ShareableCard } from '../../types/wrappedStories';
 import '@styles/WrappedStories.css';
+import '@styles/WrappedStories-responsive.css';
 
 interface WrappedStoriesContainerProps {
   cards: ShareableCard[];
