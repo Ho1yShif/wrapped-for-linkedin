@@ -64,9 +64,9 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
           <div className="metric-card">
             <div className="card-background gradient-1"></div>
             <div className="card-content">
-              <h3 className="card-label">Total impressions</h3>
-              <div className="card-value-container">
-                <div className="card-value">
+              <h3 className="spotify-card-label">Total impressions</h3>
+              <div className="spotify-card-value-container">
+                <div className="spotify-card-value">
                   {formatNumber(discovery?.total_impressions || 0)}
                 </div>
               </div>
@@ -78,9 +78,9 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
           <div className="metric-card">
             <div className="card-background gradient-2"></div>
             <div className="card-content">
-              <h3 className="card-label">Members reached</h3>
-              <div className="card-value-container">
-                <div className="card-value">
+              <h3 className="spotify-card-label">Members reached</h3>
+              <div className="spotify-card-value-container">
+                <div className="spotify-card-value">
                   {formatNumber(discovery?.members_reached || 0)}
                 </div>
               </div>
@@ -92,9 +92,9 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
           <div className="metric-card">
             <div className="card-background gradient-2"></div>
             <div className="card-content">
-              <h3 className="card-label">New followers</h3>
-              <div className="card-value-container">
-                <div className="card-value">
+              <h3 className="spotify-card-label">New followers</h3>
+              <div className="spotify-card-value-container">
+                <div className="spotify-card-value">
                   {formatNumber(discovery?.new_followers || 0)}
                 </div>
               </div>
@@ -109,9 +109,9 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
           <div className="metric-card">
             <div className="card-background gradient-3"></div>
             <div className="card-content">
-              <h3 className="card-label">Total engagements</h3>
-              <div className="card-value-container">
-                <div className="card-value secondary-value">
+              <h3 className="spotify-card-label">Total engagements</h3>
+              <div className="spotify-card-value-container">
+                <div className="spotify-card-value">
                   {formatNumber(discovery?.total_engagements || 0)}
                 </div>
               </div>
@@ -124,9 +124,9 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
             <div className="metric-card">
               <div className="card-background gradient-4"></div>
               <div className="card-content">
-                <h3 className="card-label">Best month</h3>
-                <div className="card-value-container">
-                  <div className="card-value secondary-value">
+                <h3 className="spotify-card-label">Best month</h3>
+                <div className="spotify-card-value-container">
+                  <div className="spotify-card-value">
                     {bestMonth.monthYear}
                   </div>
                 </div>
@@ -138,10 +138,10 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
           {/* Median daily impressions Card */}
           <div className="metric-card">
             <div className="card-background gradient-1"></div>
-            <div className="card-content">
-              <h3 className="card-label">median daily impressions</h3>
-              <div className="card-value-container">
-                <div className="card-value secondary-value">
+              <div className="card-content">
+                <h3 className="spotify-card-label">median daily impressions</h3>
+                <div className="spotify-card-value-container">
+                <div className="spotify-card-value">
                   {formatNumber(discovery?.average_impressions_per_day || 0)}
                 </div>
               </div>

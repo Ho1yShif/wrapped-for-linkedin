@@ -1,5 +1,5 @@
 # TODO
-- Increase card label and card value text size in Spotify-style titles i.e. members reached & total engagements
+- Fix peak performer layout on left monitor and check mobile layouts
 - Expand `Members reached` for large creators: You reached X people - that's like filling [stadium name] Y times
 - Remove unused code, especially related to PDF export process
   - Clean up PDF export optimization code

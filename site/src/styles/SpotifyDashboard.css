@@ -76,8 +76,8 @@
   flex-direction: column;
 }
 
-.card-label {
-  font-size: 1.1rem;
+.spotify-card-label {
+  font-size: 2rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.8px;
@@ -85,42 +85,38 @@
   margin-bottom: 1rem;
   transition: color 0.2s ease;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
-.metric-card:hover .card-label {
+.metric-card:hover .spotify-card-label {
   color: var(--text-secondary);
 }
 
-.card-value-container {
+.spotify-card-value-container {
   display: flex;
   align-items: baseline;
   gap: 0.5rem;
 }
 
-.card-value {
-  font-size: 2rem !important;
+.spotify-card-value {
+  font-size: 2.5rem !important;
   font-weight: 700;
   letter-spacing: -1px;
   color: var(--text-primary);
   transition: color 0.2s ease;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
-.primary-value {
-  font-size: 2.25rem !important;
-}
-
-.metric-card:hover .primary-value {
+.metric-card:hover .spotify-card-value {
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.secondary-value {
-  font-size: 2rem !important;
-}
-
-.card-unit {
+.spotify-card-unit {
   font-size: 0.875rem;
   color: var(--text-tertiary);
   font-weight: 500;
@@ -128,7 +124,7 @@
   transition: color 0.2s ease;
 }
 
-.metric-card:hover .card-unit {
+.metric-card:hover .spotify-card-unit {
   color: var(--text-secondary);
 }
 
@@ -197,8 +193,8 @@
     font-size: 2.5rem;
   }
 
-  .card-value {
-    font-size: 1.75rem !important;
+  .spotify-card-value {
+    font-size: 2.2rem !important;
   }
 }
 
@@ -242,12 +238,12 @@
     min-height: 160px;
   }
 
-  .card-value {
-    font-size: 1.3rem !important;
+  .spotify-card-value {
+    font-size: 1.8rem !important;
   }
 
-  .card-label {
-    font-size: 0.8rem;
+  .spotify-card-label {
+    font-size: 1.2rem;
     letter-spacing: 0.7px;
   }
 }
@@ -280,16 +276,16 @@
     margin-bottom: 1rem;
   }
 
-  .card-value {
-    font-size: 1rem !important;
+  .spotify-card-value {
+    font-size: 1.4rem !important;
   }
 
-  .card-label {
-    font-size: 0.7rem;
+  .spotify-card-label {
+    font-size: 1rem;
     letter-spacing: 0.6px;
   }
 
-  .card-unit {
+  .spotify-card-unit {
     font-size: 0.75rem;
   }
 
