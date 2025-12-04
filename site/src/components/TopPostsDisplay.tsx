@@ -70,7 +70,7 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
       <div className="section-header">
         <div>
           <h2 className="section-title">Top posts</h2>
-          <p className="section-subtitle">Your most engaging LinkedIn posts</p>
+          <p className="section-subtitle">What resonated most</p>
         </div>
       </div>
 
