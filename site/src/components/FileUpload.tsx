@@ -99,7 +99,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileProcessed, isLoadi
 
       <div className="privacy-disclaimer">
         <p>
-          🔒 <strong>Your data never leaves your device.</strong>
+          🔒 <strong>Your data never leaves your device</strong>
           <br /> <br />
           All processing happens locally in your browser.
           We don't store, transmit, or use your LinkedIn data for anything else.{' '}
