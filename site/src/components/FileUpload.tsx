@@ -60,6 +60,16 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileProcessed, isLoadi
           onClear={cache.clear}
         />
       )}
+
+      <div className="instructions">
+        <h3>Export your LinkedIn analytics</h3>
+        <ol>
+          <li>Navigate to <a href="https://www.linkedin.com/analytics/creator/content/?metricType=ENGAGEMENTS&timeRange=past_365_days" target="_blank" rel="noreferrer">LinkedIn Analytics</a></li>
+          <li>Click <b>Export</b> in the top right</li>
+          <li>Upload the exported file below ⬇️</li>
+        </ol>
+      </div>
+
       <div {...getRootProps()} className={`dropzone ${isDragActive ? 'active' : ''} ${isLoading || sampleData.isLoading ? 'disabled' : ''}`}>
         <input {...getInputProps()} />
         <div className="dropzone-content">
@@ -82,19 +92,6 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileProcessed, isLoadi
           onClick={sampleData.loadSampleData}
           isLoading={sampleData.isLoading}
         />
-      </div>
-
-      <div className="instructions">
-        <h3>Export your LinkedIn analytics</h3>
-        <ol>
-          <li>Navigate to <a href="https://www.linkedin.com/analytics/creator" target="_blank" rel="noreferrer">LinkedIn Analytics</a></li>
-          <li>Click on <b>Past 7 days</b> at the top to open the dropdown menu</li>
-          <li>Select <b>Past 365 days</b> from the dropdown</li>
-          <li>Click on <b>Impressions</b> to open the dropdown menu</li>
-          <li>Select <b>Engagements</b> from the dropdown</li>
-          <li>Click <b>Export</b> in the top right</li>
-          <li>Upload the exported file here!</li>
-        </ol>
       </div>
 
       <div className="privacy-disclaimer">
