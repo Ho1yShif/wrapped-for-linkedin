@@ -53,7 +53,7 @@ npm run dev
 
 ### Get your LinkedIn wrapped
 
-1. Export your [LinkedIn analytics](https://www.linkedin.com/analytics/creator) as an Excel file after changing the date range to `Past 365 days` and switching to `Engagement mode`.
+1. Export your [LinkedIn analytics](https://www.linkedin.com/analytics/creator/content/?metricType=ENGAGEMENTS&timeRange=past_365_days) as an Excel file.
    - See detailed instructions on the [LinkedIn Wrapped landing page](https://linkedin-wrapped.onrender.com)
 1. Upload the file to LinkedIn Wrapped in the browser.
 1. Explore and share your LinkedIn Wrapped dashboard!
