@@ -6,8 +6,9 @@
 
 :root {
   /* Typography */
-  --font-title: 'Avenir Next', Avenir, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-body: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-title: 'PP Neue Montreal', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Roobert', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'PP Neue Montreal Mono', 'Monaco', 'Courier New', monospace;
 
   /* Primary Colors - LinkedIn Blue */
   --primary-color: #0A66C2;

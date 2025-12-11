@@ -1,0 +1,240 @@
+/* PP Neue Montreal Font Family */
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('/FONTS/PPNeueMontreal OTF/PPNeueMontreal-Thin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('/FONTS/PPNeueMontreal OTF/PPNeueMontreal-ThinItalic.otf') format('opentype');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('/FONTS/PPNeueMontreal OTF/PPNeueMontreal-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('/FONTS/PPNeueMontreal OTF/PPNeueMontreal-LightItalic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('/FONTS/PPNeueMontreal OTF/PPNeueMontreal-Book.otf') format('opentype');
+  font-weight: 350;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('/FONTS/PPNeueMontreal OTF/PPNeueMontreal-BookItalic.otf') format('opentype');
+  font-weight: 350;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('/FONTS/PPNeueMontreal OTF/PPNeueMontreal-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('/FONTS/PPNeueMontreal OTF/PPNeueMontreal-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('/FONTS/PPNeueMontreal OTF/PPNeueMontreal-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('/FONTS/PPNeueMontreal OTF/PPNeueMontreal-MediumItalic.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('/FONTS/PPNeueMontreal OTF/PPNeueMontreal-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('/FONTS/PPNeueMontreal OTF/PPNeueMontreal-SemiBolditalic.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('/FONTS/PPNeueMontreal OTF/PPNeueMontreal-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('/FONTS/PPNeueMontreal OTF/PPNeueMontreal-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* PP Neue Montreal Mono Font Family */
+@font-face {
+  font-family: 'PP Neue Montreal Mono';
+  src: url('/FONTS/PPNeueMontreal Mono_OTF/PP Neue Montreal Mono - Regular v1.0/PPNeueMontrealMono-Regular.woff2') format('woff2'),
+       url('/FONTS/PPNeueMontreal Mono_OTF/PP Neue Montreal Mono - Regular v1.0/PPNeueMontrealMono-Regular.woff') format('woff'),
+       url('/FONTS/PPNeueMontreal Mono_OTF/PP Neue Montreal Mono - Regular v1.0/PPNeueMontrealMono-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal Mono';
+  src: url('/FONTS/PPNeueMontreal Mono_OTF/PP Neue Montreal Mono - Medium v1.0/PPNeueMontrealMono-Medium.woff2') format('woff2'),
+       url('/FONTS/PPNeueMontreal Mono_OTF/PP Neue Montreal Mono - Medium v1.0/PPNeueMontrealMono-Medium.woff') format('woff'),
+       url('/FONTS/PPNeueMontreal Mono_OTF/PP Neue Montreal Mono - Medium v1.0/PPNeueMontrealMono-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal Mono';
+  src: url('/FONTS/PPNeueMontreal Mono_OTF/PP Neue Montreal Mono - Bold v1.0/PPNeueMontrealMono-Bold.woff2') format('woff2'),
+       url('/FONTS/PPNeueMontreal Mono_OTF/PP Neue Montreal Mono - Bold v1.0/PPNeueMontrealMono-Bold.woff') format('woff'),
+       url('/FONTS/PPNeueMontreal Mono_OTF/PP Neue Montreal Mono - Bold v1.0/PPNeueMontrealMono-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Roobert Font Family */
+@font-face {
+  font-family: 'Roobert';
+  src: url('/FONTS/Roobert_OTF/Roobert-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roobert';
+  src: url('/FONTS/Roobert_OTF/Roobert-LightItalic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roobert';
+  src: url('/FONTS/Roobert_OTF/Roobert-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roobert';
+  src: url('/FONTS/Roobert_OTF/Roobert-RegularItalic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roobert';
+  src: url('/FONTS/Roobert_OTF/Roobert-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roobert';
+  src: url('/FONTS/Roobert_OTF/Roobert-MediumItalic.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roobert';
+  src: url('/FONTS/Roobert_OTF/Roobert-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roobert';
+  src: url('/FONTS/Roobert_OTF/Roobert-SemiBoldItalic.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roobert';
+  src: url('/FONTS/Roobert_OTF/Roobert-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roobert';
+  src: url('/FONTS/Roobert_OTF/Roobert-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roobert';
+  src: url('/FONTS/Roobert_OTF/Roobert-Heavy.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roobert';
+  src: url('/FONTS/Roobert_OTF/Roobert-HeavyItalic.otf') format('opentype');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}

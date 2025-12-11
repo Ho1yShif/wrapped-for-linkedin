@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap');
+@import './styles/fonts.css';
 
 :root {
   /* Typography */
-  --font-title: 'Avenir Next', Avenir, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-body: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-title: 'PP Neue Montreal', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Roobert', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'PP Neue Montreal Mono', 'Monaco', 'Courier New', monospace;
 
   font-family: var(--font-body);
   line-height: 1.5;
