@@ -277,6 +277,16 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
 
   return (
     <div className="wrapped-stories-container">
+      {/* Left arrow - positioned on left side of viewport */}
+      <button
+        className="side-nav-button side-nav-prev"
+        onClick={handlePrevious}
+        aria-label="Previous card"
+        title="Previous card"
+      >
+        ←
+      </button>
+
       <div
         className={viewportClassName}
         onTouchStart={handleTouchStart}
@@ -285,6 +295,18 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
         onPointerUp={handlePointerUp}
         onPointerLeave={handlePointerUp}
       >
+        {/* Click zones for desktop navigation */}
+        <div
+          className="click-zone click-zone-left"
+          onClick={handlePrevious}
+          aria-label="Previous card"
+        />
+        <div
+          className="click-zone click-zone-right"
+          onClick={handleNext}
+          aria-label="Next card"
+        />
+
         {/* Swipe Arrow Indicators */}
         {swipeArrowDirection && (
           <>
@@ -318,16 +340,18 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
         ))}
       </div>
 
-      <div className="story-controls">
-        <button
-          className="control-button prev-button"
-          onClick={handlePrevious}
-          aria-label="Previous card"
-          title="Previous card"
-        >
-          ←
-        </button>
+      {/* Right arrow - positioned on right side of viewport */}
+      <button
+        className="side-nav-button side-nav-next"
+        onClick={handleNext}
+        aria-label="Next card"
+        title="Next card"
+      >
+        →
+      </button>
 
+      {/* Pause button stays centered below */}
+      <div className="story-controls">
         <button
           className={`control-button autoplay-button ${isAutoPlaying ? 'playing' : ''}`}
           onClick={handleToggleAutoPlay}
@@ -335,15 +359,6 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
           title={isAutoPlaying ? 'Pause' : 'Play'}
         >
           {isAutoPlaying ? '⏸' : '►'}
-        </button>
-
-        <button
-          className="control-button next-button"
-          onClick={handleNext}
-          aria-label="Next card"
-          title="Next card"
-        >
-          →
         </button>
       </div>
 
