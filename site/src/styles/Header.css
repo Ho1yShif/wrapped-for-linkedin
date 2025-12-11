@@ -6,14 +6,12 @@
   right: 0;
   width: 100%;
   height: 80px;
-  background: rgba(15, 15, 15, 0.7);
-  backdrop-filter: blur(10px);
+  background: rgb(15, 15, 15);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 1000;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   padding: 0 2rem;
 }
 
@@ -64,17 +62,10 @@
   transform: none;
 }
 
-.wrapped-for-linkedin-title {
-  font-family: var(--font-title, 'Avenir Next', Avenir, -apple-system, BlinkMacSystemFont, sans-serif);
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--text-accent, #0A66C2);
-  margin: 0;
-  letter-spacing: -0.5px;
-}
-
-.wrapped-for-linkedin-title:hover {
-  color: #FFFF;
+.wrapped-for-linkedin-title-svg {
+  height: 32px;
+  width: auto;
+  display: block;
 }
 
 .logo-wrapper {
@@ -84,83 +75,26 @@
   gap: 0.75rem;
 }
 
-/* Info Tooltip */
-.info-tooltip-wrapper {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  cursor: help;
-}
-
-.info-icon {
-  font-size: 16px;
-  color: var(--primary-light);
-  transition: color 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-}
-
-.info-tooltip-wrapper:hover .info-icon {
-  color: var(--text-secondary);
-}
-
-.tooltip-content {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-top: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  background: rgba(26, 26, 26, 0.95);
-  border: 1px solid var(--border-color-light);
-  border-radius: 6px;
-  color: var(--text-secondary);
-  font-size: 0.85rem;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
-  pointer-events: none;
-  z-index: 1001;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.info-tooltip-wrapper:hover .tooltip-content {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Tooltip arrow */
-.tooltip-content::before {
-  content: '';
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 5px solid transparent;
-  border-bottom-color: rgba(26, 26, 26, 0.95);
-}
-
-/* Gift Icon */
-.gift-icon {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-  flex-shrink: 0;
-}
-
 /* Render Logo */
 .render-logo-link {
   display: flex;
   align-items: center;
+  gap: 0.75rem;
   transition: opacity 0.2s ease;
+  text-decoration: none;
+}
+
+.render-powered-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 1);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  margin-top: 2px;
 }
 
 .render-logo {
-  height: 28px;
+  height: 22px;
   width: auto;
   object-fit: contain;
   flex-shrink: 0;
@@ -196,12 +130,7 @@
     padding: 0 1.5rem;
   }
 
-  .wrapped-for-linkedin-title {
-    font-size: 18px;
-  }
-
-  .gift-icon {
-    width: 24px;
+  .wrapped-for-linkedin-title-svg {
     height: 24px;
   }
 
@@ -210,17 +139,11 @@
   }
 
   .render-logo {
-    height: 24px;
+    height: 20px;
   }
 
-  .info-icon {
-    font-size: 14px;
-    width: 18px;
-    height: 18px;
-  }
-
-  .tooltip-content {
-    font-size: 0.75rem;
+  .render-powered-text {
+    font-size: 0.7rem;
   }
 }
 
@@ -230,12 +153,7 @@
     padding: 0 1rem;
   }
 
-  .wrapped-for-linkedin-title {
-    font-size: 17px;
-  }
-
-  .gift-icon {
-    width: 20px;
+  .wrapped-for-linkedin-title-svg {
     height: 20px;
   }
 
@@ -250,16 +168,19 @@
   }
 
   .render-logo {
-    height: 20px;
+    height: 16px;
+    padding-right: 1rem;
+  }
+
+  .render-powered-text {
+    display: none;
+  }
+
+  .render-logo-link {
+    gap: 0.5rem;
   }
 
   .header-right {
     gap: 1rem;
-  }
-
-  .info-icon {
-    font-size: 13px;
-    width: 16px;
-    height: 16px;
   }
 }

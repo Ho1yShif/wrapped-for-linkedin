@@ -26,15 +26,13 @@ export function Header({ onLogoClick, onClearCache, hasCachedData = false }: Hea
             title="Wrapped for LinkedIn home"
           >
             <div className="logo-wrapper">
-              <h1 className="wrapped-for-linkedin-title">
-                Wrapped for LinkedIn
-              </h1>
+              <img
+                src="/title.svg"
+                alt="Wrapped for LinkedIn"
+                className="wrapped-for-linkedin-title-svg"
+              />
             </div>
           </button>
-          <div className="info-tooltip-wrapper">
-            <span className="info-icon">ⓘ</span>
-            <div className="tooltip-content">Not affiliated with LinkedIn or Microsoft</div>
-          </div>
         </div>
         <div className="header-right">
           <a
@@ -44,8 +42,9 @@ export function Header({ onLogoClick, onClearCache, hasCachedData = false }: Hea
             className="render-logo-link"
             aria-label="Visit Render.com"
           >
+            <span className="render-powered-text">POWERED BY AND DEPLOYED ON</span>
             <img
-              src="/render-full-logo-white.png"
+              src="/render-logo.png"
               alt="Render"
               className="render-logo"
             />

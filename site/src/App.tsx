@@ -100,37 +100,44 @@ function App() {
       </main>
 
       <footer className="app-footer">
-        <p>
-        <a 
-            href="https://x.com/render" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="footer-link"
-          >
-            X
-          </a>
-          &nbsp; &nbsp; &nbsp; &nbsp;
-          <a 
-            href="https://x.com/render" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="footer-link"
-          >
-            LinkedIn
-          </a>
-          &nbsp; &nbsp; &nbsp; &nbsp;
-          <a 
-            href="https://github.com/Ho1yShif/wrapped-for-linkedin" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="footer-link"
-          >
-            GitHub
-          </a>
-        </p>
-        <p>
-          © Render {currentYear}
-        </p>
+        <div className="footer-disclaimer-row">
+          <p className="footer-disclaimer">
+            This site is not affiliated with LinkedIn or Microsoft.
+          </p>
+        </div>
+        <div className="footer-bottom-row">
+          <p className="footer-links">
+            <a 
+              href="https://x.com/render" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="footer-link"
+            >
+              X
+            </a>
+            &nbsp; &nbsp; &nbsp; &nbsp;
+            <a 
+              href="https://x.com/render" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="footer-link"
+            >
+              LinkedIn
+            </a>
+            &nbsp; &nbsp; &nbsp; &nbsp;
+            <a 
+              href="https://github.com/Ho1yShif/wrapped-for-linkedin" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="footer-link"
+            >
+              GitHub
+            </a>
+          </p>
+          <p className="footer-copyright">
+            © Render {currentYear}
+          </p>
+        </div>
       </footer>
     </div>
   );
