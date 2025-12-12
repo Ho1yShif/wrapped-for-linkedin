@@ -1,5 +1,4 @@
 import React from 'react';
-import { useAppStore } from '@store';
 import { getWrappedYear } from '@utils/yearExtractor';
 import { calculateBestMonth } from '@utils/bestMonthCalculator';
 import type { EngagementByDay } from '@utils/excel/types';
@@ -24,8 +23,6 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
   discovery,
   engagementByDay,
 }) => {
-  const wrappedYear = useAppStore((state) => state.wrappedYear);
-
   const formatNumber = (num: number) => {
     if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
     if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
@@ -38,7 +35,7 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
     return new Date(year, month - 1, day);
   };
 
-  const year = wrappedYear ?? (discovery?.end_date ? getWrappedYear(discovery as any) : new Date().getFullYear());
+  const year = discovery?.end_date ? getWrappedYear(discovery as any) : new Date().getFullYear();
 
   // Calculate best month from engagement data
   const bestMonth = engagementByDay && engagementByDay.length > 0 ? calculateBestMonth(engagementByDay) : null;
@@ -49,7 +46,7 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
       <div className="wrapped-section">
         <h2 className='section-title'>Year in review</h2>
         <h2 className="section-subtitle">
-        Your {year} Wrapped for LinkedIn
+        Your Wrapped for LinkedIn {year}
       </h2>
         <p className="section-subtitle">
           {discovery?.start_date && discovery?.end_date ? (
