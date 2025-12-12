@@ -36,6 +36,17 @@
   padding-right: 12px;
 }
 
+.sample-data-button-text {
+  color: var(--text-secondary);
+  text-align: center;
+  font-family: Roobert;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 105%; /* 25.2px */
+  letter-spacing: -0.48px;
+}
+
 .spinner {
   display: inline-block;
   width: 14px;

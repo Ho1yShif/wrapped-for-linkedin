@@ -24,7 +24,7 @@
 
   /* Text Colors */
   --text-primary: #FFFFFF;
-  --text-secondary: #B3B3B3;
+  --text-secondary: #E2E2E2;
   --text-tertiary: #7F7F7F;
 
   /* Spotify-inspired Accent Colors */
@@ -166,24 +166,49 @@ body {
 
 .footer-links {
   order: 1;
-  flex: 0 0 auto;
+  color: var(--Text-Secondary, #E2E2E2);
+
+  /* Desktop/Body SM */
+  font-family: "PP Neue Montreal";
+  font-size: 16px;
+  font-style: thin;
+  line-height: 125%; /* 20px */
+  letter-spacing: 0.16px;
 }
 
 .footer-copyright {
   order: 3;
   flex: 0 0 auto;
   padding-right: 1rem;
+  color: var(--text-secondary, #E2E2E2);
+  text-align: right;
+  font-family: "PP Neue Montreal";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 125%; /* 20px */
+  letter-spacing: 0.16px;
 }
 
 .footer-disclaimer {
-  color: #B3B3B3;
-  font-size: 1.1rem;
+  color: var(--Gray-400, #8F8F8F);
+  font-family: "PP Neue Montreal";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 125%; /* 20px */
+  letter-spacing: 0.16px;
 }
 
 .footer-link {
-  color: #FFFFFF;
+  color: var(--Text-Secondary, #E2E2E2);
   text-decoration: none;
-  font-weight: 600;
+  font-family: "PP Neue Montreal";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 125%; /* 20px */
+  letter-spacing: 0.16px;
 }
 
 @keyframes pulse-slow {

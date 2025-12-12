@@ -85,10 +85,14 @@
 }
 
 .render-powered-text {
-  font-size: 1rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 1);
-  letter-spacing: 0.1em;
+  color: var(--Gray-400, #C3C3C3);
+  font-family: "PP Neue Montreal Mono";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 125%; /* 15px */
+  letter-spacing: 0.24px;
+  text-transform: uppercase;
   white-space: nowrap;
   margin-top: 2px;
   margin-right: 0.5rem;
