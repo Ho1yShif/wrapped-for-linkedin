@@ -76,7 +76,7 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
 
       {/* Disclaimer Callout */}
       <details className="metrics-disclaimer">
-        <summary className="disclaimer-summary">𝒊 &nbsp; Why do metrics differ between exports and LinkedIn? </summary>
+        <summary className="disclaimer-summary">𝒊 &nbsp; Why don't my exported numbers match what I see on my LinkedIn posts? </summary>
         <div className="disclaimer-content">
           <p>
             <strong>Time window:</strong> Your LinkedIn export captures the last 365 days of activity only. Older posts display metrics from within this rolling window, not their all-time totals.
