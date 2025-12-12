@@ -13,8 +13,8 @@
 import type { EngagementByDay } from '@utils/excel/types';
 
 export interface BestMonthData {
-  month: string; // e.g., "November"
-  monthYear: string; // e.g., "November 2024"
+  month: string; // e.g., "Nov"
+  monthYear: string; // e.g., "Nov 2024"
   engagements: number;
   peopleEngaged: number; // Total unique people who engaged
 }
@@ -65,7 +65,7 @@ export function calculateBestMonth(engagementByDay: EngagementByDay[]): BestMont
       maxEngagement = data.engagements;
 
       const monthFormatter = new Intl.DateTimeFormat('en-US', {
-        month: 'long',
+        month: 'short',
         year: 'numeric',
       });
       const formattedMonth = monthFormatter.format(data.date);

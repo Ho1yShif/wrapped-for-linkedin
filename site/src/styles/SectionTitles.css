@@ -1,0 +1,41 @@
+/* ============================================================================
+   Unified Section Title Styles
+   Used across all dashboard sections for consistent typography
+   ============================================================================ */
+
+.section-title {
+  color: var(--text-primary, #FFF);
+  font-family: Roobert, var(--font-body), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 105%; /* 42px */
+  letter-spacing: -0.8px;
+  margin: 0 0 0.5rem 0;
+  
+  /* Experimental properties for better text rendering */
+  leading-trim: both;
+  text-edge: cap;
+}
+
+/* Responsive adjustments for section titles */
+@media (max-width: 1024px) {
+  .section-title {
+    font-size: 36px;
+    letter-spacing: -0.72px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 32px;
+    letter-spacing: -0.64px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 28px;
+    letter-spacing: -0.56px;
+  }
+}

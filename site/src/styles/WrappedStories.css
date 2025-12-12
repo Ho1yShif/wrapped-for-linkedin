@@ -615,7 +615,7 @@
   display: flex;
   justify-content: center;
   gap: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   flex-wrap: wrap;
 }
 
@@ -922,7 +922,7 @@
   }
 
   .story-controls {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
     gap: 0.4rem;
   }
 
@@ -1051,7 +1051,7 @@
 
   .story-controls {
     gap: 0.5rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.4rem;
     flex-shrink: 0;
   }
 
@@ -1407,7 +1407,7 @@
 
   .story-controls {
     gap: 0.3rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.2rem;
     flex-shrink: 0;
   }
 

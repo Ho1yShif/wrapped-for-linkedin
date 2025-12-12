@@ -1,3 +1,7 @@
+/* Import unified section title and subtitle styles */
+@import './SectionTitles.css';
+@import './SectionSubtitles.css';
+
 .demographics-view {
   padding: 2rem 1rem;
   animation: demographics-fadeIn 0.5s ease;
@@ -12,13 +16,6 @@
 
 .demographics-header {
   margin-bottom: 3rem;
-}
-
-.demographics-subtitle {
-  font-family: var(--font-body);
-  font-size: 1.1rem;
-  color: var(--text-secondary);
-  margin: 0;
 }
 
 .demographics-grid {
@@ -120,11 +117,6 @@
 }
 
 @media (max-width: 768px) {
-  .section-title {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-  }
-
   .demographics-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;

@@ -26,7 +26,8 @@
   --text-primary: #FFFFFF;
   --text-secondary: #E2E2E2;
   --text-tertiary: #7F7F7F;
-  --text-pink: #F79BFE
+  --text-pink: #F79BFE;
+  --Gray-400: #C3C3C3;
 
   /* Spotify-inspired Accent Colors */
   --accent-green: #1DB954;
@@ -46,6 +47,7 @@
   --gradient-accent: linear-gradient(135deg, #1DB954 0%, #1ed760 100%);
   --gradient-warm: linear-gradient(135deg, #FF006E 0%, #FF4B70 100%);
   --gradient-card: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-card) 100%);
+  --pink-blue-gradient: linear-gradient(89deg, #F339FF 1.26%, #22A5FF 106.44%);
   
   /* Glassmorphism Container - Shared Style */
   --glass-bg: rgba(13, 13, 13, 0.88);
@@ -77,7 +79,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(180deg, rgba(13, 13, 13, 0.20) 0%, #0D0D0D 100%);
+  background: linear-gradient(180deg, rgba(13, 13, 13, 0.50) 0%, #0D0D0D 100%);
   pointer-events: none;
   z-index: 0;
   transition: none;

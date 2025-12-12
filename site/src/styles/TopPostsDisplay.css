@@ -2,6 +2,10 @@
    Wrapped for LinkedIn - Top posts Display Styles
    ============================================================================ */
 
+/* Import unified section title and subtitle styles */
+@import './SectionTitles.css';
+@import './SectionSubtitles.css';
+
 /* 1. Section Layout & Animation */
 .top-posts-section {
   width: 100%;
@@ -27,14 +31,6 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 2rem;
-}
-
-.section-subtitle {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  color: var(--text-pink);
-  margin: 0;
-  font-weight: 500;
 }
 
 /* 2. Metrics Disclaimer Callout */
@@ -325,9 +321,6 @@
     flex-direction: column;
   }
 
-  .section-title {
-    font-size: 1.5rem;
-  }
 
   .summary-stats {
     grid-template-columns: repeat(2, 1fr);
@@ -363,13 +356,7 @@
     margin: 1.5rem 0;
   }
 
-  .section-title {
-    font-size: 1.3rem;
-  }
 
-  .section-subtitle {
-    font-size: 0.9rem;
-  }
 
   .summary-stats {
     grid-template-columns: 1fr;

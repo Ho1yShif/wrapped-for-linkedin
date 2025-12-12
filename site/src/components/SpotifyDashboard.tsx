@@ -49,7 +49,7 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
       <div className="wrapped-section">
         <h2 className='section-title'>Year in review</h2>
         <h2 className="section-subtitle">
-        Your {year} Wrapped
+        Your {year} Wrapped for LinkedIn
       </h2>
         <p className="section-subtitle">
           {discovery?.start_date && discovery?.end_date ? (
@@ -140,7 +140,7 @@ export const SpotifyDashboard: React.FC<SpotifyDashboardProps> = ({
           <div className="metric-card">
             <div className="card-background gradient-1"></div>
               <div className="card-content">
-                <h3 className="spotify-card-label">median daily impressions</h3>
+                <h3 className="spotify-card-label">Median daily impressions</h3>
                 <div className="spotify-card-value-container">
                 <div className="spotify-card-value">
                   {formatNumber(discovery?.average_impressions_per_day || 0)}
