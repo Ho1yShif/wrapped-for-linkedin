@@ -33,15 +33,15 @@
   margin-bottom: 2rem;
 }
 
-/* 2. Metrics Disclaimer Callout */
-.metrics-disclaimer {
+/* 2. Metrics FAQ Section */
+.metrics-faq {
   position: relative;
   padding: 0;
   margin-bottom: 2rem;
   cursor: pointer;
 }
 
-.metrics-disclaimer::before {
+.metrics-faq::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -50,7 +50,7 @@
 }
 
 
-.disclaimer-summary {
+.faq-summary {
   padding: 0.8rem 1rem;
   color: #ffffff;
   font-weight: 600;
@@ -64,15 +64,15 @@
   transition: all 0.2s ease;
 }
 
-.disclaimer-summary:hover {
+.faq-summary:hover {
   background: rgba(10, 102, 194, 0.05);
 }
 
-.disclaimer-summary::-webkit-details-marker {
+.faq-summary::-webkit-details-marker {
   display: none;
 }
 
-.disclaimer-summary::before {
+.faq-summary::before {
   content: '▸';
   display: inline-block;
   transition: transform 0.2s ease;
@@ -80,15 +80,40 @@
   color: #FFF;
 }
 
-.metrics-disclaimer[open] .disclaimer-summary::before {
+.metrics-faq[open] .faq-summary::before {
   transform: rotate(90deg);
 }
 
-.disclaimer-content {
+.faq-content {
   padding: 0 1.25rem 1rem 1.25rem;
   color: #FFF;
-  font-size: 1rem;
   line-height: 1.6;
+}
+
+.faq-item {
+  margin-bottom: 1.5rem;
+}
+
+.faq-item:last-child {
+  margin-bottom: 0;
+}
+
+.faq-question {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+}
+
+.faq-answer {
+  font-size: 1rem;
+  color: #e0e0e0;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.6;
+}
+
+.faq-answer:last-child {
+  margin-bottom: 0;
 }
 
 /* 3. Posts Grid Layout */
@@ -100,7 +125,8 @@
 }
 
 .post-card {
-  flex: 1 1 calc(50% - 0.75rem);
+  flex: 0 1 calc(50% - 0.75rem);
+  max-width: calc(50% - 0.75rem);
   min-width: 360px;
   background: var(--Background-Primary, #0D0D0D);
   padding: 1.5rem;

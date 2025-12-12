@@ -74,16 +74,20 @@ export const TopPostsDisplay: React.FC<TopPostsDisplayProps> = ({ posts }) => {
         </div>
       </div>
 
-      {/* Disclaimer Callout */}
-      <details className="metrics-disclaimer">
-        <summary className="disclaimer-summary">𝒊 &nbsp; Why don't my exported numbers match what I see on my LinkedIn posts? </summary>
-        <div className="disclaimer-content">
-          <p>
-            <strong>Time window:</strong> Your LinkedIn export captures the last 365 days of activity only. Older posts display metrics from within this rolling window, not their all-time totals.
-          </p>
-          <p>
-            <strong>Engagement types:</strong> The export includes all engagement types (reactions, comments, shares, reposts, and clicks), while LinkedIn posts publicly show only reactions and comments.
-          </p>
+      {/* FAQ Section */}
+      <details className="metrics-faq">
+        <summary className="faq-summary">FAQ</summary>
+        <div className="faq-content">
+          <div className="faq-item">
+            <p className="faq-question">Why are some posts not found?</p>
+            <p className="faq-answer">If a post is not made publicly available, it can't be displayed here. That said, you can click on the post tile to view it on LinkedIn.</p>
+          </div>
+          
+          <div className="faq-item">
+            <p className="faq-question">Why don't my exported numbers match what I see on my LinkedIn posts?</p>
+            <p className="faq-answer"><strong>Time window:</strong> Your LinkedIn export captures the last 365 days of activity only. Older posts display metrics from within this rolling window, not their all-time totals.</p>
+            <p className="faq-answer"><strong>Engagement types:</strong> The export includes all engagement types (reactions, comments, shares, reposts, and clicks), while LinkedIn posts publicly show only reactions and comments.</p>
+          </div>
         </div>
       </details>
 
