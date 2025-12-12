@@ -235,11 +235,19 @@
 
   .dropzone {
     padding: 24px;
+    background: rgba(13, 13, 13, 0.92);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
   }
 
   .upload-icon {
     font-size: 2.5rem;
     font-family: "Roobert", sans-serif;
+  }
+
+  .upload-icon img {
+    width: 60px;
+    height: 60px;
   }
 
   .dropzone-text {
@@ -250,6 +258,41 @@
   .instructions,
   .privacy-disclaimer {
     padding: 24px;
+    background: rgba(13, 13, 13, 0.92);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+  
+  .or-divider {
+    background: rgba(13, 13, 13, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .instructions h3 {
+    font-size: 18px;
+    margin-bottom: 1rem;
+  }
+
+  .instructions li {
+    font-size: 13px;
+    margin-bottom: 0.75rem;
+  }
+
+  .instructions a {
+    font-size: 14px;
+  }
+
+  .dropzone-text {
+    font-size: 16px;
+  }
+
+  .dropzone-subtext {
+    font-size: 13px;
+  }
+
+  .dropzone-formats {
+    font-size: 13px;
   }
 
   .privacy-disclaimer p {
@@ -261,4 +304,5 @@
     font-size: 0.8rem;
     font-family: "Roobert", sans-serif;
   }
+
 }

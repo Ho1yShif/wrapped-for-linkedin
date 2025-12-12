@@ -68,9 +68,12 @@
   .sample-data-button {
     padding: 24px;
     font-size: 0.95rem;
+    background: rgba(13, 13, 13, 0.92);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
   }
   
   .sample-data-button-text {
-    font-family: "Roobert", sans-serif;
+    font-size: 18px;
   }
 }
