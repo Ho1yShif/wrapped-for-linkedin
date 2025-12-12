@@ -125,7 +125,26 @@
   }
 
   .render-powered-text {
+    font-size: 0;
+    color: var(--Gray-400, #C3C3C3);
+    font-family: "Roobert", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 125%;
+    letter-spacing: 0.24px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    margin-top: 4px;
+    margin-right: 0.25rem;
+  }
+  
+  .render-powered-text::before {
+    content: attr(data-mobile-text);
     font-size: 0.7rem;
+  }
+  
+  .render-logo-link {
+    gap: 0.4rem;
   }
 }
 
@@ -145,18 +164,28 @@
 
   .render-logo {
     height: 16px;
-    padding-right: 1rem;
+    padding-right: 0.05rem;
   }
 
   .render-powered-text {
-    display: none;
+    font-size: 0;
+    font-weight: 500;
+    margin-top: 8px;
+    margin-right: 0.05rem;
+  }
+  
+  .render-powered-text::before {
+    content: attr(data-mobile-text);
+    font-size: 0.6rem;
   }
 
   .render-logo-link {
-    gap: 0.5rem;
+    gap: 0.3rem;
   }
 
   .header-right {
     gap: 1rem;
   }
+
+  
 }

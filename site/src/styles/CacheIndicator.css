@@ -88,10 +88,12 @@
 
   .cache-label {
     font-size: 0.9rem;
+    font-family: "Roobert", sans-serif;
   }
 
   .cache-time {
     font-size: 0.8rem;
+    font-family: "Roobert", sans-serif;
   }
 
   .cache-icon {
@@ -116,5 +118,6 @@
     font-size: 0.9rem;
     min-width: 2rem;
     height: 2rem;
+    font-family: "Roobert", sans-serif;
   }
 }

@@ -116,7 +116,7 @@ function App() {
       <main className="app-main">
         {state.engagement && (
           <button
-            className="upload-new-data-btn"
+            className="upload-new-data-btn desktop-only"
             onClick={handleClearCache}
             aria-label="Upload new data"
             title="Upload new data"
@@ -133,6 +133,7 @@ function App() {
           <UnifiedDashboard
             data={state.engagement}
             demographics={state.demographics}
+            onUploadNewData={handleClearCache}
           />
         ) : !loading && !state.error && !state.engagement ? (
           <FileUpload onFileProcessed={handleFileProcessed} isLoading={loading} />

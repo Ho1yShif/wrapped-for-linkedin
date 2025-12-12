@@ -76,14 +76,17 @@
 
   .error-container h2 {
     font-size: 1.4rem;
+    font-family: "Roobert", sans-serif;
   }
 
   .error-message {
     font-size: 1rem;
+    font-family: "Roobert", sans-serif;
   }
 
   .retry-button {
     padding: 0.6rem 1.5rem;
     font-size: 0.95rem;
+    font-family: "Roobert", sans-serif;
   }
 }

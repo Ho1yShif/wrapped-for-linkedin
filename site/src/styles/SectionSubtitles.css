@@ -21,6 +21,7 @@
   .demographics-subtitle {
     font-size: 17px;
     letter-spacing: 0.17px;
+    font-family: "Roobert", sans-serif;
   }
 }
 
@@ -29,6 +30,7 @@
   .demographics-subtitle {
     font-size: 16px;
     letter-spacing: 0.16px;
+    font-family: "Roobert", sans-serif;
   }
 }
 
@@ -37,5 +39,6 @@
   .demographics-subtitle {
     font-size: 15px;
     letter-spacing: 0.15px;
+    font-family: "Roobert", sans-serif;
   }
 }

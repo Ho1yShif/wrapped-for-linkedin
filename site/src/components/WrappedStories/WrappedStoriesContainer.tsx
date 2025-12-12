@@ -6,11 +6,13 @@ import '@styles/WrappedStories.css';
 interface WrappedStoriesContainerProps {
   cards: ShareableCard[];
   autoPlayDuration?: number; // milliseconds
+  onUploadNewData?: () => void;
 }
 
 export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = ({
   cards,
   autoPlayDuration = 5000,
+  onUploadNewData,
 }) => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
@@ -360,6 +362,16 @@ export const WrappedStoriesContainer: React.FC<WrappedStoriesContainerProps> = (
         >
           {isAutoPlaying ? '⏸' : '►'}
         </button>
+        {onUploadNewData && (
+          <button
+            className="control-button upload-button mobile-only-upload"
+            onClick={onUploadNewData}
+            aria-label="Upload new data"
+            title="Upload new data"
+          >
+            Upload new data
+          </button>
+        )}
       </div>
     </div>
   );

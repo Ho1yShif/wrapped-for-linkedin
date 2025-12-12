@@ -348,6 +348,7 @@
   .post-rank-badge {
     padding: 0.4rem 0.8rem;
     font-size: 0.95rem;
+    font-family: "Roobert", sans-serif;
   }
 
   .post-header {
@@ -385,12 +386,14 @@
     width: 100%;
     text-align: right;
     font-size: 0.75rem;
+    font-family: "Roobert", sans-serif;
   }
 
   .post-rank-badge {
     padding: 0.35rem 0.7rem;
     font-size: 0.85rem;
     min-width: 50px;
+    font-family: "Roobert", sans-serif;
   }
 
   .post-content {
@@ -415,10 +418,12 @@
 
   .top-post-stat-value {
     font-size: 1.3rem;
+    font-family: "Roobert", sans-serif;
   }
 
   .top-post-stat-label {
     font-size: 0.65rem;
+    font-family: "Roobert", sans-serif;
   }
 }
 
@@ -430,9 +435,11 @@
   .top-post-stat-label {
     font-size: 0.8rem;
     gap: 0.35rem;
+    font-family: "Roobert", sans-serif;
   }
 
   .top-post-stat-value {
     font-size: 1.75rem;
+    font-family: "Roobert", sans-serif;
   }
 }

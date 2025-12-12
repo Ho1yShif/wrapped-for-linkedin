@@ -239,10 +239,12 @@
 
   .upload-icon {
     font-size: 2.5rem;
+    font-family: "Roobert", sans-serif;
   }
 
   .dropzone-text {
     font-size: 1.1rem;
+    font-family: "Roobert", sans-serif;
   }
 
   .instructions,
@@ -252,9 +254,11 @@
 
   .privacy-disclaimer p {
     font-size: 0.85rem;
+    font-family: "Roobert", sans-serif;
   }
 
   .privacy-disclaimer p + p {
     font-size: 0.8rem;
+    font-family: "Roobert", sans-serif;
   }
 }

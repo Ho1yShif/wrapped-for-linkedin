@@ -109,7 +109,9 @@ export const StoryCard: React.FC<StoryCardProps> = ({
               {/* Metrics Display */}
               <div className="peak-post-metrics">
                 <div className="peak-metric">
-                  <div className="peak-metric-icon">❤️</div>
+                  <div className="peak-metric-icon">
+                    <img src="/images/dashboard/heart.png" alt="Heart" />
+                  </div>
                   <div className="peak-metric-info">
                     <div className="peak-metric-value">{card.data.value}</div>
                     <div className="peak-metric-label">Engagements</div>
@@ -117,7 +119,9 @@ export const StoryCard: React.FC<StoryCardProps> = ({
                 </div>
                 {card.data.impressions && (
                   <div className="peak-metric">
-                    <div className="peak-metric-icon">✨</div>
+                    <div className="peak-metric-icon">
+                      <img src="/images/dashboard/sparkle.png" alt="Sparkle" />
+                    </div>
                     <div className="peak-metric-info">
                       <div className="peak-metric-value">{card.data.impressions}</div>
                       <div className="peak-metric-label">Impressions</div>

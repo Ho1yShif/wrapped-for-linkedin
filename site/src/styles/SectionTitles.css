@@ -23,6 +23,7 @@
   .section-title {
     font-size: 36px;
     letter-spacing: -0.72px;
+    font-family: "Roobert", sans-serif;
   }
 }
 
@@ -30,6 +31,7 @@
   .section-title {
     font-size: 32px;
     letter-spacing: -0.64px;
+    font-family: "Roobert", sans-serif;
   }
 }
 
@@ -37,5 +39,6 @@
   .section-title {
     font-size: 28px;
     letter-spacing: -0.56px;
+    font-family: "Roobert", sans-serif;
   }
 }

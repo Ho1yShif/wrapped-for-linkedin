@@ -12,11 +12,13 @@ import '@styles/UnifiedDashboard.css';
 interface UnifiedDashboardProps {
   data: EngagementMetrics;
   demographics?: DemographicInsights;
+  onUploadNewData?: () => void;
 }
 
 export const UnifiedDashboard: React.FC<UnifiedDashboardProps> = ({
   data,
   demographics,
+  onUploadNewData,
 }) => {
   // Extract discovery data if available
   const discoveryData = data.discovery_data as any;
@@ -38,7 +40,11 @@ export const UnifiedDashboard: React.FC<UnifiedDashboardProps> = ({
     <div className="unified-dashboard">
       {/* Wrapped Stories Section (at the top) */}
       {wrappedCards.length > 0 && (
-        <WrappedStoriesContainer cards={wrappedCards} autoPlayDuration={5000} />
+        <WrappedStoriesContainer 
+          cards={wrappedCards} 
+          autoPlayDuration={5000}
+          onUploadNewData={onUploadNewData}
+        />
       )}
 
       {/* Main Dashboard Section */}

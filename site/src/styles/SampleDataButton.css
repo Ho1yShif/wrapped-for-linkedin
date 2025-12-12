@@ -69,4 +69,8 @@
     padding: 24px;
     font-size: 0.95rem;
   }
+  
+  .sample-data-button-text {
+    font-family: "Roobert", sans-serif;
+  }
 }
