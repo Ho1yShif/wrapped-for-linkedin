@@ -20,7 +20,7 @@ const EXPORT_DIMENSIONS_WIDTH = 1080;
 const EXPORT_DIMENSIONS_HEIGHT = 1350;
 
 import { toPng } from 'html-to-image';
-import { imageCache } from '@utils/imageCache';
+import { imageCache } from '@exports/imageCache';
 import hashSum from 'hash-sum';
 
 /**
@@ -211,3 +211,4 @@ export function getOptimalExportDimensions(): { width: number; height: number } 
     height: EXPORT_DIMENSIONS_HEIGHT,
   };
 }
+

@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { exportCardAsImage } from '@utils/imageExport';
-import { exportCardsAsPDFBatch } from '@utils/pdfExport';
+import { exportCardAsImage } from '@exports/imageExport';
+import { exportCardsAsPDFBatch } from '@exports/pdfExport';
 import { DownloadInstructions } from '@components/WrappedStories/DownloadInstructions';
 import type { ShareableCard } from '@/types/wrappedStories';
 import '@styles/ShareButton.css';

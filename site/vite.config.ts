@@ -12,6 +12,7 @@ export default defineConfig({
       '@styles': path.resolve(__dirname, './src/styles'),
       '@types': path.resolve(__dirname, './src/types/index.ts'),
       '@utils': path.resolve(__dirname, './src/utils'),
+      '@exports': path.resolve(__dirname, './src/exports'),
       '@store': path.resolve(__dirname, './src/store/index.ts'),
     },
   },

@@ -20,7 +20,7 @@
  * - Cleaner, more maintainable codebase
  */
 
-import { exportCardsAsImagesBatch, getOptimalConcurrency } from '@utils/batchImageExporter';
+import { exportCardsAsImagesBatch, getOptimalConcurrency } from '@exports/batchImageExporter';
 
 // PDF configuration constants
 const PDF_PAGE_MARGIN_MM = 10; // 5mm margins on each side
@@ -222,3 +222,4 @@ export async function exportCardsAsPDFBatch(
     throw new Error(`PDF export failed: ${errorMessage}`);
   }
 }
+

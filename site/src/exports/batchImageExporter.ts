@@ -13,7 +13,7 @@ const LOW_CORE_CONCURRENCY = 1;
 const HIGH_CORE_THRESHOLD = 4;
 const MID_CORE_THRESHOLD = 2;
 
-import { exportCardAsImage } from '@utils/imageExport';
+import { exportCardAsImage } from '@exports/imageExport';
 
 export interface BatchExportOptions {
   concurrency?: number; // Default: 3 concurrent renders
@@ -105,3 +105,4 @@ export function getOptimalConcurrency(): number {
   if (cores >= MID_CORE_THRESHOLD) return MID_CORE_CONCURRENCY;
   return LOW_CORE_CONCURRENCY;
 }
+
