@@ -55,7 +55,6 @@ function App() {
     };
   }, [clearCache]);
 
-
   const handleFileProcessed = (excelData: ParsedExcelData, fileError?: string, date?: number, fromCache?: boolean) => {
     setLoading(false);
 
@@ -102,6 +101,37 @@ function App() {
   };
   const handleLogoClick = resetState;
   const currentYear = new Date().getFullYear();
+
+  // Add keyboard shortcuts to return to homepage
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Escape key - return to homepage
+      if (event.key === 'Escape' && state.engagement) {
+        handleClearCache();
+        return;
+      }
+      
+      // Ctrl+Shift+R or Cmd+Shift+R - intercept hard refresh and return to homepage
+      if (
+        event.key === 'R' &&
+        event.shiftKey &&
+        (event.ctrlKey || event.metaKey)
+      ) {
+        event.preventDefault();
+        clearCache();
+        resetState();
+        // Clear session storage to simulate hard refresh
+        sessionStorage.clear();
+        sessionStorage.setItem('wrapped-session-active', 'true');
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [state.engagement, clearCache]);
 
   return (
     <div className="app-container">
