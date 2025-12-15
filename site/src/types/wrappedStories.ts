@@ -18,9 +18,6 @@ export interface CardData {
   label?: string;
   icon?: string;
   context?: string;
-  profileId?: string; // LinkedIn profile ID
-  avatarColor?: string; // Avatar background color
-  profilePhotoUrl?: string; // LinkedIn profile picture URL
   venueComparison?: {
     // Venue comparison for reach visualization
     venue: string;

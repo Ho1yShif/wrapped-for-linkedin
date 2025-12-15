@@ -9,41 +9,6 @@ import { getVenueComparison, formatVenueComparison } from '@utils/venueCompariso
 import { formatNumber } from '@utils/formatters';
 
 /**
- * Get a profile avatar color based on card ID
- */
-function getAvatarColor(cardId: string): string {
-  const colors = [
-    '#0A66C2', // LinkedIn Blue
-    '#00B4D8', // Cyan
-    '#06A77D', // Green
-    '#FFB703', // Orange
-    '#FB5607', // Red-Orange
-    '#9945FF', // Purple
-    '#FF006E', // Pink
-    '#2A9D8F', // Teal
-  ];
-
-  const hash = cardId
-    .split('')
-    .reduce((acc, char) => acc + char.charCodeAt(0), 0);
-  return colors[hash % colors.length];
-}
-
-/**
- * Generate a profile photo URL from LinkedIn post URL
- * Uses LinkedIn's CDN to fetch profile pictures associated with posts
- * Falls back to a data URL with initials if not available
- */
-function generateProfilePhotoUrl(postUrl: string): string | undefined {
-  if (!postUrl) return undefined;
-
-  // LinkedIn profile pictures can be fetched from the post page using Open Graph data
-  // For now, we'll store the post URL and fetch it later in the component
-  // This avoids CORS issues and allows lazy loading
-  return postUrl;
-}
-
-/**
  * Generate all shareable cards from parsed Excel data
  * Cards are ordered by virality potential
  */
@@ -61,8 +26,6 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
         label: 'Total impressions',
         icon: '✨',
         context: 'Your posts were seen this many times',
-        profileId: 'impressions',
-        avatarColor: getAvatarColor('total-impressions'),
       },
       backgroundColor: '#0F0F0F',
       gradient: 'linear-gradient(135deg, #0A66C2 0%, #00B4D8 100%)',
@@ -88,8 +51,6 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
         label: 'Unique Professionals Reached',
         icon: '👥',
         context: contextMessage,
-        profileId: 'network',
-        avatarColor: getAvatarColor('members-reached'),
         venueComparison,
       },
       backgroundColor: '#0F0F0F',
@@ -100,9 +61,6 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
   // Card 3: Top Post
   if (data.top_posts && data.top_posts.length > 0) {
     const topPost = data.top_posts[0];
-    // Extract profile photo URL from post URL if available
-    // LinkedIn post URLs contain profile data that can be used to fetch profile picture
-    const profilePhotoUrl = topPost.url ? generateProfilePhotoUrl(topPost.url) : undefined;
 
     cards.push({
       id: 'top-post',
@@ -115,9 +73,6 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
         context: 'Your highest-performing content',
         url: topPost.url,
         date: topPost.publish_date,
-        profileId: 'toppost',
-        avatarColor: getAvatarColor('top-post'),
-        profilePhotoUrl: profilePhotoUrl,
       },
       backgroundColor: '#0F0F0F',
       gradient: 'linear-gradient(135deg, #FFB703 0%, #FB5607 100%)',
@@ -138,8 +93,6 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
         icon: '💼',
         context: 'Your primary professional industry',
         percentage: topIndustry.percentage,
-        profileId: 'industry',
-        avatarColor: getAvatarColor('top-industry'),
       },
       backgroundColor: '#0F0F0F',
       gradient: 'linear-gradient(135deg, #9945FF 0%, #7209B7 100%)',
@@ -159,8 +112,6 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
           label: `was your month`,
           icon: '🗓️',
           context: `${bestMonth.peopleEngaged.toLocaleString()} people interacted with your content`,
-          profileId: 'month',
-          avatarColor: getAvatarColor('best-month'),
         },
         backgroundColor: '#0F0F0F',
         gradient: 'linear-gradient(135deg, #06A77D 0%, #2A9D8F 100%)',
@@ -179,8 +130,6 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
         label: 'New Followers this year',
         icon: '🎉',
         context: 'Your community is growing!',
-        profileId: 'growth',
-        avatarColor: getAvatarColor('new-followers'),
       },
       backgroundColor: '#0F0F0F',
       gradient: 'linear-gradient(135deg, #8B5CF6 0%, #D946EF 100%)',
@@ -201,8 +150,6 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
         icon: '📍',
         context: 'Your primary geographic reach',
         percentage: topLocation.percentage,
-        profileId: 'location',
-        avatarColor: getAvatarColor('top-location'),
       },
       backgroundColor: '#0F0F0F',
       gradient: 'linear-gradient(135deg, #0A66C2 0%, #40E0D0 100%)',
@@ -220,8 +167,6 @@ export function generateShareableCards(data: ParsedExcelData): ShareableCard[] {
       engagements: formatNumber(data.discovery_data?.total_engagements || 0),
       newFollowers: formatNumber(data.discovery_data?.new_followers || 0),
       context: '',
-      profileId: 'summary',
-      avatarColor: getAvatarColor('year-summary'),
     },
     backgroundColor: '#0F0F0F',
     gradient: 'linear-gradient(135deg, #FF006E 0%, #9945FF 50%, #0A66C2 100%)',
