@@ -3,7 +3,6 @@ import { useDropzone } from 'react-dropzone';
 import type { ParsedExcelData } from '@utils/excel/types';
 import { useCache } from '@/hooks/useCache';
 import { useSampleData } from '@/hooks/useSampleData';
-import { CacheIndicator } from '@components/CacheIndicator';
 import { SampleDataButton } from '@components/SampleDataButton';
 import '../styles/FileUpload.css';
 
@@ -70,13 +69,6 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileProcessed, isLoadi
 
   return (
     <div className="file-upload-container">
-      {cache.isLoaded && cache.uploadDate && (
-        <CacheIndicator
-          uploadDate={cache.uploadDate}
-          onClear={cache.clear}
-        />
-      )}
-
       <div className="instructions">
         <h3>Export your LinkedIn analytics</h3>
         <ol>

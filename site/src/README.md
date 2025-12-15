@@ -44,8 +44,7 @@ src/
 │   ├── FinalMessage.tsx      # End of wrapped message
 │   ├── SampleDataButton.tsx  # Demo data loader
 │   ├── Loading.tsx      # Loading state
-│   ├── Error.tsx        # Error display
-│   └── CacheIndicator.tsx # Cache status
+│   └── Error.tsx        # Error display
 ├── hooks/               # Custom React hooks
 │   ├── useCache.ts      # Browser cache management
 │   └── useSampleData.ts # Demo data functionality
