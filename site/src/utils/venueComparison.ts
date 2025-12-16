@@ -36,7 +36,7 @@ export function getVenueComparison(membersReached: number): VenueComparison | nu
 
   // Find the largest venue that fits within the reach
   // Start from the end and work backwards to find the appropriate venue
-  let selectedVenue = VENUES[0];
+  let selectedVenue: typeof VENUES[number] = VENUES[0];
   for (let i = VENUES.length - 1; i >= 0; i--) {
     if (membersReached >= VENUES[i].capacity) {
       selectedVenue = VENUES[i];
