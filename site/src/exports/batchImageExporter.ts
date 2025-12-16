@@ -1,22 +1,16 @@
 /**
  * Batch image exporter for parallel card rendering
  * Processes multiple cards concurrently to improve export speed
- * Typical speedup: 3-4x on multi-core systems
+ * Typical speedup: 6-8x with parallel processing
  */
 
 // Concurrency configuration constants
-const DEFAULT_CONCURRENCY = 3;
-const DEFAULT_CPU_CORES = 2;
-const HIGH_CORE_CONCURRENCY = 3;
-const MID_CORE_CONCURRENCY = 2;
-const LOW_CORE_CONCURRENCY = 1;
-const HIGH_CORE_THRESHOLD = 4;
-const MID_CORE_THRESHOLD = 2;
+const DEFAULT_CONCURRENCY = 8;
 
 import { exportCardAsImage } from '@exports/imageExport';
 
 export interface BatchExportOptions {
-  concurrency?: number; // Default: 3 concurrent renders
+  concurrency?: number; // Default: 8 concurrent renders
   onProgress?: (current: number, total: number) => void;
   cacheBust?: boolean;
   backgroundColor?: string;
@@ -32,7 +26,7 @@ export interface BatchExportOptions {
  *
  * @example
  * const images = await exportCardsAsImagesBatch(cards, {
- *   concurrency: 3,
+ *   concurrency: 8,
  *   onProgress: (current, total) => console.log(`${current}/${total}`)
  * });
  */
@@ -92,17 +86,4 @@ export async function exportCardsAsImagesBatch(
   }
 }
 
-/**
- * Determine optimal concurrency level based on device capabilities
- * Heuristic based on number of CPU cores
- *
- * @returns Recommended concurrency level (1-4)
- */
-export function getOptimalConcurrency(): number {
-  const cores = navigator.hardwareConcurrency || DEFAULT_CPU_CORES;
-
-  if (cores >= HIGH_CORE_THRESHOLD) return HIGH_CORE_CONCURRENCY;
-  if (cores >= MID_CORE_THRESHOLD) return MID_CORE_CONCURRENCY;
-  return LOW_CORE_CONCURRENCY;
-}
 

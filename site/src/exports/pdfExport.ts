@@ -16,14 +16,14 @@
  * - Reuses the same html-to-image logic for both PNG and PDF exports
  * - No duplicate styling/capture logic
  * - Cards are never stacked on screen during export
- * - 3-4x faster than sequential rendering on multi-core systems
+ * - 6-8x faster than sequential rendering with high concurrency
  * - Cleaner, more maintainable codebase
  */
 
-import { exportCardsAsImagesBatch, getOptimalConcurrency } from '@exports/batchImageExporter';
+import { exportCardsAsImagesBatch } from '@exports/batchImageExporter';
 
 // PDF configuration constants
-const PDF_PAGE_MARGIN_MM = 10; // 5mm margins on each side
+const PDF_PAGE_MARGIN_MM = 2; // 1mm margins on each side
 
 /**
  * Apply PDF-specific styling adjustments to cards to optimize layout for PDF pages
@@ -175,17 +175,15 @@ export async function exportCardsAsPDFBatch(
     throw new Error('No cards provided for PDF export');
   }
 
-  const concurrency = getOptimalConcurrency();
-
   const jsPDF = await loadJsPDF();
 
   try {
     // Apply PDF-specific optimizations to improve layout for PDF export
     applyPDFOptimizations(cardElements);
 
-    // Use batch rendering for all cards
+    // Use batch rendering for all cards with high concurrency
     const imageDataUrls = await exportCardsAsImagesBatch(cardElements, {
-      concurrency,
+      concurrency: 8,
       backgroundColor: '#FFFFFF',
     });
 

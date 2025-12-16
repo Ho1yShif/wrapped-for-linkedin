@@ -53,7 +53,7 @@ function prepareElementForExport(clone: HTMLElement): { clone: HTMLElement; styl
   clone.style.overflow = 'hidden';
 
   // Remove selection highlighting styles via global CSS injection
-  const styleId = 'png-export-styles-' + Math.random().toString(36).substr(2, 9);
+  const styleId = 'png-export-styles-' + Math.random().toString(36).slice(2, 11);
   const styleElement = document.createElement('style');
   styleElement.id = styleId;
   styleElement.innerHTML = `
@@ -77,10 +77,13 @@ function prepareElementForExport(clone: HTMLElement): { clone: HTMLElement; styl
     (el.style as any).msUserSelect = 'none';
     (el.style as any).mozUserSelect = 'none';
 
-    // Remove all background-related styles that might cause highlighting
-    el.style.setProperty('background', 'transparent', 'important');
-    el.style.setProperty('backgroundImage', 'none', 'important');
-    el.style.setProperty('backgroundClip', 'unset', 'important');
+    // Remove background-related styles from child elements only (preserve root gradient)
+    // Skip the clone element itself to keep the card's gradient background
+    if (el !== clone) {
+      el.style.setProperty('background', 'transparent', 'important');
+      el.style.setProperty('backgroundImage', 'none', 'important');
+      el.style.setProperty('backgroundClip', 'unset', 'important');
+    }
 
     // Remove webkit-specific gradient text styles
     (el.style as any).setProperty('-webkit-background-clip', 'unset', 'important');

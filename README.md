@@ -9,7 +9,7 @@ Created by [Shifra Williams](https://www.linkedin.com/in/shifra-williams/) and [
 > [!NOTE]  
 > This project is not affiliated with, endorsed by, or connected to LinkedIn or Microsoft.
 
-🫶 _Made with love for the developer & data communities_
+🫶 _Made with love for the developer community_
 
 ## ✨ Features
 
