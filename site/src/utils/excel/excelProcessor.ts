@@ -38,7 +38,7 @@ import type { ParsedExcelData } from '@utils/excel/types';
 import { parseDiscovery } from '@utils/excel/discoveryParser';
 import { parseTopPosts } from '@utils/excel/topPostsParser';
 import { parseDemographics } from '@utils/excel/demographicsParser';
-import { parseSummaryMetrics, calculateTotalEngagements, calculateMedianDailyImpressions } from '@utils/excel/summaryMetricsParser';
+import { parseEngagement, calculateTotalEngagements, calculateMedianDailyImpressions } from '@utils/excel/engagementParser';
 import { parseFollowers } from '@utils/excel/followersParser';
 
 /**
@@ -76,24 +76,34 @@ export async function processExcelFile(file: File): Promise<ParsedExcelData> {
       throw new Error('Invalid Excel file: no sheets found');
     }
 
-    console.log('Found sheets:', workbook.SheetNames);
-
     // Step 3: Initialize result object
     const parsedData: ParsedExcelData = {};
 
     // Step 4: Parse each sheet type (all are optional - some sheets may not exist)
 
     // Parse discovery data (overall performance metrics)
-    const discoveryData = parseDiscovery(workbook);
+    let discoveryData = parseDiscovery(workbook);
     if (discoveryData) {
       parsedData.discovery_data = discoveryData;
     }
 
-    // Parse followers data (total and New followers)
-    const followersData = parseFollowers(workbook);
-    if (followersData && discoveryData) {
-      // Merge followers data into discovery data
-      discoveryData.new_followers = followersData.new_followers;
+    // Parse followers data (new followers count)
+    const newFollowers = parseFollowers(workbook);
+    if (newFollowers !== undefined) {
+      if (discoveryData) {
+        // Merge followers data into existing discovery data
+        discoveryData.new_followers = newFollowers;
+      } else {
+        // Create minimal discovery data if it doesn't exist
+        discoveryData = {
+          start_date: '',
+          end_date: '',
+          total_impressions: 0,
+          members_reached: 0,
+          new_followers: newFollowers,
+        };
+        parsedData.discovery_data = discoveryData;
+      }
     }
 
     // Parse Top posts (individual post metrics)
@@ -108,8 +118,8 @@ export async function processExcelFile(file: File): Promise<ParsedExcelData> {
       parsedData.demographics = demographics;
     }
 
-    // Parse summary metrics (engagement time series with impressions)
-    const engagementByDay = parseSummaryMetrics(workbook);
+    // Parse engagement metrics (engagement time series with impressions)
+    const engagementByDay = parseEngagement(workbook);
     if (engagementByDay && engagementByDay.length > 0) {
       parsedData.engagement_by_day = engagementByDay;
 

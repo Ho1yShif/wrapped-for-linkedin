@@ -62,7 +62,7 @@ src/
 │   │   ├── topPostsParser.ts     # Parse top posts
 │   │   ├── demographicsParser.ts # Parse audience data
 │   │   ├── followersParser.ts    # Parse follower counts
-│   │   ├── summaryMetricsParser.ts
+│   │   ├── engagementParser.ts   # Parse engagement metrics
 │   │   └── types.ts              # Parser types
 │   ├── api.ts           # Mock API helpers
 │   ├── cardDataMapper.ts # Map data for story cards
@@ -97,7 +97,7 @@ Route to specific parsers
 ├── topPostsParser → Top posts data
 ├── demographicsParser → Audience info
 ├── followersParser → Follower counts
-└── summaryMetricsParser → Engagement stats
+└── engagementParser → Engagement stats
         ↓
 Aggregate into ParsedExcelData
         ↓
@@ -224,7 +224,7 @@ For each sheet, delegate to specific parser:
    - Calculates percentage distributions
    - Filters and sorts for top items
 
-4. **summaryMetricsParser.ts**
+4. **engagementParser.ts**
    - Aggregates engagement totals
    - Calculates median daily impressions
    - Derives peak engagement time

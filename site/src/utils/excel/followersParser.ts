@@ -4,85 +4,66 @@
  * Parses the "FOLLOWERS" sheet from LinkedIn analytics Excel export.
  *
  * The Followers sheet contains:
- * - Total followers at end of period
- * - Daily New followers breakdown
+ * - Daily new followers breakdown (column B, starting at row 4)
  *
  * Expected Excel Structure:
  * - Sheet name: "FOLLOWERS"
- * - Contains "Total followers on [DATE]" label with count
- * - Below that: Date column and New followers column
+ * - Row 1-3: Headers (e.g., "Total followers on [DATE]")
+ * - Row 4+: New followers data in column B
  *
- * Performance Notes:
- * - Single pass through up to 500 rows
- * - Minimal memory footprint
- * - ~5-10ms processing time typical
+ * Parsing Strategy:
+ * - Sum all values in column B from row 4 onwards to get new followers gained during the period
  */
 import type { WorkBook } from 'xlsx';
-import { getCellValue, parseNumber, findSheet } from '@utils/excel/utils';
+import { 
+  getCellValue, 
+  parseNumber, 
+  findSheet
+} from '@utils/excel/utils';
+import { SHEET_NAMES, COLUMN_LAYOUTS } from '@utils/excel/constants';
 
 /**
- * Parse the Followers sheet to extract total followers and New followers data
+ * Parse the Followers sheet to extract new followers count
  * @param workbook - Parsed Excel workbook from xlsx library
- * @returns Object with total_followers count and new_followers sum, or undefined if sheet not found
+ * @returns Number of new followers gained during the period, or undefined if sheet not found
  */
-export function parseFollowers(workbook: WorkBook): { total_followers: number; new_followers: number } | undefined {
-  const sheet = findSheet(workbook, 'FOLLOWERS');
+export function parseFollowers(workbook: WorkBook): number | undefined {
+  const sheet = findSheet(workbook, SHEET_NAMES.FOLLOWERS);
   if (!sheet) {
     console.warn('FOLLOWERS sheet not found');
     return undefined;
   }
 
   try {
-    let total_followers = 0;
+    const { NEW_FOLLOWERS: followerCol } = COLUMN_LAYOUTS.FOLLOWERS;
+    
+    // Sum new followers from column B
+    // LinkedIn exports typically have:
+    // - Row 1: Total followers label
+    // - Row 2: Empty
+    // - Row 3: Headers (Date | New followers)
+    // - Row 4+: Daily data (typically 365-368 rows for a year)
+    const DATA_START_ROW = 4;
+    const DATA_END_ROW = DATA_START_ROW + 368; // Read up to 368 rows of data
+    
     let new_followers = 0;
-
-    // Look for "Total followers on [DATE]" label in first 10 rows
-    for (let row = 1; row <= 10; row++) {
-      const cellA = getCellValue(sheet, `A${row}`);
-      if (cellA && String(cellA).toLowerCase().includes('total followers')) {
-        const cellB = getCellValue(sheet, `B${row}`);
-        if (cellB) {
-          total_followers = parseNumber(cellB);
-        }
+    let rowsProcessed = 0;
+    
+    for (let row = DATA_START_ROW; row <= DATA_END_ROW; row++) {
+      const count = getCellValue(sheet, `${followerCol}${row}`);
+      
+      // Stop if we hit an undefined cell (end of data)
+      if (count === undefined || count === null) {
         break;
       }
+      
+      // Sum all values (including 0s - days with no new followers)
+      const parsed = parseNumber(count);
+      new_followers += parsed;
+      rowsProcessed++;
     }
 
-    // Find header row for daily followers data (typically contains "Date" and "New followers")
-    let headerRow = 1;
-    for (let row = 1; row <= 20; row++) {
-      const cellA = getCellValue(sheet, `A${row}`);
-      const cellB = getCellValue(sheet, `B${row}`);
-      if (
-        (cellA && String(cellA).toLowerCase().includes('date')) ||
-        (cellB && String(cellB).toLowerCase().includes('follower'))
-      ) {
-        headerRow = row;
-        break;
-      }
-    }
-
-    // Parse daily New followers and sum them
-    for (let row = headerRow + 1; row <= 500; row++) {
-      const cellA = getCellValue(sheet, `A${row}`);
-      const cellB = getCellValue(sheet, `B${row}`);
-
-      // Stop if we hit a completely empty row
-      if (!cellA && !cellB) {
-        break;
-      }
-
-      // Typically: A = Date, B = New followers count
-      if (cellB && typeof cellB === 'number') {
-        const followerCount = parseNumber(cellB);
-        new_followers += followerCount;
-      }
-    }
-
-    return {
-      total_followers,
-      new_followers,
-    };
+    return new_followers;
   } catch (error) {
     console.error('Error parsing FOLLOWERS sheet:', error);
     return undefined;

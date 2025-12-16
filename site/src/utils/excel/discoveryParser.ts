@@ -3,118 +3,67 @@
  * =====================
  * Parses the "DISCOVERY" sheet from LinkedIn analytics Excel export.
  *
- * The Discovery sheet contains overall performance metrics:
- * - Date range of the analytics period
- * - Total impressions across the period
- * - Members reached
- * - Total engagements
+ * The Discovery sheet has a fixed structure with 2 columns (A: Label, B: Value):
+ *   Row 1: "Overall Performance" | (empty)
+ *   Row 2: "MM/DD/YYYY - MM/DD/YYYY" | (empty)
+ *   Row 3: "Impressions" | numeric value
+ *   Row 4: "Members reached" | numeric value
  *
- * Expected Excel Structure:
- * - Sheet name: "DISCOVERY"
- * - Contains labeled metrics with values in adjacent cells
- * - Labels typically include: "Overall Performance", "Impressions", "Members reached", "Engagements"
- *
- * Performance Notes:
- * - Single pass through up to 100 rows
- * - Minimal memory footprint
- * - ~1-5ms processing time typical
+ * This parser directly reads cells from known positions for maximum efficiency.
  */
 import type { WorkBook } from 'xlsx';
 import type { DiscoveryData } from '@utils/excel/types';
-import { getCellValue, parseDate, parseNumber, findSheet } from '@utils/excel/utils';
+import { 
+  getCellValue, 
+  parseDate, 
+  parseNumber, 
+  findSheet
+} from '@utils/excel/utils';
+import { SHEET_NAMES } from '@utils/excel/constants';
 
 /**
  * Parse the Discovery sheet to extract overall performance metrics
+ * Sheet has fixed structure with all data in column B:
+ *   Row 1, Col B: Date range (format: "MM/DD/YYYY - MM/DD/YYYY")
+ *   Row 2, Col B: Impressions (numeric value)
+ *   Row 3, Col B: Members reached (numeric value)
+ * 
  * @param workbook - Parsed Excel workbook from xlsx library
  * @returns DiscoveryData object with performance metrics, or undefined if sheet not found
  */
 export function parseDiscovery(workbook: WorkBook): DiscoveryData | undefined {
-  const sheet = findSheet(workbook, 'DISCOVERY');
+  const sheet = findSheet(workbook, SHEET_NAMES.DISCOVERY);
   if (!sheet) {
     console.warn('DISCOVERY sheet not found');
     return undefined;
   }
 
   try {
+    // Read date range from B1 (format: "MM/DD/YYYY - MM/DD/YYYY")
+    const dateRangeCell = getCellValue(sheet, 'B1');
+    const [startStr, endStr] = String(dateRangeCell || '').split('-').map((s: string) => s.trim());
+    
+    // Read impressions from B2
+    const impressionsValue = getCellValue(sheet, 'B2');
+    
+    // Read members reached from B3
+    const membersValue = getCellValue(sheet, 'B3');
+
+    const start_date = parseDate(startStr);
+    const end_date = parseDate(endStr);
+    const total_impressions = parseNumber(impressionsValue);
+
     const discoveryData: DiscoveryData = {
-      start_date: '',
-      end_date: '',
-      total_impressions: 0,
-      members_reached: 0,
+      start_date,
+      end_date,
+      total_impressions,
+      members_reached: parseNumber(membersValue),
     };
 
-    // Look for "Overall Performance" section and extract date range
-    // Usually structured like: "Overall Performance" with dates below (e.g., "Jan 1 - Dec 31, 2024")
-    for (let row = 1; row < 50; row++) {
-      const cellA = getCellValue(sheet, `A${row}`);
-      if (cellA && String(cellA).toLowerCase().includes('overall performance')) {
-        // Extract date range from next rows
-        const dateCell = getCellValue(sheet, `A${row + 1}`);
-        if (dateCell && String(dateCell).includes('-')) {
-          const [startStr, endStr] = String(dateCell).split('-').map((s: string) => s.trim());
-          discoveryData.start_date = parseDate(startStr);
-          discoveryData.end_date = parseDate(endStr);
-        }
-        break;
-      }
-    }
-
-    // Look for impressions count (usually in format: "Impressions" label with numeric value in next cell)
-    for (let row = 1; row < 100; row++) {
-      const cellA = getCellValue(sheet, `A${row}`);
-      if (cellA && String(cellA).toLowerCase().includes('impression')) {
-        const cellB = getCellValue(sheet, `B${row}`);
-        if (cellB) {
-          discoveryData.total_impressions = parseNumber(cellB);
-          break;
-        }
-      }
-    }
-
-    // Look for Members reached (audience size metric)
-    for (let row = 1; row < 100; row++) {
-      const cellA = getCellValue(sheet, `A${row}`);
-      if (cellA && String(cellA).toLowerCase().includes('member')) {
-        const cellB = getCellValue(sheet, `B${row}`);
-        if (cellB) {
-          discoveryData.members_reached = parseNumber(cellB);
-          break;
-        }
-      }
-    }
-
-    // Look for Total engagements count
-    for (let row = 1; row < 100; row++) {
-      const cellA = getCellValue(sheet, `A${row}`);
-      if (cellA && String(cellA).toLowerCase().includes('engagement')) {
-        const cellB = getCellValue(sheet, `B${row}`);
-        if (cellB) {
-          discoveryData.total_engagements = parseNumber(cellB);
-          break;
-        }
-      }
-    }
-
-    // Look for New followers count (this should be read from FOLLOWERS sheet primarily)
-    // But check DISCOVERY sheet first in case it's here
-    for (let row = 1; row < 100; row++) {
-      const cellA = getCellValue(sheet, `A${row}`);
-      if (cellA && String(cellA).toLowerCase().includes('follower')) {
-        const cellB = getCellValue(sheet, `B${row}`);
-        if (cellB && typeof cellB === 'number') {
-          discoveryData.new_followers = parseNumber(cellB);
-          break;
-        }
-      }
-    }
-
-    // Calculate average impressions per day if we have both dates
-    // This derived metric helps understand impression consistency
-    if (discoveryData.start_date && discoveryData.end_date && discoveryData.total_impressions > 0) {
-      const startDate = new Date(discoveryData.start_date);
-      const endDate = new Date(discoveryData.end_date);
-      const daysDiff = Math.max(1, Math.floor((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1);
-      discoveryData.average_impressions_per_day = Math.round(discoveryData.total_impressions / daysDiff);
+    // Calculate average impressions per day if we have valid dates
+    if (start_date && end_date && total_impressions > 0) {
+      const daysDiff = calculateDateRangeDays(start_date, end_date);
+      discoveryData.average_impressions_per_day = Math.round(total_impressions / daysDiff);
     }
 
     return discoveryData;
@@ -122,4 +71,17 @@ export function parseDiscovery(workbook: WorkBook): DiscoveryData | undefined {
     console.error('Error parsing DISCOVERY sheet:', error);
     return undefined;
   }
+}
+
+/**
+ * Calculate the number of days in a date range (inclusive)
+ * @param startDate - ISO date string
+ * @param endDate - ISO date string
+ * @returns Number of days (minimum 1)
+ */
+function calculateDateRangeDays(startDate: string, endDate: string): number {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  const daysDiff = Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+  return Math.max(1, daysDiff);
 }

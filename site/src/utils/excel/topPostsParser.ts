@@ -11,25 +11,88 @@
  *
  * Expected Excel Structure:
  * - Sheet name: "Top posts"
- * - Contains post data with URL, Date, Engagements, Impressions
- * - May have two-column layout (left side for engagements, right side for impressions)
+ * - Two-column layout: left side (engagements) and right side (impressions)
+ * - Left: Columns A=URL, B=Date, C=Engagements
+ * - Right: Columns E=URL, F=Date, G=Impressions
  * - Data rows start after header row
  *
  * Performance Notes:
  * - Uses Map for O(1) URL deduplication
- * - Scans up to 1000 rows (typical exports have 50-200 posts)
+ * - Single pass through rows
  * - ~5-50ms processing time depending on post count
  * - Memory efficient: only stores unique URLs
  */
 import type { WorkBook } from 'xlsx';
 import type { TopPost } from '@types';
-import { getCellValue, parseDate, parseNumber, parseURL, findSheet } from '@utils/excel/utils';
+import { 
+  parseDate, 
+  parseNumber, 
+  parseURL, 
+  findSheet,
+  findRowWithKeywords,
+  iterateRowsUntilEmpty,
+  getRowValues
+} from '@utils/excel/utils';
+import { SHEET_NAMES, COLUMN_LAYOUTS, KEYWORDS, MAX_ROWS } from '@utils/excel/constants';
 
 interface PostData {
   url: string;
   date: string;
-  engagements?: number;
-  impressions?: number;
+  engagements: number;
+  impressions: number;
+}
+
+/**
+ * Type for specifying which metric type is being processed
+ */
+type MetricType = 'engagements' | 'impressions';
+
+/**
+ * Column configuration for a metric side (left or right)
+ */
+interface MetricColumns {
+  URL: string;
+  DATE: string;
+  VALUE: string;
+}
+
+/**
+ * Process a single post entry and update the posts map
+ * @param postsMap - Map storing all posts indexed by URL
+ * @param columns - Column configuration for this metric type
+ * @param rowValues - Values from the current row
+ * @param metricType - Type of metric being processed
+ */
+function processPostEntry(
+  postsMap: Map<string, PostData>,
+  columns: MetricColumns,
+  rowValues: Record<string, any>,
+  metricType: MetricType
+): void {
+  const url = parseURL(rowValues[columns.URL]);
+  if (!url) return;
+
+  const date = parseDate(rowValues[columns.DATE]);
+  const metric = parseNumber(rowValues[columns.VALUE]);
+
+  // Get or create post entry
+  if (!postsMap.has(url)) {
+    postsMap.set(url, {
+      url,
+      date,
+      engagements: 0,
+      impressions: 0,
+    });
+  }
+
+  // Update post with new metric (use max value if duplicate)
+  const post = postsMap.get(url)!;
+  post[metricType] = Math.max(post[metricType], metric);
+  
+  // Update date if not already set
+  if (!post.date && date) {
+    post.date = date;
+  }
 }
 
 /**
@@ -38,108 +101,52 @@ interface PostData {
  * @returns Array of TopPost objects in the order they appear in the spreadsheet (already sorted by engagement)
  */
 export function parseTopPosts(workbook: WorkBook): TopPost[] {
-  const sheet = findSheet(workbook, 'Top posts');
+  const sheet = findSheet(workbook, SHEET_NAMES.TOP_POSTS);
   if (!sheet) {
     console.warn('Top posts sheet not found');
     return [];
   }
 
   try {
-    // Use Map to deduplicate posts by URL (in case same post appears multiple times)
+    // Use Map to deduplicate posts by URL
     const postsMap = new Map<string, PostData>();
 
-    // Find header row (typically row 1, but scan first 10 rows to be safe)
-    let headerRow = 1;
-    for (let row = 1; row <= 10; row++) {
-      const cellA = getCellValue(sheet, `A${row}`);
-      const cellB = getCellValue(sheet, `B${row}`);
-      if (
-        (cellA && String(cellA).toLowerCase().includes('url')) ||
-        (cellB && String(cellB).toLowerCase().includes('url'))
-      ) {
-        headerRow = row;
-        break;
-      }
+    // Find header row
+    const headerRow = findRowWithKeywords(sheet, ['A', 'B'], KEYWORDS.HEADERS.URL);
+    if (!headerRow) {
+      console.warn('Could not find header row in top posts sheet');
+      return [];
     }
 
-    // Helper function to process post data from cells
-    const processPostData = (
-      url: string | undefined,
-      dateStr: any,
-      metricValue: any,
-      metricType: 'engagements' | 'impressions'
-    ): void => {
-      if (!url || !String(url).includes('linkedin.com')) return;
+    const layout = COLUMN_LAYOUTS.TOP_POSTS;
+    const allColumns = [
+      layout.ENGAGEMENTS.URL, 
+      layout.ENGAGEMENTS.DATE, 
+      layout.ENGAGEMENTS.VALUE,
+      layout.IMPRESSIONS.URL, 
+      layout.IMPRESSIONS.DATE, 
+      layout.IMPRESSIONS.VALUE
+    ];
 
-      const cleanUrl = parseURL(url);
-      if (!cleanUrl || !cleanUrl.includes('linkedin.com')) return;
+    // Process data rows using iterator
+    for (const row of iterateRowsUntilEmpty(sheet, headerRow + 1, allColumns, MAX_ROWS.DATA)) {
+      const values = getRowValues(sheet, row, allColumns);
 
-      const date = parseDate(dateStr);
-      const metric = parseNumber(metricValue);
+      // Process left side (Engagements)
+      processPostEntry(postsMap, layout.ENGAGEMENTS, values, 'engagements');
 
-      if (!postsMap.has(cleanUrl)) {
-        postsMap.set(cleanUrl, {
-          url: cleanUrl,
-          date,
-          engagements: 0,
-          impressions: 0,
-        });
-      }
-
-      const post = postsMap.get(cleanUrl)!;
-      post[metricType] = Math.max(post[metricType] || 0, metric);
-      if (!post.date) {
-        post.date = date;
-      }
-    };
-
-    // Parse data rows
-    // LinkedIn exports have TWO-COLUMN layout:
-    // Left side (Engagements): Columns A=URL, B=Date, C=Engagements
-    // Right side (Impressions): Columns E=URL, F=Date, G=Impressions (Column D is blank separator)
-    // We need to merge both sides by URL
-    let emptyRowCount = 0;
-    const MAX_EMPTY_ROWS = 5; // Stop after 5 consecutive empty rows
-
-    for (let row = headerRow + 1; row <= 1000; row++) {
-      const cellA = getCellValue(sheet, `A${row}`);
-      const cellB = getCellValue(sheet, `B${row}`);
-      const cellC = getCellValue(sheet, `C${row}`);
-      const cellE = getCellValue(sheet, `E${row}`);
-      const cellF = getCellValue(sheet, `F${row}`);
-      const cellG = getCellValue(sheet, `G${row}`);
-
-      // Check if row is completely empty
-      if (!cellA && !cellB && !cellC && !cellE && !cellF && !cellG) {
-        emptyRowCount++;
-        if (emptyRowCount >= MAX_EMPTY_ROWS) {
-          break; // Exit loop after multiple empty rows
-        }
-        continue;
-      }
-
-      emptyRowCount = 0; // Reset counter if row has data
-
-      // Process LEFT SIDE (Engagements)
-      processPostData(cellA, cellB, cellC, 'engagements');
-
-      // Process RIGHT SIDE (Impressions)
-      processPostData(cellE, cellF, cellG, 'impressions');
+      // Process right side (Impressions)
+      processPostEntry(postsMap, layout.IMPRESSIONS, values, 'impressions');
     }
 
-    // Convert map to array, preserving the order from the spreadsheet
-    // The spreadsheet is already sorted by engagement, so we maintain that order
-    // Single pass: create output array while assigning ranks
-    const posts = Array.from(postsMap.values())
-      .map((post, index) => ({
-        rank: index + 1,
-        url: post.url,
-        publish_date: post.date,
-        engagements: post.engagements || 0,
-        impressions: post.impressions || 0,
-      } as TopPost));
-
-    return posts;
+    // Convert map to array with ranks
+    return Array.from(postsMap.values()).map((post, index) => ({
+      rank: index + 1,
+      url: post.url,
+      publish_date: post.date,
+      engagements: post.engagements,
+      impressions: post.impressions,
+    }));
   } catch (error) {
     console.error('Error parsing Top posts sheet:', error);
     return [];
